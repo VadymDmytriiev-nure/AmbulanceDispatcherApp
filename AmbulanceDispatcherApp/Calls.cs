@@ -21,6 +21,8 @@ namespace AmbulanceDispatcherApp
         {
             InitializeComponent();
 
+            datagrid_call.AutoGenerateColumns = false;
+
             this.conn = conn;
             MySqlCommand cmd = new MySqlCommand(query, conn);
             adapter = new MySqlDataAdapter(cmd);

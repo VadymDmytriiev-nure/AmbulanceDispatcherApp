@@ -130,17 +130,17 @@ namespace AmbulanceDispatcherApp
 
             var row = datagrid_callout.Rows
                         .Cast<DataGridViewRow>()
-                        .FirstOrDefault(r => ((r.DataBoundItem as DataRowView)!["callout_id"] as int?) == callout_id);
+                        .FirstOrDefault(r => ((r.DataBoundItem as DataRowView)?["callout_id"] as int?) == callout_id);
 
-            if (row != null)
+            if (row == null || row.DataBoundItem == null)
             {
-                datagrid_callout.ClearSelection();
-                row!.Selected = true;
-                tabControl1.SelectedTab = tab_callout;
-            }
-            else
                 MessageBox.Show("Не знайдено");
+                return;
+            }
 
+            datagrid_callout.ClearSelection();
+            row!.Selected = true;
+            tabControl1.SelectedTab = tab_callout;
         }
 
         private void button_view_dispatcher_Click(object sender, EventArgs e)
@@ -150,16 +150,17 @@ namespace AmbulanceDispatcherApp
 
             DataGridViewRow? row = datagrid_dispatcher.Rows
                         .Cast<DataGridViewRow>()
-                        .FirstOrDefault(r => ((r.DataBoundItem as DataRowView)!["dispatcher_id"] as int?) == dispatcher_id);
+                        .FirstOrDefault(r => ((r.DataBoundItem as DataRowView)?["dispatcher_id"] as int?) == dispatcher_id);
 
-            if (row != null)
+            if (row == null || row.DataBoundItem == null)
             {
-                datagrid_dispatcher.ClearSelection();
-                row!.Selected = true;
-                tabControl1.SelectedTab = tab_dispatcher;
-            }
-            else
                 MessageBox.Show("Не знайдено");
+                return;
+            }
+
+            datagrid_dispatcher.ClearSelection();
+            row!.Selected = true;
+            tabControl1.SelectedTab = tab_dispatcher;
         }
 
         private void button_view_children_Click(object sender, EventArgs e)
