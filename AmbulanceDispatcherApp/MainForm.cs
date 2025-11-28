@@ -185,5 +185,11 @@ namespace AmbulanceDispatcherApp
                 c.Show();
             }
         }
+
+        private void queryEditToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            QueryEdit qe = new QueryEdit(conn);
+            qe.Show();
+        }
     }
 }

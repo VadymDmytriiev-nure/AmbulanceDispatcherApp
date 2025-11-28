@@ -47,13 +47,13 @@
             datagrid_call.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             datagrid_call.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             datagrid_call.Columns.AddRange(new DataGridViewColumn[] { column_call_time_created, column_call_surname, column_call_name, column_call_patriarchic, column_call_tel, column_call_address, column_call_reason, column_call_channel });
-            datagrid_call.Location = new Point(17, 17);
-            datagrid_call.Margin = new Padding(4);
+            datagrid_call.Location = new Point(31, 29);
+            datagrid_call.Margin = new Padding(7, 7, 7, 7);
             datagrid_call.MultiSelect = false;
             datagrid_call.Name = "datagrid_call";
             datagrid_call.ReadOnly = true;
             datagrid_call.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            datagrid_call.Size = new Size(891, 394);
+            datagrid_call.Size = new Size(1270, 541);
             datagrid_call.TabIndex = 2;
             // 
             // column_call_time_created
@@ -62,7 +62,7 @@
             column_call_time_created.HeaderText = "Час дзвінка";
             column_call_time_created.Name = "column_call_time_created";
             column_call_time_created.ReadOnly = true;
-            column_call_time_created.Width = 125;
+            column_call_time_created.Width = 195;
             // 
             // column_call_surname
             // 
@@ -70,7 +70,7 @@
             column_call_surname.HeaderText = "Прізвище";
             column_call_surname.Name = "column_call_surname";
             column_call_surname.ReadOnly = true;
-            column_call_surname.Width = 109;
+            column_call_surname.Width = 170;
             // 
             // column_call_name
             // 
@@ -78,7 +78,7 @@
             column_call_name.HeaderText = "Ім'я";
             column_call_name.Name = "column_call_name";
             column_call_name.ReadOnly = true;
-            column_call_name.Width = 64;
+            column_call_name.Width = 89;
             // 
             // column_call_patriarchic
             // 
@@ -86,7 +86,7 @@
             column_call_patriarchic.HeaderText = "По батькові";
             column_call_patriarchic.Name = "column_call_patriarchic";
             column_call_patriarchic.ReadOnly = true;
-            column_call_patriarchic.Width = 127;
+            column_call_patriarchic.Width = 197;
             // 
             // column_call_tel
             // 
@@ -94,7 +94,7 @@
             column_call_tel.HeaderText = "Телефон";
             column_call_tel.Name = "column_call_tel";
             column_call_tel.ReadOnly = true;
-            column_call_tel.Width = 101;
+            column_call_tel.Width = 154;
             // 
             // column_call_address
             // 
@@ -102,7 +102,7 @@
             column_call_address.HeaderText = "Адреса";
             column_call_address.Name = "column_call_address";
             column_call_address.ReadOnly = true;
-            column_call_address.Width = 91;
+            column_call_address.Width = 135;
             // 
             // column_call_reason
             // 
@@ -110,7 +110,7 @@
             column_call_reason.HeaderText = "Привід";
             column_call_reason.Name = "column_call_reason";
             column_call_reason.ReadOnly = true;
-            column_call_reason.Width = 89;
+            column_call_reason.Width = 134;
             // 
             // column_call_channel
             // 
@@ -118,18 +118,18 @@
             column_call_channel.HeaderText = "Канал зв'язку";
             column_call_channel.Name = "column_call_channel";
             column_call_channel.ReadOnly = true;
-            column_call_channel.Width = 142;
+            column_call_channel.Width = 220;
             // 
             // button_save
             // 
             button_save.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button_save.Font = new Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            button_save.Font = new Font("Times New Roman", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_save.Image = Properties.Resources._212394_16x16;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
-            button_save.Location = new Point(17, 419);
-            button_save.Margin = new Padding(4);
+            button_save.Location = new Point(31, 584);
+            button_save.Margin = new Padding(7, 7, 7, 7);
             button_save.Name = "button_save";
-            button_save.Size = new Size(209, 31);
+            button_save.Size = new Size(376, 53);
             button_save.TabIndex = 4;
             button_save.Text = "Зберегти зміни";
             button_save.UseVisualStyleBackColor = true;
@@ -137,13 +137,13 @@
             // 
             // Calls
             // 
-            AutoScaleDimensions = new SizeF(10F, 21F);
+            AutoScaleDimensions = new SizeF(18F, 36F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(925, 463);
+            ClientSize = new Size(1331, 660);
             Controls.Add(button_save);
             Controls.Add(datagrid_call);
-            Font = new Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            Margin = new Padding(4);
+            Font = new Font("Times New Roman", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            Margin = new Padding(7, 7, 7, 7);
             Name = "Calls";
             Text = "Callouts";
             ((System.ComponentModel.ISupportInitialize)datagrid_call).EndInit();
