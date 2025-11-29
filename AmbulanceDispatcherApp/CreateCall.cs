@@ -13,38 +13,26 @@ using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp
 {
-    public partial class EditCall : Form
+    public partial class CreateCall : Form
     {
         MySqlConnection conn;
-        DataRowView call;
+        DataTable calls;
         DataTable dispatchers;
         DataTable callouts;
 
-        public EditCall(MySqlConnection conn, DataRowView call, DataTable dispatchers, DataTable callouts)
+        public CreateCall(MySqlConnection conn, DataTable calls, DataTable dispatchers, DataTable callouts)
         {
             InitializeComponent();
+
+            datetime_time_created.Value = DateTime.Now;
+            spin_callout.Text = "";
 
             button_cancel.CausesValidation = false;
 
             this.conn = conn;
-            this.call = call;
+            this.calls = calls;
             this.dispatchers = dispatchers;
             this.callouts = callouts;
-
-            textbox_address.Text = call["call_address"] as string;
-            textbox_reason.Text = call["call_reason"] as string;
-            textbox_name.Text = call["call_caller_name"] as string;
-            textbox_surname.Text = call["call_caller_surname"] as string;
-            textbox_patriarchic.Text = call["call_caller_patriarchic"] as string;
-            textbox_tel.Text = call["call_caller_tel"] as string;
-            textbox_channel.Text = call["call_channel"] as string;
-            object callout_id = call["callout_id"];
-            if (callout_id != DBNull.Value)
-                spin_callout.Value = (decimal)(callout_id as int?)!;
-            else
-                spin_callout.Text = "";
-            
-            datetime_time_created.Value = Convert.ToDateTime(call["call_time_created"]);
 
             combo_dispatcher.DataSource = dispatchers;
             combo_dispatcher.ValueMember = "dispatcher_id";
@@ -82,6 +70,7 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
+            var call = calls.NewRow();
             call.BeginEdit();
             call["call_address"] = textbox_address.Text.Trim() == "" ? DBNull.Value : textbox_address.Text.Trim();
             call["call_channel"] = textbox_channel.Text;
@@ -94,6 +83,7 @@ namespace AmbulanceDispatcherApp
             call["dispatcher_id"] = combo_dispatcher.SelectedValue;
             call["callout_id"] = spin_callout.Text == "" ? DBNull.Value : spin_callout.Value;
             call.EndEdit();
+            calls.Rows.Add(call);
             this.Close();
         }
     }

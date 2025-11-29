@@ -85,6 +85,7 @@
             datagrid_callout.Location = new Point(6, 6);
             datagrid_callout.MultiSelect = false;
             datagrid_callout.Name = "datagrid_callout";
+            datagrid_callout.RowHeadersVisible = false;
             datagrid_callout.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             datagrid_callout.Size = new Size(1268, 573);
             datagrid_callout.TabIndex = 0;
@@ -181,6 +182,7 @@
             datagrid_call.MultiSelect = false;
             datagrid_call.Name = "datagrid_call";
             datagrid_call.ReadOnly = true;
+            datagrid_call.RowHeadersVisible = false;
             datagrid_call.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             datagrid_call.Size = new Size(1268, 573);
             datagrid_call.TabIndex = 1;
@@ -287,6 +289,7 @@
             datagrid_dispatcher.Location = new Point(6, 6);
             datagrid_dispatcher.MultiSelect = false;
             datagrid_dispatcher.Name = "datagrid_dispatcher";
+            datagrid_dispatcher.RowHeadersVisible = false;
             datagrid_dispatcher.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             datagrid_dispatcher.Size = new Size(1268, 573);
             datagrid_dispatcher.TabIndex = 1;
@@ -321,42 +324,42 @@
             // 
             // button_save
             // 
-            button_save.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            button_save.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_save.Font = new Font("Tahoma", 20.25F);
             button_save.Image = Properties.Resources._212394_16x16;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
-            button_save.Location = new Point(12, 679);
+            button_save.Location = new Point(1145, 679);
             button_save.Name = "button_save";
-            button_save.Size = new Size(183, 49);
+            button_save.Size = new Size(151, 49);
             button_save.TabIndex = 3;
-            button_save.Text = "Зберегти зміни";
+            button_save.Text = "  Зберегти";
             button_save.UseVisualStyleBackColor = true;
             button_save.Click += button_save_Click;
             // 
             // button_view_children
             // 
-            button_view_children.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_view_children.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_view_children.Font = new Font("Tahoma", 20.25F);
             button_view_children.Image = Properties.Resources._211861_16x16;
             button_view_children.ImageAlign = ContentAlignment.MiddleLeft;
-            button_view_children.Location = new Point(759, 679);
+            button_view_children.Location = new Point(544, 679);
             button_view_children.Name = "button_view_children";
-            button_view_children.Size = new Size(537, 49);
+            button_view_children.Size = new Size(489, 49);
             button_view_children.TabIndex = 6;
-            button_view_children.Text = "    Переглянути підпорядковані дзвінки";
+            button_view_children.Text = "  Переглянути підпорядковані дзвінки";
             button_view_children.UseVisualStyleBackColor = true;
             button_view_children.Click += button_view_children_Click;
             // 
             // button_view_callout
             // 
-            button_view_callout.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_view_callout.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_view_callout.Enabled = false;
             button_view_callout.Font = new Font("Tahoma", 20.25F);
             button_view_callout.Image = Properties.Resources._211861_16x16;
             button_view_callout.ImageAlign = ContentAlignment.MiddleLeft;
-            button_view_callout.Location = new Point(204, 679);
+            button_view_callout.Location = new Point(12, 679);
             button_view_callout.Name = "button_view_callout";
-            button_view_callout.Size = new Size(254, 49);
+            button_view_callout.Size = new Size(231, 49);
             button_view_callout.TabIndex = 7;
             button_view_callout.Text = "   Знайти виклик";
             button_view_callout.UseVisualStyleBackColor = true;
@@ -364,16 +367,16 @@
             // 
             // button_view_dispatcher
             // 
-            button_view_dispatcher.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_view_dispatcher.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_view_dispatcher.Enabled = false;
             button_view_dispatcher.Font = new Font("Tahoma", 20.25F);
             button_view_dispatcher.Image = Properties.Resources._211861_16x16;
             button_view_dispatcher.ImageAlign = ContentAlignment.MiddleLeft;
-            button_view_dispatcher.Location = new Point(464, 679);
+            button_view_dispatcher.Location = new Point(249, 679);
             button_view_dispatcher.Name = "button_view_dispatcher";
             button_view_dispatcher.Size = new Size(289, 49);
             button_view_dispatcher.TabIndex = 8;
-            button_view_dispatcher.Text = "  Знайти диспетчера";
+            button_view_dispatcher.Text = "   Знайти диспетчера";
             button_view_dispatcher.UseVisualStyleBackColor = true;
             button_view_dispatcher.Click += button_view_dispatcher_Click;
             // 
@@ -404,24 +407,21 @@
             // створитиToolStripMenuItem
             // 
             створитиToolStripMenuItem.Name = "створитиToolStripMenuItem";
-            створитиToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
-            створитиToolStripMenuItem.Size = new Size(265, 30);
+            створитиToolStripMenuItem.Size = new Size(193, 30);
             створитиToolStripMenuItem.Text = "Створити";
             створитиToolStripMenuItem.Click += створитиToolStripMenuItem_Click;
             // 
             // редагуватиToolStripMenuItem
             // 
             редагуватиToolStripMenuItem.Name = "редагуватиToolStripMenuItem";
-            редагуватиToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
-            редагуватиToolStripMenuItem.Size = new Size(265, 30);
+            редагуватиToolStripMenuItem.Size = new Size(193, 30);
             редагуватиToolStripMenuItem.Text = "Редагувати";
             редагуватиToolStripMenuItem.Click += редагуватиToolStripMenuItem_Click;
             // 
             // видалитиToolStripMenuItem
             // 
             видалитиToolStripMenuItem.Name = "видалитиToolStripMenuItem";
-            видалитиToolStripMenuItem.ShortcutKeys = Keys.Delete;
-            видалитиToolStripMenuItem.Size = new Size(265, 30);
+            видалитиToolStripMenuItem.Size = new Size(193, 30);
             видалитиToolStripMenuItem.Text = "Видалити";
             видалитиToolStripMenuItem.Click += видалитиToolStripMenuItem_Click;
             // 

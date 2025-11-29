@@ -29,7 +29,6 @@ namespace AmbulanceDispatcherApp
             datagrid_call.AutoGenerateColumns = false;
             datagrid_dispatcher.AutoGenerateColumns = false;
 
-
             if (LoadDataFromDatabase())
                 MessageBox.Show("Не вийшло отримати інформацію з бази даних. Перевірте налаштування системи");
         }
@@ -79,6 +78,12 @@ namespace AmbulanceDispatcherApp
             table_callout.PrimaryKey = new DataColumn[] { table_callout.Columns["callout_id"]! };
             table_call.PrimaryKey = new DataColumn[] { table_call.Columns["call_id"]! };
             table_dispatcher.PrimaryKey = new DataColumn[] { table_dispatcher.Columns["dispatcher_id"]! };
+
+            table_callout.Columns["callout_id"]!.AllowDBNull = true;
+            table_call.Columns["call_id"]!.AllowDBNull = true;
+            table_dispatcher.Columns["dispatcher_id"]!.AllowDBNull = true;
+
+            datagrid_call.Sort(datagrid_call.Columns[0], System.ComponentModel.ListSortDirection.Descending);
 
             return false;
         }
@@ -193,7 +198,8 @@ namespace AmbulanceDispatcherApp
 
         private void створитиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            CreateCall cc = new CreateCall(conn, table_call, table_dispatcher, table_callout);
+            cc.Show();
         }
 
         private void редагуватиToolStripMenuItem_Click(object sender, EventArgs e)
