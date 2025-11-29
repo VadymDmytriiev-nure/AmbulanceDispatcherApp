@@ -43,12 +43,15 @@
             // 
             // datagrid_call
             // 
+            datagrid_call.AllowUserToAddRows = false;
+            datagrid_call.AllowUserToDeleteRows = false;
             datagrid_call.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datagrid_call.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            datagrid_call.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             datagrid_call.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             datagrid_call.Columns.AddRange(new DataGridViewColumn[] { column_call_time_created, column_call_surname, column_call_name, column_call_patriarchic, column_call_tel, column_call_address, column_call_reason, column_call_channel });
             datagrid_call.Location = new Point(31, 29);
-            datagrid_call.Margin = new Padding(7, 7, 7, 7);
+            datagrid_call.Margin = new Padding(7);
             datagrid_call.MultiSelect = false;
             datagrid_call.Name = "datagrid_call";
             datagrid_call.ReadOnly = true;
@@ -127,7 +130,7 @@
             button_save.Image = Properties.Resources._212394_16x16;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
             button_save.Location = new Point(31, 584);
-            button_save.Margin = new Padding(7, 7, 7, 7);
+            button_save.Margin = new Padding(7);
             button_save.Name = "button_save";
             button_save.Size = new Size(376, 53);
             button_save.TabIndex = 4;
@@ -143,9 +146,9 @@
             Controls.Add(button_save);
             Controls.Add(datagrid_call);
             Font = new Font("Times New Roman", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            Margin = new Padding(7, 7, 7, 7);
+            Margin = new Padding(7);
             Name = "Calls";
-            Text = "Callouts";
+            Text = "Дзвінки";
             ((System.ComponentModel.ISupportInitialize)datagrid_call).EndInit();
             ResumeLayout(false);
         }

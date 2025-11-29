@@ -103,6 +103,16 @@ namespace AmbulanceDispatcherApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _212384_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("212384-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _212394_16x16 {
             get {
                 object obj = ResourceManager.GetObject("212394-16x16", resourceCulture);

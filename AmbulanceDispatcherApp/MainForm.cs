@@ -63,15 +63,10 @@ namespace AmbulanceDispatcherApp
                                     "dispatcher_surname + ' ' + dispatcher_name + ' ' + dispatcher_patriarchic");
 
             // Call
-            MySqlCommand cmd_call_select = new MySqlCommand("SELECT * FROM `call`", conn);
+            MySqlCommand cmd_call_select = new MySqlCommand("SELECT `call`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `call` INNER JOIN `dispatcher` ON `call`.dispatcher_id = `dispatcher`.dispatcher_id", conn);
             adapter_call = new MySqlDataAdapter(cmd_call_select);
             adapter_call.Fill(table_call);
             datagrid_call.DataSource = table_call;
-
-            column_call_dispatcher.DataSource = table_dispatcher;
-            column_call_dispatcher.DataPropertyName = "dispatcher_id";
-            column_call_dispatcher.ValueMember = "dispatcher_id";
-            column_call_dispatcher.DisplayMember = "dispatcher_fullname";
 
             MySqlCommandBuilder b1 = new MySqlCommandBuilder(adapter_call);
             MySqlCommandBuilder b2 = new MySqlCommandBuilder(adapter_callout);
@@ -80,6 +75,10 @@ namespace AmbulanceDispatcherApp
             b1.ConflictOption = ConflictOption.OverwriteChanges;
             b2.ConflictOption = ConflictOption.OverwriteChanges;
             b3.ConflictOption = ConflictOption.OverwriteChanges;
+
+            table_callout.PrimaryKey = new DataColumn[] { table_callout.Columns["callout_id"]! };
+            table_call.PrimaryKey = new DataColumn[] { table_call.Columns["call_id"]! };
+            table_dispatcher.PrimaryKey = new DataColumn[] { table_dispatcher.Columns["dispatcher_id"]! };
 
             return false;
         }
@@ -190,6 +189,45 @@ namespace AmbulanceDispatcherApp
         {
             QueryEdit qe = new QueryEdit(conn);
             qe.Show();
+        }
+
+        private void створитиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void редагуватиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var row = datagrid_call.SelectedRows.Count == 0 ? null : datagrid_call.SelectedRows[0];
+            if (tabControl1.SelectedTab != tab_call || row == null)
+            {
+                MessageBox.Show("У вас не виділено жодного дзвінку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            EditCall ec = new EditCall(conn, (row.DataBoundItem as DataRowView)!, table_dispatcher, table_callout);
+            ec.Show();
+        }
+
+        private void видалитиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var row = datagrid_call.SelectedRows.Count == 0 ? null : datagrid_call.SelectedRows[0];
+
+            if (tabControl1.SelectedTab != tab_call || row == null)
+            {
+                MessageBox.Show("У вас не виділено жодного дзвінку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var row_data = row.DataBoundItem as DataRowView;
+
+            if (MessageBox.Show($"Підтвердити видалення дзвінку о {row_data!["call_time_created"]} по привіду {row_data!["call_reason"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                row_data!.Delete();
+        }
+
+        private void datagrid_call_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            редагуватиToolStripMenuItem_Click(sender, e);
         }
     }
 }

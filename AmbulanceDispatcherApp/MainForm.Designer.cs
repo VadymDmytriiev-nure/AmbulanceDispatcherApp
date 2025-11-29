@@ -40,7 +40,7 @@
             tab_call = new TabPage();
             datagrid_call = new DataGridView();
             column_call_time_created = new DataGridViewTextBoxColumn();
-            column_call_dispatcher = new DataGridViewComboBoxColumn();
+            column_call_dispatcher = new DataGridViewTextBoxColumn();
             column_call_callout = new DataGridViewTextBoxColumn();
             column_call_surname = new DataGridViewTextBoxColumn();
             column_call_name = new DataGridViewTextBoxColumn();
@@ -61,6 +61,10 @@
             button_view_dispatcher = new Button();
             menuStrip1 = new MenuStrip();
             queryEditToolStripMenuItem = new ToolStripMenuItem();
+            дзвінкиToolStripMenuItem = new ToolStripMenuItem();
+            створитиToolStripMenuItem = new ToolStripMenuItem();
+            редагуватиToolStripMenuItem = new ToolStripMenuItem();
+            видалитиToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)datagrid_callout).BeginInit();
             tabControl1.SuspendLayout();
             tab_callout.SuspendLayout();
@@ -166,6 +170,8 @@
             // 
             // datagrid_call
             // 
+            datagrid_call.AllowUserToAddRows = false;
+            datagrid_call.AllowUserToDeleteRows = false;
             datagrid_call.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datagrid_call.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             datagrid_call.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -174,22 +180,26 @@
             datagrid_call.Location = new Point(6, 6);
             datagrid_call.MultiSelect = false;
             datagrid_call.Name = "datagrid_call";
+            datagrid_call.ReadOnly = true;
             datagrid_call.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            datagrid_call.Size = new Size(1200, 522);
+            datagrid_call.Size = new Size(1200, 409);
             datagrid_call.TabIndex = 1;
+            datagrid_call.CellDoubleClick += datagrid_call_CellDoubleClick;
             // 
             // column_call_time_created
             // 
             column_call_time_created.DataPropertyName = "call_time_created";
             column_call_time_created.HeaderText = "Час дзвінка";
             column_call_time_created.Name = "column_call_time_created";
+            column_call_time_created.ReadOnly = true;
             column_call_time_created.Width = 195;
             // 
             // column_call_dispatcher
             // 
+            column_call_dispatcher.DataPropertyName = "dispatcher_fullname";
             column_call_dispatcher.HeaderText = "Диспетчер";
             column_call_dispatcher.Name = "column_call_dispatcher";
-            column_call_dispatcher.SortMode = DataGridViewColumnSortMode.Automatic;
+            column_call_dispatcher.ReadOnly = true;
             column_call_dispatcher.Width = 182;
             // 
             // column_call_callout
@@ -197,6 +207,7 @@
             column_call_callout.DataPropertyName = "callout_id";
             column_call_callout.HeaderText = "№ Виклику";
             column_call_callout.Name = "column_call_callout";
+            column_call_callout.ReadOnly = true;
             column_call_callout.Width = 195;
             // 
             // column_call_surname
@@ -204,6 +215,7 @@
             column_call_surname.DataPropertyName = "call_caller_surname";
             column_call_surname.HeaderText = "Прізвище";
             column_call_surname.Name = "column_call_surname";
+            column_call_surname.ReadOnly = true;
             column_call_surname.Width = 170;
             // 
             // column_call_name
@@ -211,6 +223,7 @@
             column_call_name.DataPropertyName = "call_caller_name";
             column_call_name.HeaderText = "Ім'я";
             column_call_name.Name = "column_call_name";
+            column_call_name.ReadOnly = true;
             column_call_name.Width = 89;
             // 
             // column_call_patriarchic
@@ -218,6 +231,7 @@
             column_call_patriarchic.DataPropertyName = "call_caller_patriarchic";
             column_call_patriarchic.HeaderText = "По батькові";
             column_call_patriarchic.Name = "column_call_patriarchic";
+            column_call_patriarchic.ReadOnly = true;
             column_call_patriarchic.Width = 197;
             // 
             // column_call_tel
@@ -225,6 +239,7 @@
             column_call_tel.DataPropertyName = "call_caller_tel";
             column_call_tel.HeaderText = "Телефон";
             column_call_tel.Name = "column_call_tel";
+            column_call_tel.ReadOnly = true;
             column_call_tel.Width = 154;
             // 
             // column_call_address
@@ -232,6 +247,7 @@
             column_call_address.DataPropertyName = "call_address";
             column_call_address.HeaderText = "Адреса";
             column_call_address.Name = "column_call_address";
+            column_call_address.ReadOnly = true;
             column_call_address.Width = 135;
             // 
             // column_call_reason
@@ -239,6 +255,7 @@
             column_call_reason.DataPropertyName = "call_reason";
             column_call_reason.HeaderText = "Привід";
             column_call_reason.Name = "column_call_reason";
+            column_call_reason.ReadOnly = true;
             column_call_reason.Width = 134;
             // 
             // column_call_channel
@@ -246,6 +263,7 @@
             column_call_channel.DataPropertyName = "call_channel";
             column_call_channel.HeaderText = "Канал зв'язку";
             column_call_channel.Name = "column_call_channel";
+            column_call_channel.ReadOnly = true;
             column_call_channel.Width = 220;
             // 
             // tab_dispatcher
@@ -270,7 +288,7 @@
             datagrid_dispatcher.MultiSelect = false;
             datagrid_dispatcher.Name = "datagrid_dispatcher";
             datagrid_dispatcher.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            datagrid_dispatcher.Size = new Size(1200, 522);
+            datagrid_dispatcher.Size = new Size(1200, 409);
             datagrid_dispatcher.TabIndex = 1;
             // 
             // column_dispatcher_surname
@@ -361,7 +379,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { queryEditToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { queryEditToolStripMenuItem, дзвінкиToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1244, 24);
@@ -374,6 +392,37 @@
             queryEditToolStripMenuItem.Size = new Size(71, 20);
             queryEditToolStripMenuItem.Text = "QueryEdit";
             queryEditToolStripMenuItem.Click += queryEditToolStripMenuItem_Click;
+            // 
+            // дзвінкиToolStripMenuItem
+            // 
+            дзвінкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { створитиToolStripMenuItem, редагуватиToolStripMenuItem, видалитиToolStripMenuItem });
+            дзвінкиToolStripMenuItem.Name = "дзвінкиToolStripMenuItem";
+            дзвінкиToolStripMenuItem.Size = new Size(61, 20);
+            дзвінкиToolStripMenuItem.Text = "Дзвінки";
+            // 
+            // створитиToolStripMenuItem
+            // 
+            створитиToolStripMenuItem.Name = "створитиToolStripMenuItem";
+            створитиToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.N;
+            створитиToolStripMenuItem.Size = new Size(174, 22);
+            створитиToolStripMenuItem.Text = "Створити";
+            створитиToolStripMenuItem.Click += створитиToolStripMenuItem_Click;
+            // 
+            // редагуватиToolStripMenuItem
+            // 
+            редагуватиToolStripMenuItem.Name = "редагуватиToolStripMenuItem";
+            редагуватиToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.E;
+            редагуватиToolStripMenuItem.Size = new Size(174, 22);
+            редагуватиToolStripMenuItem.Text = "Редагувати";
+            редагуватиToolStripMenuItem.Click += редагуватиToolStripMenuItem_Click;
+            // 
+            // видалитиToolStripMenuItem
+            // 
+            видалитиToolStripMenuItem.Name = "видалитиToolStripMenuItem";
+            видалитиToolStripMenuItem.ShortcutKeys = Keys.Delete;
+            видалитиToolStripMenuItem.Size = new Size(174, 22);
+            видалитиToolStripMenuItem.Text = "Видалити";
+            видалитиToolStripMenuItem.Click += видалитиToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -425,8 +474,14 @@
         private DataGridViewTextBoxColumn column_callout_time;
         private DataGridViewTextBoxColumn column_callout_comment;
         private DataGridViewCheckBoxColumn column_callout_canceled;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem queryEditToolStripMenuItem;
+        private ToolStripMenuItem дзвінкиToolStripMenuItem;
+        private ToolStripMenuItem створитиToolStripMenuItem;
+        private ToolStripMenuItem редагуватиToolStripMenuItem;
+        private ToolStripMenuItem видалитиToolStripMenuItem;
         private DataGridViewTextBoxColumn column_call_time_created;
-        private DataGridViewComboBoxColumn column_call_dispatcher;
+        private DataGridViewTextBoxColumn column_call_dispatcher;
         private DataGridViewTextBoxColumn column_call_callout;
         private DataGridViewTextBoxColumn column_call_surname;
         private DataGridViewTextBoxColumn column_call_name;
@@ -435,7 +490,5 @@
         private DataGridViewTextBoxColumn column_call_address;
         private DataGridViewTextBoxColumn column_call_reason;
         private DataGridViewTextBoxColumn column_call_channel;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem queryEditToolStripMenuItem;
     }
 }
