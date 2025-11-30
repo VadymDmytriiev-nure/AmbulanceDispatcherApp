@@ -37,5 +37,45 @@ namespace AmbulanceDispatcherApp
         {
             adapter.Update(table);
         }
+
+        private void створитиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateCallForm cc = new CreateCallForm(conn, table_call, table_dispatcher, table_callout);
+            cc.Show();
+        }
+
+        private void редагуватиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var row = datagrid_call.SelectedRows.Count == 0 ? null : datagrid_call.SelectedRows[0];
+            if (tabControl1.SelectedTab != tab_call || row == null)
+            {
+                MessageBox.Show("У вас не виділено жодного дзвінку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            EditCallForm ec = new EditCallForm(conn, (row.DataBoundItem as DataRowView)!, table_dispatcher, table_callout);
+            ec.Show();
+        }
+
+        private void видалитиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var row = datagrid_call.SelectedRows.Count == 0 ? null : datagrid_call.SelectedRows[0];
+
+            if (tabControl1.SelectedTab != tab_call || row == null)
+            {
+                MessageBox.Show("У вас не виділено жодного дзвінку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var row_data = row.DataBoundItem as DataRowView;
+
+            if (MessageBox.Show($"Підтвердити видалення дзвінку о {row_data!["call_time_created"]} по привіду {row_data!["call_reason"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                row_data!.Delete();
+        }
+
+        private void datagrid_call_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

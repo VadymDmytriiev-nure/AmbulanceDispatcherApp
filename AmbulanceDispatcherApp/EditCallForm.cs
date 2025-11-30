@@ -70,7 +70,7 @@ namespace AmbulanceDispatcherApp
 
             if (!Regex.IsMatch(textbox_tel.Text, "^\\+([0-9]{1,4})[-\\s]?([0-9]{1,15})$"))
             {
-                MessageBox.Show("Ви неправильно ввели номер телефону. Правильний формат: +380XXXXXXXX", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ви неправильно ввели номер телефону. Правильний формат: +XXXXXXXXXXX", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

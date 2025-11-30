@@ -38,7 +38,14 @@
             column_call_reason = new DataGridViewTextBoxColumn();
             column_call_channel = new DataGridViewTextBoxColumn();
             button_save = new Button();
+            menuStrip1 = new MenuStrip();
+            дзвінкиToolStripMenuItem = new ToolStripMenuItem();
+            створитиToolStripMenuItem = new ToolStripMenuItem();
+            редагуватиToolStripMenuItem = new ToolStripMenuItem();
+            видалитиToolStripMenuItem = new ToolStripMenuItem();
+            пошукToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)datagrid_call).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // datagrid_call
@@ -50,14 +57,15 @@
             datagrid_call.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             datagrid_call.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             datagrid_call.Columns.AddRange(new DataGridViewColumn[] { column_call_time_created, column_call_surname, column_call_name, column_call_patriarchic, column_call_tel, column_call_address, column_call_reason, column_call_channel });
-            datagrid_call.Location = new Point(26, 27);
-            datagrid_call.Margin = new Padding(6, 6, 6, 6);
+            datagrid_call.Location = new Point(26, 39);
+            datagrid_call.Margin = new Padding(6);
             datagrid_call.MultiSelect = false;
             datagrid_call.Name = "datagrid_call";
             datagrid_call.ReadOnly = true;
             datagrid_call.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            datagrid_call.Size = new Size(1058, 496);
+            datagrid_call.Size = new Size(1058, 501);
             datagrid_call.TabIndex = 2;
+            datagrid_call.CellDoubleClick += datagrid_call_CellDoubleClick;
             // 
             // column_call_time_created
             // 
@@ -129,28 +137,77 @@
             button_save.Font = new Font("Times New Roman", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
             button_save.Image = Properties.Resources._212394_16x16;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
-            button_save.Location = new Point(26, 535);
-            button_save.Margin = new Padding(6, 6, 6, 6);
+            button_save.Location = new Point(771, 552);
+            button_save.Margin = new Padding(6);
             button_save.Name = "button_save";
             button_save.Size = new Size(313, 49);
             button_save.TabIndex = 4;
-            button_save.Text = "Зберегти зміни";
+            button_save.Text = "Зберегти";
             button_save.UseVisualStyleBackColor = true;
             button_save.Click += button_save_Click;
             // 
-            // Calls
+            // menuStrip1
+            // 
+            menuStrip1.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { дзвінкиToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1109, 33);
+            menuStrip1.TabIndex = 5;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // дзвінкиToolStripMenuItem
+            // 
+            дзвінкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { створитиToolStripMenuItem, редагуватиToolStripMenuItem, видалитиToolStripMenuItem, пошукToolStripMenuItem });
+            дзвінкиToolStripMenuItem.Name = "дзвінкиToolStripMenuItem";
+            дзвінкиToolStripMenuItem.Size = new Size(98, 29);
+            дзвінкиToolStripMenuItem.Text = "Дзвінки";
+            // 
+            // створитиToolStripMenuItem
+            // 
+            створитиToolStripMenuItem.Name = "створитиToolStripMenuItem";
+            створитиToolStripMenuItem.Size = new Size(193, 30);
+            створитиToolStripMenuItem.Text = "Створити";
+            створитиToolStripMenuItem.Click += створитиToolStripMenuItem_Click;
+            // 
+            // редагуватиToolStripMenuItem
+            // 
+            редагуватиToolStripMenuItem.Name = "редагуватиToolStripMenuItem";
+            редагуватиToolStripMenuItem.Size = new Size(193, 30);
+            редагуватиToolStripMenuItem.Text = "Редагувати";
+            редагуватиToolStripMenuItem.Click += редагуватиToolStripMenuItem_Click;
+            // 
+            // видалитиToolStripMenuItem
+            // 
+            видалитиToolStripMenuItem.Name = "видалитиToolStripMenuItem";
+            видалитиToolStripMenuItem.Size = new Size(193, 30);
+            видалитиToolStripMenuItem.Text = "Видалити";
+            видалитиToolStripMenuItem.Click += видалитиToolStripMenuItem_Click;
+            // 
+            // пошукToolStripMenuItem
+            // 
+            пошукToolStripMenuItem.Name = "пошукToolStripMenuItem";
+            пошукToolStripMenuItem.Size = new Size(180, 22);
+            пошукToolStripMenuItem.Text = "Пошук";
+            // 
+            // CallsForm
             // 
             AutoScaleDimensions = new SizeF(15F, 33F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1109, 605);
+            ClientSize = new Size(1109, 622);
             Controls.Add(button_save);
             Controls.Add(datagrid_call);
+            Controls.Add(menuStrip1);
             Font = new Font("Tahoma", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            Margin = new Padding(6, 6, 6, 6);
-            Name = "Calls";
+            MainMenuStrip = menuStrip1;
+            Margin = new Padding(6);
+            Name = "CallsForm";
             Text = "Дзвінки";
             ((System.ComponentModel.ISupportInitialize)datagrid_call).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -165,5 +222,11 @@
         private DataGridViewTextBoxColumn column_call_reason;
         private DataGridViewTextBoxColumn column_call_channel;
         private Button button_save;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem дзвінкиToolStripMenuItem;
+        private ToolStripMenuItem створитиToolStripMenuItem;
+        private ToolStripMenuItem редагуватиToolStripMenuItem;
+        private ToolStripMenuItem видалитиToolStripMenuItem;
+        private ToolStripMenuItem пошукToolStripMenuItem;
     }
 }
