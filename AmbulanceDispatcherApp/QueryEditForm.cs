@@ -11,11 +11,11 @@ using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp
 {
-    public partial class QueryEdit : Form
+    public partial class QueryEditForm : Form
     {
         MySqlConnection conn;
 
-        public QueryEdit(MySqlConnection conn)
+        public QueryEditForm(MySqlConnection conn)
         {
             InitializeComponent();
             this.conn = conn;

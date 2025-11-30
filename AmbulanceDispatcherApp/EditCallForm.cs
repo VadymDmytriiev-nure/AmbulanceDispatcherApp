@@ -13,18 +13,16 @@ using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp
 {
-    public partial class EditCall : Form
+    public partial class EditCallForm : Form
     {
         MySqlConnection conn;
         DataRowView call;
         DataTable dispatchers;
         DataTable callouts;
 
-        public EditCall(MySqlConnection conn, DataRowView call, DataTable dispatchers, DataTable callouts)
+        public EditCallForm(MySqlConnection conn, DataRowView call, DataTable dispatchers, DataTable callouts)
         {
             InitializeComponent();
-
-            button_cancel.CausesValidation = false;
 
             this.conn = conn;
             this.call = call;
@@ -70,7 +68,7 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            if (!Regex.IsMatch(textbox_tel.Text, "\\+380[0-9]{9}$"))
+            if (!Regex.IsMatch(textbox_tel.Text, "^\\+([0-9]{1,4})[-\\s]?([0-9]{1,15})$"))
             {
                 MessageBox.Show("Ви неправильно ввели номер телефону. Правильний формат: +380XXXXXXXX", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

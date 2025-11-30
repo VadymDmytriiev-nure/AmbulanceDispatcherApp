@@ -1,6 +1,6 @@
 ﻿namespace AmbulanceDispatcherApp
 {
-    partial class Calls
+    partial class CallsForm
     {
         /// <summary>
         /// Required designer variable.

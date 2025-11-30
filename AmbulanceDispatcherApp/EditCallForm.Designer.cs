@@ -1,6 +1,6 @@
 ﻿namespace AmbulanceDispatcherApp
 {
-    partial class CreateCall
+    partial class EditCallForm
     {
         /// <summary>
         /// Required designer variable.
@@ -56,7 +56,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(40, 40);
+            label1.Location = new Point(28, 41);
             label1.Margin = new Padding(7, 0, 7, 0);
             label1.Name = "label1";
             label1.Size = new Size(155, 33);
@@ -66,7 +66,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(51, 89);
+            label2.Location = new Point(37, 89);
             label2.Margin = new Padding(7, 0, 7, 0);
             label2.Name = "label2";
             label2.Size = new Size(146, 33);
@@ -76,7 +76,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(74, 318);
+            label3.Location = new Point(58, 318);
             label3.Margin = new Padding(7, 0, 7, 0);
             label3.Name = "label3";
             label3.Size = new Size(125, 33);
@@ -86,7 +86,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(38, 272);
+            label4.Location = new Point(23, 273);
             label4.Margin = new Padding(7, 0, 7, 0);
             label4.Name = "label4";
             label4.Size = new Size(160, 33);
@@ -96,7 +96,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(128, 226);
+            label5.Location = new Point(121, 227);
             label5.Margin = new Padding(7, 0, 7, 0);
             label5.Name = "label5";
             label5.Size = new Size(62, 33);
@@ -106,7 +106,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(61, 181);
+            label6.Location = new Point(53, 185);
             label6.Margin = new Padding(7, 0, 7, 0);
             label6.Name = "label6";
             label6.Size = new Size(130, 33);
@@ -116,7 +116,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(45, 134);
+            label7.Location = new Point(31, 134);
             label7.Margin = new Padding(7, 0, 7, 0);
             label7.Name = "label7";
             label7.Size = new Size(152, 33);
@@ -126,7 +126,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(90, 364);
+            label8.Location = new Point(82, 364);
             label8.Margin = new Padding(7, 0, 7, 0);
             label8.Name = "label8";
             label8.Size = new Size(101, 33);
@@ -136,7 +136,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(91, 410);
+            label9.Location = new Point(85, 410);
             label9.Margin = new Padding(7, 0, 7, 0);
             label9.Name = "label9";
             label9.Size = new Size(98, 33);
@@ -146,7 +146,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(19, 456);
+            label10.Location = new Point(2, 460);
             label10.Margin = new Padding(7, 0, 7, 0);
             label10.Name = "label10";
             label10.Size = new Size(181, 33);
@@ -160,7 +160,7 @@
             textbox_surname.Margin = new Padding(2, 3, 2, 3);
             textbox_surname.Name = "textbox_surname";
             textbox_surname.Size = new Size(422, 40);
-            textbox_surname.TabIndex = 10;
+            textbox_surname.TabIndex = 4;
             // 
             // textbox_name
             // 
@@ -169,7 +169,7 @@
             textbox_name.Margin = new Padding(2, 3, 2, 3);
             textbox_name.Name = "textbox_name";
             textbox_name.Size = new Size(422, 40);
-            textbox_name.TabIndex = 11;
+            textbox_name.TabIndex = 5;
             // 
             // textbox_patriarchic
             // 
@@ -178,7 +178,7 @@
             textbox_patriarchic.Margin = new Padding(2, 3, 2, 3);
             textbox_patriarchic.Name = "textbox_patriarchic";
             textbox_patriarchic.Size = new Size(422, 40);
-            textbox_patriarchic.TabIndex = 12;
+            textbox_patriarchic.TabIndex = 6;
             // 
             // textbox_tel
             // 
@@ -188,7 +188,7 @@
             textbox_tel.Name = "textbox_tel";
             textbox_tel.PlaceholderText = "+380XXXXXXXXX";
             textbox_tel.Size = new Size(422, 40);
-            textbox_tel.TabIndex = 13;
+            textbox_tel.TabIndex = 7;
             // 
             // textbox_channel
             // 
@@ -198,7 +198,7 @@
             textbox_channel.Name = "textbox_channel";
             textbox_channel.PlaceholderText = "103";
             textbox_channel.Size = new Size(422, 40);
-            textbox_channel.TabIndex = 14;
+            textbox_channel.TabIndex = 10;
             // 
             // textbox_address
             // 
@@ -208,7 +208,7 @@
             textbox_address.Name = "textbox_address";
             textbox_address.PlaceholderText = "м. Харків, вул. Сумська 42";
             textbox_address.Size = new Size(422, 40);
-            textbox_address.TabIndex = 15;
+            textbox_address.TabIndex = 8;
             // 
             // textbox_reason
             // 
@@ -217,7 +217,7 @@
             textbox_reason.Margin = new Padding(2, 3, 2, 3);
             textbox_reason.Name = "textbox_reason";
             textbox_reason.Size = new Size(422, 40);
-            textbox_reason.TabIndex = 16;
+            textbox_reason.TabIndex = 9;
             // 
             // spin_callout
             // 
@@ -226,7 +226,7 @@
             spin_callout.Margin = new Padding(2, 3, 2, 3);
             spin_callout.Name = "spin_callout";
             spin_callout.Size = new Size(422, 40);
-            spin_callout.TabIndex = 17;
+            spin_callout.TabIndex = 3;
             // 
             // combo_dispatcher
             // 
@@ -236,7 +236,7 @@
             combo_dispatcher.Margin = new Padding(2, 3, 2, 3);
             combo_dispatcher.Name = "combo_dispatcher";
             combo_dispatcher.Size = new Size(422, 41);
-            combo_dispatcher.TabIndex = 18;
+            combo_dispatcher.TabIndex = 2;
             // 
             // datetime_time_created
             // 
@@ -248,11 +248,11 @@
             datetime_time_created.CalendarTrailingForeColor = Color.Black;
             datetime_time_created.CustomFormat = "yyyy-MM-dd HH:mm:ss\n";
             datetime_time_created.Format = DateTimePickerFormat.Custom;
-            datetime_time_created.Location = new Point(192, 35);
+            datetime_time_created.Location = new Point(192, 40);
             datetime_time_created.Margin = new Padding(2, 3, 2, 3);
             datetime_time_created.Name = "datetime_time_created";
             datetime_time_created.Size = new Size(422, 40);
-            datetime_time_created.TabIndex = 19;
+            datetime_time_created.TabIndex = 1;
             // 
             // button_save
             // 
@@ -263,8 +263,8 @@
             button_save.Margin = new Padding(2, 3, 2, 3);
             button_save.Name = "button_save";
             button_save.Size = new Size(206, 50);
-            button_save.TabIndex = 20;
-            button_save.Text = "Створити";
+            button_save.TabIndex = 12;
+            button_save.Text = "Зберегти";
             button_save.UseVisualStyleBackColor = true;
             button_save.Click += button_save_Click;
             // 
@@ -278,12 +278,12 @@
             button_cancel.Margin = new Padding(2, 3, 2, 3);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(206, 50);
-            button_cancel.TabIndex = 21;
+            button_cancel.TabIndex = 11;
             button_cancel.Text = "Скасувати";
             button_cancel.UseVisualStyleBackColor = true;
             button_cancel.Click += button_cancel_Click;
             // 
-            // CreateCall
+            // EditCall
             // 
             AutoScaleDimensions = new SizeF(15F, 33F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -312,8 +312,8 @@
             Controls.Add(label1);
             Font = new Font("Tahoma", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Margin = new Padding(7, 6, 7, 6);
-            Name = "CreateCall";
-            Text = "Створити";
+            Name = "EditCall";
+            Text = "Редагувати дзвінок";
             ((System.ComponentModel.ISupportInitialize)spin_callout).EndInit();
             ResumeLayout(false);
             PerformLayout();

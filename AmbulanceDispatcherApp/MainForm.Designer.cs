@@ -65,6 +65,7 @@
             створитиToolStripMenuItem = new ToolStripMenuItem();
             редагуватиToolStripMenuItem = new ToolStripMenuItem();
             видалитиToolStripMenuItem = new ToolStripMenuItem();
+            пошукToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)datagrid_callout).BeginInit();
             tabControl1.SuspendLayout();
             tab_callout.SuspendLayout();
@@ -399,7 +400,7 @@
             // 
             // дзвінкиToolStripMenuItem
             // 
-            дзвінкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { створитиToolStripMenuItem, редагуватиToolStripMenuItem, видалитиToolStripMenuItem });
+            дзвінкиToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { створитиToolStripMenuItem, редагуватиToolStripMenuItem, видалитиToolStripMenuItem, пошукToolStripMenuItem });
             дзвінкиToolStripMenuItem.Name = "дзвінкиToolStripMenuItem";
             дзвінкиToolStripMenuItem.Size = new Size(98, 29);
             дзвінкиToolStripMenuItem.Text = "Дзвінки";
@@ -424,6 +425,13 @@
             видалитиToolStripMenuItem.Size = new Size(193, 30);
             видалитиToolStripMenuItem.Text = "Видалити";
             видалитиToolStripMenuItem.Click += видалитиToolStripMenuItem_Click;
+            // 
+            // пошукToolStripMenuItem
+            // 
+            пошукToolStripMenuItem.Name = "пошукToolStripMenuItem";
+            пошукToolStripMenuItem.Size = new Size(193, 30);
+            пошукToolStripMenuItem.Text = "Пошук";
+            пошукToolStripMenuItem.Click += пошукToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -491,5 +499,6 @@
         private DataGridViewTextBoxColumn column_call_address;
         private DataGridViewTextBoxColumn column_call_reason;
         private DataGridViewTextBoxColumn column_call_channel;
+        private ToolStripMenuItem пошукToolStripMenuItem;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AmbulanceDispatcherApp
 {
-    partial class QueryEdit
+    partial class QueryEditForm
     {
         /// <summary>
         /// Required designer variable.

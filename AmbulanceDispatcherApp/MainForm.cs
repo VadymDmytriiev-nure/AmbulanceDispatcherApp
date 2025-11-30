@@ -175,7 +175,7 @@ namespace AmbulanceDispatcherApp
                 int? callout_id = o["callout_id"] as int?;
 
                 string cmd = String.Format("SELECT * FROM `call` WHERE `callout_id` = {0}", callout_id!);
-                Calls c = new Calls(conn, cmd);
+                CallsForm c = new CallsForm(conn, cmd);
                 c.Show();
             }
             else if (tabControl1.SelectedTab == tab_dispatcher)
@@ -185,20 +185,20 @@ namespace AmbulanceDispatcherApp
 
                 string cmd = String.Format("SELECT * FROM `call` WHERE `dispatcher_id` = {0}", dispatcher_id!);
 
-                Calls c = new Calls(conn, cmd);
+                CallsForm c = new CallsForm(conn, cmd);
                 c.Show();
             }
         }
 
         private void queryEditToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            QueryEdit qe = new QueryEdit(conn);
+            QueryEditForm qe = new QueryEditForm(conn);
             qe.Show();
         }
 
         private void ÒÚ‚ÓËÚËToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateCall cc = new CreateCall(conn, table_call, table_dispatcher, table_callout);
+            CreateCallForm cc = new CreateCallForm(conn, table_call, table_dispatcher, table_callout);
             cc.Show();
         }
 
@@ -211,7 +211,7 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            EditCall ec = new EditCall(conn, (row.DataBoundItem as DataRowView)!, table_dispatcher, table_callout);
+            EditCallForm ec = new EditCallForm(conn, (row.DataBoundItem as DataRowView)!, table_dispatcher, table_callout);
             ec.Show();
         }
 
@@ -234,6 +234,15 @@ namespace AmbulanceDispatcherApp
         private void datagrid_call_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             Â‰‡„Û‚‡ÚËToolStripMenuItem_Click(sender, e);
+        }
+
+        private void ÔÓ¯ÛÍToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchFiltersForm sff = new SearchFiltersForm(table_dispatcher);
+            if(sff.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
     }
 }

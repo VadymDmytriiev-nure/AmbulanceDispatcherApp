@@ -11,13 +11,13 @@ using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp
 {
-    public partial class Calls : Form
+    public partial class CallsForm : Form
     {
         MySqlConnection conn;
         MySqlDataAdapter adapter;
         DataTable table = new DataTable();
 
-        public Calls(MySqlConnection conn, string query)
+        public CallsForm(MySqlConnection conn, string query)
         {
             InitializeComponent();
 

@@ -73,9 +73,29 @@ namespace AmbulanceDispatcherApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _211861 {
+            get {
+                object obj = ResourceManager.GetObject("211861", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _211861_16x16 {
             get {
                 object obj = ResourceManager.GetObject("211861-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _211861_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("211861-16x161", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
