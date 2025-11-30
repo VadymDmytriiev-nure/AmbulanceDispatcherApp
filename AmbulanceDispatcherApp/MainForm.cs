@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -115,13 +116,11 @@ namespace AmbulanceDispatcherApp
         {
             if (tabControl1.SelectedTab == tab_callout || tabControl1.SelectedTab == tab_dispatcher)
             {
-                button_view_children.Enabled = true;
                 button_view_dispatcher.Enabled = false;
                 button_view_callout.Enabled = false;
             }
             else if (tabControl1.SelectedTab == tab_call)
             {
-                button_view_children.Enabled = false;
                 button_view_dispatcher.Enabled = true;
                 button_view_callout.Enabled = true;
             }
@@ -165,29 +164,6 @@ namespace AmbulanceDispatcherApp
             datagrid_dispatcher.ClearSelection();
             row!.Selected = true;
             tabControl1.SelectedTab = tab_dispatcher;
-        }
-
-        private void button_view_children_Click(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedTab == tab_callout)
-            {
-                DataRowView o = (datagrid_callout.SelectedRows[0].DataBoundItem as DataRowView)!;
-                int? callout_id = o["callout_id"] as int?;
-
-                string cmd = String.Format("SELECT * FROM `call` WHERE `callout_id` = {0}", callout_id!);
-                CallsForm c = new CallsForm(conn, cmd);
-                c.Show();
-            }
-            else if (tabControl1.SelectedTab == tab_dispatcher)
-            {
-                DataRowView o = (datagrid_dispatcher.SelectedRows[0].DataBoundItem as DataRowView)!;
-                int? dispatcher_id = o["dispatcher_id"] as int?;
-
-                string cmd = String.Format("SELECT * FROM `call` WHERE `dispatcher_id` = {0}", dispatcher_id!);
-
-                CallsForm c = new CallsForm(conn, cmd);
-                c.Show();
-            }
         }
 
         private void queryEditToolStripMenuItem_Click(object sender, EventArgs e)
@@ -241,7 +217,61 @@ namespace AmbulanceDispatcherApp
             SearchFiltersForm sff = new SearchFiltersForm(table_dispatcher);
             if(sff.ShowDialog() == DialogResult.OK)
             {
+                List<string> filters = new List<string>();
 
+                if(sff.Address != null)
+                    filters.Add("`call`.call_address LIKE @address");
+
+                if (sff.Channel != null)
+                    filters.Add("`call`.call_channel LIKE @channel");
+
+                if (sff.Reason != null)
+                    filters.Add("`call`.call_reason LIKE @reason");
+
+                if (sff.CallerSurname != null)
+                    filters.Add("`call`.call_caller_surname LIKE @surname");
+
+                if (sff.CallerName != null)
+                    filters.Add("`call`.call_caller_name LIKE @name");
+
+                if (sff.CallerPatriarchic != null)
+                    filters.Add("`call`.call_caller_patriarchic LIKE @patriarchic");
+
+                if (sff.CallerTel != null)
+                    filters.Add("`call`.call_caller_tel = @tel");
+
+                if (sff.DispatcherID != null)
+                    filters.Add("`call`.dispatcher_id = @dispatcher");
+
+                var CalloutIDRange = sff.CalloutIDRange;
+                if (CalloutIDRange.Min != null)
+                    filters.Add("`call`.callout_id >= @callout_min");
+
+                if (CalloutIDRange.Max != null)
+                    filters.Add("`call`.callout_id <= @callout_max");
+
+                var TimeRange = sff.TimeRange;
+                filters.Add("`call`.call_time_created >= @time_from");
+                filters.Add("`call`.call_time_created <= @time_to");
+
+                string filter = "WHERE " + String.Join(" AND ", filters);
+
+                MySqlCommand cmd = new MySqlCommand("SELECT `call`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `call` INNER JOIN `dispatcher` ON `call`.dispatcher_id = `dispatcher`.dispatcher_id " + filter, conn);
+                cmd.Parameters.AddWithValue("@address", "%" + sff.Address + "%");
+                cmd.Parameters.AddWithValue("@channel", "%" + sff.Channel + "%");
+                cmd.Parameters.AddWithValue("@reason", "%" + sff.Reason + "%");
+                cmd.Parameters.AddWithValue("@surname", "%" + sff.CallerSurname + "%");
+                cmd.Parameters.AddWithValue("@name", "%" + sff.CallerName + "%");
+                cmd.Parameters.AddWithValue("@patriarchic", "%" + sff.CallerPatriarchic + "%");
+                cmd.Parameters.AddWithValue("@tel", sff.CallerTel);
+                cmd.Parameters.AddWithValue("@dispatcher", sff.DispatcherID);
+                cmd.Parameters.AddWithValue("@callout_min", CalloutIDRange.Min);
+                cmd.Parameters.AddWithValue("@callout_max", CalloutIDRange.Max);
+                cmd.Parameters.AddWithValue("@time_from", TimeRange.Min);
+                cmd.Parameters.AddWithValue("@time_to", TimeRange.Max);
+
+                CallsForm cf = new CallsForm(conn, cmd, table_call, table_callout, table_dispatcher);
+                cf.ShowDialog();
             }
         }
     }

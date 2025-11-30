@@ -41,6 +41,7 @@ namespace AmbulanceDispatcherApp
             spin_callout_from.Text = "";
             spin_callout_to.Text = "";
             combo_dispatcher.Text = "";
+            combo_dispatcher.SelectedValue = "-1";
         }
 
         private void button_save_Click(object sender, EventArgs e)
@@ -51,9 +52,15 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            if (combo_dispatcher.SelectedValue == null)
+            if (combo_dispatcher.Text.Trim() != "" && combo_dispatcher.SelectedValue == null)
             {
                 MessageBox.Show("Обраного диспетчеру не існує", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (spin_callout_from.Value < spin_callout_to.Value)
+            {
+                MessageBox.Show("Номер виклику \"до\" не може перевищувати номер \"від\"", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 

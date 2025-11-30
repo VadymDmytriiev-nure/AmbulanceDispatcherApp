@@ -15,39 +15,45 @@ namespace AmbulanceDispatcherApp
     {
         MySqlConnection conn;
         MySqlDataAdapter adapter;
-        DataTable table = new DataTable();
+        DataTable table_callout;
+        DataTable table_call_filtered = new DataTable();
+        DataTable table_call;
+        DataTable table_dispatcher;
 
-        public CallsForm(MySqlConnection conn, string query)
+        public CallsForm(MySqlConnection conn, MySqlCommand filter, DataTable table_call, DataTable table_callout, DataTable table_dispatcher)
         {
             InitializeComponent();
 
             datagrid_call.AutoGenerateColumns = false;
 
             this.conn = conn;
-            MySqlCommand cmd = new MySqlCommand(query, conn);
-            adapter = new MySqlDataAdapter(cmd);
-            adapter.Fill(table);
+            this.table_call = table_call;
+            this.table_callout = table_callout;
+            this.table_dispatcher = table_dispatcher;
 
-            datagrid_call.DataSource = table;
+            datagrid_call.DataSource = table_call_filtered;
 
+            adapter = new MySqlDataAdapter(filter);
             MySqlCommandBuilder b = new MySqlCommandBuilder(adapter);
+            adapter.Fill(table_call_filtered);
         }
 
         private void button_save_Click(object sender, EventArgs e)
         {
-            adapter.Update(table);
+            adapter.Update(table_call);
+            adapter.Update(table_call_filtered);
         }
 
         private void створитиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateCallForm cc = new CreateCallForm(conn, table_call, table_dispatcher, table_callout);
+            CreateCallForm cc = new CreateCallForm(conn, table_call_filtered, table_dispatcher, table_callout);
             cc.Show();
         }
 
         private void редагуватиToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var row = datagrid_call.SelectedRows.Count == 0 ? null : datagrid_call.SelectedRows[0];
-            if (tabControl1.SelectedTab != tab_call || row == null)
+            if (row == null)
             {
                 MessageBox.Show("У вас не виділено жодного дзвінку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -61,7 +67,7 @@ namespace AmbulanceDispatcherApp
         {
             var row = datagrid_call.SelectedRows.Count == 0 ? null : datagrid_call.SelectedRows[0];
 
-            if (tabControl1.SelectedTab != tab_call || row == null)
+            if (row == null)
             {
                 MessageBox.Show("У вас не виділено жодного дзвінку!", "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -75,7 +81,7 @@ namespace AmbulanceDispatcherApp
 
         private void datagrid_call_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            редагуватиToolStripMenuItem_Click(sender, e);
         }
     }
 }

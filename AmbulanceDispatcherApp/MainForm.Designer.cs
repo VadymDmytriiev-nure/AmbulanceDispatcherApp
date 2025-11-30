@@ -56,7 +56,6 @@
             column_dispatcher_patriarchic = new DataGridViewTextBoxColumn();
             column_dispatcher_tel = new DataGridViewTextBoxColumn();
             button_save = new Button();
-            button_view_children = new Button();
             button_view_callout = new Button();
             button_view_dispatcher = new Button();
             menuStrip1 = new MenuStrip();
@@ -337,20 +336,6 @@
             button_save.UseVisualStyleBackColor = true;
             button_save.Click += button_save_Click;
             // 
-            // button_view_children
-            // 
-            button_view_children.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button_view_children.Font = new Font("Tahoma", 20.25F);
-            button_view_children.Image = Properties.Resources._211861_16x16;
-            button_view_children.ImageAlign = ContentAlignment.MiddleLeft;
-            button_view_children.Location = new Point(544, 679);
-            button_view_children.Name = "button_view_children";
-            button_view_children.Size = new Size(489, 49);
-            button_view_children.TabIndex = 6;
-            button_view_children.Text = "  Переглянути підпорядковані дзвінки";
-            button_view_children.UseVisualStyleBackColor = true;
-            button_view_children.Click += button_view_children_Click;
-            // 
             // button_view_callout
             // 
             button_view_callout.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -440,13 +425,12 @@
             ClientSize = new Size(1300, 740);
             Controls.Add(button_view_dispatcher);
             Controls.Add(button_view_callout);
-            Controls.Add(button_view_children);
             Controls.Add(button_save);
             Controls.Add(tabControl1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
-            Text = "Form1";
+            Text = "Диспетчер Викликів";
             ((System.ComponentModel.ISupportInitialize)datagrid_callout).EndInit();
             tabControl1.ResumeLayout(false);
             tab_callout.ResumeLayout(false);
@@ -470,7 +454,6 @@
         private TabPage tab_dispatcher;
         private DataGridView datagrid_call;
         private DataGridView datagrid_dispatcher;
-        private Button button_view_children;
         private DataGridViewTextBoxColumn column_dispatcher_surname;
         private DataGridViewTextBoxColumn column_dispatcher_name;
         private DataGridViewTextBoxColumn column_dispatcher_patriarchic;
