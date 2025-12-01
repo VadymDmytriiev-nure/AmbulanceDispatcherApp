@@ -46,9 +46,9 @@ namespace AmbulanceDispatcherApp
 
         private void button_save_Click(object sender, EventArgs e)
         {
-            if(datetime_time_created_to.Value < datetime_time_created_from.Value)
+            if(datetime_time_created_from.Value > datetime_time_created_to.Value)
             {
-                MessageBox.Show("Час \"до\" не може перевищувати час \"від\"", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Час \"від\" не може перевищувати час \"до\"", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -58,9 +58,9 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            if (spin_callout_from.Value < spin_callout_to.Value)
+            if ((spin_callout_from.Text.Trim() != "" && spin_callout_to.Text.Trim() != "") && spin_callout_from.Value > spin_callout_to.Value)
             {
-                MessageBox.Show("Номер виклику \"до\" не може перевищувати номер \"від\"", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Номер виклику \"від\" не може перевищувати номер \"до\"", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
