@@ -59,8 +59,8 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(datagridview);
-            splitContainer1.Size = new Size(857, 715);
-            splitContainer1.SplitterDistance = 356;
+            splitContainer1.Size = new Size(1079, 876);
+            splitContainer1.SplitterDistance = 435;
             splitContainer1.SplitterWidth = 9;
             splitContainer1.TabIndex = 1;
             // 
@@ -68,7 +68,7 @@
             // 
             button_exit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_exit.ForeColor = Color.MintCream;
-            button_exit.Location = new Point(705, 96);
+            button_exit.Location = new Point(927, 96);
             button_exit.Margin = new Padding(2, 3, 2, 3);
             button_exit.Name = "button_exit";
             button_exit.Size = new Size(146, 39);
@@ -81,7 +81,7 @@
             // 
             button_clear.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_clear.ForeColor = Color.MintCream;
-            button_clear.Location = new Point(705, 51);
+            button_clear.Location = new Point(927, 51);
             button_clear.Margin = new Padding(2, 3, 2, 3);
             button_clear.Name = "button_clear";
             button_clear.Size = new Size(146, 39);
@@ -93,7 +93,7 @@
             // button_doSQL
             // 
             button_doSQL.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_doSQL.Location = new Point(705, 6);
+            button_doSQL.Location = new Point(927, 6);
             button_doSQL.Margin = new Padding(2, 3, 2, 3);
             button_doSQL.Name = "button_doSQL";
             button_doSQL.Size = new Size(146, 39);
@@ -105,10 +105,13 @@
             // richtextbox
             // 
             richtextbox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            richtextbox.BackColor = Color.White;
+            richtextbox.Font = new Font("Cascadia Code", 24F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            richtextbox.ForeColor = SystemColors.Control;
             richtextbox.Location = new Point(7, 6);
             richtextbox.Margin = new Padding(7, 6, 7, 6);
             richtextbox.Name = "richtextbox";
-            richtextbox.Size = new Size(690, 343);
+            richtextbox.Size = new Size(912, 422);
             richtextbox.TabIndex = 0;
             richtextbox.Text = "";
             // 
@@ -124,18 +127,18 @@
             datagridview.Margin = new Padding(7, 6, 7, 6);
             datagridview.Name = "datagridview";
             datagridview.ReadOnly = true;
-            datagridview.Size = new Size(844, 326);
+            datagridview.Size = new Size(1066, 398);
             datagridview.TabIndex = 0;
             // 
-            // QueryEdit
+            // QueryEditForm
             // 
             AutoScaleDimensions = new SizeF(15F, 33F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(908, 767);
+            ClientSize = new Size(1130, 928);
             Controls.Add(splitContainer1);
             Font = new Font("Tahoma", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Margin = new Padding(7, 6, 7, 6);
-            Name = "QueryEdit";
+            Name = "QueryEditForm";
             Text = "QueryEdit";
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);

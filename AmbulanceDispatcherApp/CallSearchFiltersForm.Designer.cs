@@ -1,6 +1,6 @@
 ﻿namespace AmbulanceDispatcherApp
 {
-    partial class SearchFiltersForm
+    partial class CallSearchFiltersForm
     {
         /// <summary>
         /// Required designer variable.
