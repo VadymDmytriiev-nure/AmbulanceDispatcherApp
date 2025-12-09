@@ -1,6 +1,6 @@
 ﻿namespace AmbulanceDispatcherApp
 {
-    partial class MainForm
+    partial class LegacyMainForm
     {
         /// <summary>
         ///  Required designer variable.

@@ -7,7 +7,7 @@ using Org.BouncyCastle.Math;
 
 namespace AmbulanceDispatcherApp
 {
-    public partial class MainForm : Form
+    public partial class LegacyMainForm : Form
     {
         const string CONNECTION_STRING = "Server=127.0.0.1;DATABASE=emergencyhealthcare;User ID=dispatcher;Password=dispatcher_password";
         MySqlConnection conn = new MySqlConnection(CONNECTION_STRING);
@@ -24,7 +24,7 @@ namespace AmbulanceDispatcherApp
         CreateCallForm createCallForm;
         EditCallForm editCallForm;
 
-        public MainForm()
+        public LegacyMainForm()
         {
             InitializeComponent();
 
