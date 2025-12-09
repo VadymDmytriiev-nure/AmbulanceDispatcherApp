@@ -21,6 +21,8 @@ namespace AmbulanceDispatcherApp
         MySqlDataAdapter adapter_dispatcher;
         DataTable table_dispatcher = new DataTable();
 
+        CreateCallForm createCallForm;
+        EditCallForm editCallForm;
 
         public MainForm()
         {
@@ -174,8 +176,8 @@ namespace AmbulanceDispatcherApp
 
         private void ÒÚ‚ÓËÚËToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateCallForm cc = new CreateCallForm(conn, table_call, table_dispatcher, table_callout);
-            cc.Show();
+            createCallForm = new CreateCallForm(conn, table_call, table_dispatcher, table_callout);
+            createCallForm.Show();
         }
 
         private void Â‰‡„Û‚‡ÚËToolStripMenuItem_Click(object sender, EventArgs e)
@@ -187,8 +189,8 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            EditCallForm ec = new EditCallForm(conn, (row.DataBoundItem as DataRowView)!, table_dispatcher, table_callout);
-            ec.Show();
+            editCallForm = new EditCallForm(conn, (row.DataBoundItem as DataRowView)!, table_dispatcher, table_callout);
+            editCallForm.Show();
         }
 
         private void ‚Ë‰‡ÎËÚËToolStripMenuItem_Click(object sender, EventArgs e)
@@ -215,11 +217,11 @@ namespace AmbulanceDispatcherApp
         private void ÔÓ¯ÛÍToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CallSearchFiltersForm sff = new CallSearchFiltersForm(table_dispatcher);
-            if(sff.ShowDialog() == DialogResult.OK)
+            if (sff.ShowDialog() == DialogResult.OK)
             {
                 List<string> filters = new List<string>();
 
-                if(sff.Address != null)
+                if (sff.Address != null)
                     filters.Add("`call`.call_address LIKE @address");
 
                 if (sff.Channel != null)
@@ -272,6 +274,40 @@ namespace AmbulanceDispatcherApp
 
                 CallsForm cf = new CallsForm(conn, cmd, table_call, table_callout, table_dispatcher);
                 cf.ShowDialog();
+            }
+        }
+
+        private void datagrid_callout_SelectionChanged(object sender, EventArgs e)
+        {
+            if (datagrid_callout.SelectedRows.Count == 0)
+                return;
+
+            if (createCallForm != null && !createCallForm.IsClosed)
+            {
+                var selectedValue = (decimal)((datagrid_callout.SelectedRows[0].DataBoundItem as DataRowView)!["callout_id"] as int?)!;
+                createCallForm.spin_callout.Value = selectedValue;
+            }
+            if (editCallForm != null && !editCallForm.IsClosed)
+            {
+                var selectedValue = (decimal)((datagrid_callout.SelectedRows[0].DataBoundItem as DataRowView)!["callout_id"] as int?)!;
+                editCallForm.spin_callout.Value = selectedValue;
+            }
+        }
+
+        private void datagrid_dispatcher_SelectionChanged(object sender, EventArgs e)
+        {
+            if (datagrid_dispatcher.SelectedRows.Count == 0)
+                return;
+
+            if (createCallForm != null && !createCallForm.IsClosed)
+            {
+                var selectedValue = ((datagrid_dispatcher.SelectedRows[0].DataBoundItem as DataRowView)!["dispatcher_id"] as int?)!;
+                createCallForm.combo_dispatcher.SelectedValue = selectedValue;
+            }
+            if (editCallForm != null && !editCallForm.IsClosed)
+            {
+                var selectedValue = ((datagrid_dispatcher.SelectedRows[0].DataBoundItem as DataRowView)!["dispatcher_id"] as int?)!;
+                editCallForm.combo_dispatcher.SelectedValue = selectedValue;
             }
         }
     }

@@ -250,6 +250,7 @@
             datetime_time_created.Format = DateTimePickerFormat.Custom;
             datetime_time_created.Location = new Point(192, 40);
             datetime_time_created.Margin = new Padding(2, 3, 2, 3);
+            datetime_time_created.MinDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             datetime_time_created.Name = "datetime_time_created";
             datetime_time_created.Size = new Size(422, 40);
             datetime_time_created.TabIndex = 1;
@@ -283,7 +284,7 @@
             button_cancel.UseVisualStyleBackColor = true;
             button_cancel.Click += button_cancel_Click;
             // 
-            // CreateCall
+            // CreateCallForm
             // 
             AutoScaleDimensions = new SizeF(15F, 33F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -312,8 +313,9 @@
             Controls.Add(label1);
             Font = new Font("Tahoma", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Margin = new Padding(7, 6, 7, 6);
-            Name = "CreateCall";
+            Name = "CreateCallForm";
             Text = "Створити";
+            FormClosed += CreateCallForm_FormClosed;
             ((System.ComponentModel.ISupportInitialize)spin_callout).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -338,10 +340,10 @@
         private TextBox textbox_channel;
         private TextBox textbox_address;
         private TextBox textbox_reason;
-        private NumericUpDown spin_callout;
-        private ComboBox combo_dispatcher;
         private DateTimePicker datetime_time_created;
         private Button button_save;
         private Button button_cancel;
+        public NumericUpDown spin_callout;
+        public ComboBox combo_dispatcher;
     }
 }

@@ -20,6 +20,8 @@ namespace AmbulanceDispatcherApp
         DataTable dispatchers;
         DataTable callouts;
 
+        public bool IsClosed = false;
+
         public CreateCallForm(MySqlConnection conn, DataTable calls, DataTable dispatchers, DataTable callouts)
         {
             InitializeComponent();
@@ -83,6 +85,11 @@ namespace AmbulanceDispatcherApp
             call.EndEdit();
             calls.Rows.Add(call);
             this.Close();
+        }
+
+        private void CreateCallForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            IsClosed = true;
         }
     }
 }

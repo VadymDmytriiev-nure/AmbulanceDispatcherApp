@@ -20,6 +20,8 @@ namespace AmbulanceDispatcherApp
         DataTable dispatchers;
         DataTable callouts;
 
+        public bool IsClosed;
+
         public EditCallForm(MySqlConnection conn, DataRowView call, DataTable dispatchers, DataTable callouts)
         {
             InitializeComponent();
@@ -41,12 +43,13 @@ namespace AmbulanceDispatcherApp
                 spin_callout.Value = (decimal)(callout_id as int?)!;
             else
                 spin_callout.Text = "";
-            
+
             datetime_time_created.Value = Convert.ToDateTime(call["call_time_created"]);
 
             combo_dispatcher.DataSource = dispatchers;
             combo_dispatcher.ValueMember = "dispatcher_id";
             combo_dispatcher.DisplayMember = "dispatcher_fullname";
+            combo_dispatcher.SelectedValue = (call["dispatcher_id"] as int?)!;
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
@@ -93,6 +96,11 @@ namespace AmbulanceDispatcherApp
             call["callout_id"] = spin_callout.Text == "" ? DBNull.Value : spin_callout.Value;
             call.EndEdit();
             this.Close();
+        }
+
+        private void EditCallForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            IsClosed = true;
         }
     }
 }

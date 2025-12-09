@@ -89,6 +89,7 @@
             datagrid_callout.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             datagrid_callout.Size = new Size(1268, 573);
             datagrid_callout.TabIndex = 0;
+            datagrid_callout.SelectionChanged += datagrid_callout_SelectionChanged;
             // 
             // column_callout_id
             // 
@@ -293,6 +294,7 @@
             datagrid_dispatcher.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             datagrid_dispatcher.Size = new Size(1268, 573);
             datagrid_dispatcher.TabIndex = 1;
+            datagrid_dispatcher.SelectionChanged += datagrid_dispatcher_SelectionChanged;
             // 
             // column_dispatcher_surname
             // 

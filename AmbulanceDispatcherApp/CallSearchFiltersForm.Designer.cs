@@ -100,6 +100,7 @@
             datetime_time_created_from.Format = DateTimePickerFormat.Custom;
             datetime_time_created_from.Location = new Point(265, 35);
             datetime_time_created_from.Margin = new Padding(2, 3, 2, 3);
+            datetime_time_created_from.MinDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             datetime_time_created_from.Name = "datetime_time_created_from";
             datetime_time_created_from.Size = new Size(269, 43);
             datetime_time_created_from.TabIndex = 1;
@@ -301,6 +302,7 @@
             datetime_time_created_to.Format = DateTimePickerFormat.Custom;
             datetime_time_created_to.Location = new Point(600, 35);
             datetime_time_created_to.Margin = new Padding(2, 3, 2, 3);
+            datetime_time_created_to.MinDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             datetime_time_created_to.Name = "datetime_time_created_to";
             datetime_time_created_to.Size = new Size(273, 43);
             datetime_time_created_to.TabIndex = 2;
@@ -355,7 +357,7 @@
             label14.TabIndex = 49;
             label14.Text = "до";
             // 
-            // SearchFiltersForm
+            // CallSearchFiltersForm
             // 
             AutoScaleDimensions = new SizeF(15F, 37F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -390,7 +392,7 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             Margin = new Padding(6, 7, 6, 7);
-            Name = "SearchFiltersForm";
+            Name = "CallSearchFiltersForm";
             Text = "Пошук";
             ((System.ComponentModel.ISupportInitialize)spin_callout_from).EndInit();
             ((System.ComponentModel.ISupportInitialize)spin_callout_to).EndInit();
