@@ -22,17 +22,17 @@ namespace AmbulanceDispatcherApp
 
         public bool IsClosed = false;
 
-        public CreateCallForm(MySqlConnection conn, DataTable calls, DataTable dispatchers, DataTable callouts)
+        public CreateCallForm()
         {
             InitializeComponent();
 
             datetime_time_created.Value = DateTime.Now;
             spin_callout.Text = "";
 
-            this.conn = conn;
-            this.calls = calls;
-            this.dispatchers = dispatchers;
-            this.callouts = callouts;
+            this.conn = Program.SqlConnection;
+            this.calls = Program.SqlCallTable;
+            this.dispatchers = Program.SqlDispatcherTable;
+            this.callouts = Program.SqlCalloutTable;
 
             combo_dispatcher.DataSource = dispatchers;
             combo_dispatcher.ValueMember = "dispatcher_id";
@@ -82,8 +82,10 @@ namespace AmbulanceDispatcherApp
             call["call_caller_tel"] = textbox_tel.Text;
             call["dispatcher_id"] = combo_dispatcher.SelectedValue;
             call["callout_id"] = spin_callout.Text == "" ? DBNull.Value : spin_callout.Value;
+            call["dispatcher_fullname"] = combo_dispatcher.SelectedText;
             call.EndEdit();
             calls.Rows.Add(call);
+            Program.SyncWithRemote();
             this.Close();
         }
 

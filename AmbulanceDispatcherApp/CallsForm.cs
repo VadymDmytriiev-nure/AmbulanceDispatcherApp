@@ -46,7 +46,7 @@ namespace AmbulanceDispatcherApp
 
         private void створитиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CreateCallForm cc = new CreateCallForm(conn, table_call_filtered, table_dispatcher, table_callout);
+            CreateCallForm cc = new CreateCallForm();
             cc.Show();
         }
 
@@ -59,7 +59,7 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            EditCallForm ec = new EditCallForm(conn, (row.DataBoundItem as DataRowView)!, table_dispatcher, table_callout);
+            EditCallForm ec = new EditCallForm((row.DataBoundItem as DataRowView)!);
             ec.Show();
         }
 
