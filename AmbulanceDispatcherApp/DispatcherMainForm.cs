@@ -160,5 +160,15 @@ namespace AmbulanceDispatcherApp
         {
             timer_auto_refresh.Enabled = checkbox_autoupdate.Checked;
         }
+
+        private void button_call_filters_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_call_filters_reset_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -13,7 +13,7 @@ using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp
 {
-    public partial class CallSearchFiltersForm : Form
+    public partial class CallFiltersForm : Form
     {
         DataTable dispatchers;
 
@@ -28,7 +28,7 @@ namespace AmbulanceDispatcherApp
         public string? Reason;
         public string? Channel;
 
-        public CallSearchFiltersForm(DataTable dispatchers)
+        public CallFiltersForm(DataTable dispatchers)
         {
             InitializeComponent();
 

@@ -260,7 +260,7 @@
             button_save.Anchor = AnchorStyles.Bottom;
             button_save.Image = Properties.Resources._212394_16x16;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
-            button_save.Location = new Point(197, 431);
+            button_save.Location = new Point(197, 356);
             button_save.Margin = new Padding(1, 2, 1, 2);
             button_save.Name = "button_save";
             button_save.Size = new Size(124, 32);
@@ -275,7 +275,7 @@
             button_cancel.CausesValidation = false;
             button_cancel.Image = Properties.Resources._212384_16x16;
             button_cancel.ImageAlign = ContentAlignment.MiddleLeft;
-            button_cancel.Location = new Point(71, 431);
+            button_cancel.Location = new Point(71, 356);
             button_cancel.Margin = new Padding(1, 2, 1, 2);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(124, 32);
@@ -288,7 +288,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(392, 469);
+            ClientSize = new Size(392, 394);
             Controls.Add(button_cancel);
             Controls.Add(button_save);
             Controls.Add(datetime_time_created);
@@ -312,7 +312,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "EditCallForm";
             Text = "Редагувати дзвінок";
             FormClosed += EditCallForm_FormClosed;

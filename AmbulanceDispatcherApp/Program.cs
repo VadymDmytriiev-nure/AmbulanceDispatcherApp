@@ -339,7 +339,6 @@ namespace AmbulanceDispatcherApp
             if (adapter == null || table == null)
                 return;
 
-            adapter.Update(table);
             adapter.Fill(table);
 
             var newData = new DataTable();

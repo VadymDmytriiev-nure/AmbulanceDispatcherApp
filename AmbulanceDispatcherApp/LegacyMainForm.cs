@@ -216,7 +216,7 @@ namespace AmbulanceDispatcherApp
 
         private void ÔÓ¯ÛÍToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CallSearchFiltersForm sff = new CallSearchFiltersForm(table_dispatcher);
+            CallFiltersForm sff = new CallFiltersForm(table_dispatcher);
             if (sff.ShowDialog() == DialogResult.OK)
             {
                 List<string> filters = new List<string>();

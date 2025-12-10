@@ -77,6 +77,7 @@
             checkbox_autoupdate = new CheckBox();
             button_logout = new Button();
             timer_auto_refresh = new System.Windows.Forms.Timer(components);
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)splitbox).BeginInit();
             splitbox.Panel1.SuspendLayout();
             splitbox.Panel2.SuspendLayout();
@@ -329,6 +330,7 @@
             button_call_filters_reset.TabIndex = 10;
             button_call_filters_reset.Text = "Скинути";
             button_call_filters_reset.UseVisualStyleBackColor = true;
+            button_call_filters_reset.Click += button_call_filters_reset_Click;
             // 
             // button_call_filters
             // 
@@ -339,6 +341,7 @@
             button_call_filters.TabIndex = 9;
             button_call_filters.Text = "Фільтри";
             button_call_filters.UseVisualStyleBackColor = true;
+            button_call_filters.Click += button_call_filters_Click;
             // 
             // label1
             // 
@@ -586,11 +589,21 @@
             timer_auto_refresh.Interval = 2000;
             timer_auto_refresh.Tick += timer_auto_refresh_Tick;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(963, 661);
+            label3.Name = "label3";
+            label3.Size = new Size(207, 21);
+            label3.TabIndex = 24;
+            label3.Text = "Макс. кількість рядків - 200";
+            // 
             // DispatcherMainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 754);
+            Controls.Add(label3);
             Controls.Add(button_logout);
             Controls.Add(checkbox_autoupdate);
             Controls.Add(splitbox);
@@ -669,5 +682,6 @@
         private DataGridViewTextBoxColumn column_callout_comment;
         private DataGridViewCheckBoxColumn column_callout_canceled;
         private System.Windows.Forms.Timer timer_auto_refresh;
+        private Label label3;
     }
 }

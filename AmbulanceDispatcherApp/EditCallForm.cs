@@ -83,18 +83,33 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            call.BeginEdit();
-            call["call_address"] = textbox_address.Text.Trim() == "" ? DBNull.Value : textbox_address.Text.Trim();
-            call["call_channel"] = textbox_channel.Text;
-            call["call_reason"] = textbox_reason.Text.Trim() == "" ? DBNull.Value : textbox_reason.Text.Trim();
-            call["call_time_created"] = datetime_time_created.Text;
-            call["call_caller_name"] = textbox_name.Text.Trim() == "" ? DBNull.Value : textbox_name.Text.Trim();
-            call["call_caller_surname"] = textbox_surname.Text.Trim() == "" ? DBNull.Value : textbox_surname.Text.Trim();
-            call["call_caller_patriarchic"] = textbox_patriarchic.Text.Trim() == "" ? DBNull.Value : textbox_patriarchic.Text.Trim();
-            call["call_caller_tel"] = textbox_tel.Text;
-            call["dispatcher_id"] = combo_dispatcher.SelectedValue;
-            call["callout_id"] = spin_callout.Text == "" ? DBNull.Value : spin_callout.Value;
-            call.EndEdit();
+            var command = new MySqlCommand("UPDATE `Call` SET " +
+                                           "`call_address` = @call_address, " +
+                                           "`call_reason` = @call_reason, " +
+                                           "`call_channel` = @call_channel, " +
+                                           "`call_time_created` = @call_time_created, " +
+                                           "`call_caller_name` = @call_caller_name, " +
+                                           "`call_caller_surname` = @call_caller_surname, " +
+                                           "`call_caller_patriarchic` = @call_caller_patriarchic, " +
+                                           "`call_caller_tel` = @call_caller_tel, " +
+                                           "`dispatcher_id` = @dispatcher_id, " +
+                                           "`callout_id` = @callout_id " +
+                                           "WHERE `call_id` = @call_id"
+                                           , Program.SqlConnection);
+
+            command.Parameters.AddWithValue("@call_address", textbox_address.Text.Trim() == "" ? DBNull.Value : textbox_address.Text.Trim());
+            command.Parameters.AddWithValue("@call_channel", textbox_channel.Text);
+            command.Parameters.AddWithValue("@call_reason", textbox_reason.Text.Trim() == "" ? DBNull.Value : textbox_reason.Text.Trim());
+            command.Parameters.AddWithValue("@call_time_created", Convert.ToDateTime(datetime_time_created.Text));
+            command.Parameters.AddWithValue("@call_caller_name", textbox_name.Text.Trim() == "" ? DBNull.Value : textbox_name.Text.Trim());
+            command.Parameters.AddWithValue("@call_caller_surname", textbox_surname.Text.Trim() == "" ? DBNull.Value : textbox_surname.Text.Trim());
+            command.Parameters.AddWithValue("@call_caller_patriarchic", textbox_patriarchic.Text.Trim() == "" ? DBNull.Value : textbox_patriarchic.Text.Trim());
+            command.Parameters.AddWithValue("@call_caller_tel", textbox_tel.Text);
+            command.Parameters.AddWithValue("@dispatcher_id", combo_dispatcher.SelectedValue);
+            command.Parameters.AddWithValue("@callout_id", spin_callout.Text == "" ? DBNull.Value : spin_callout.Value);
+            command.Parameters.AddWithValue("@call_id", (call["call_id"] as int?)!);
+
+            command.ExecuteNonQuery();
             Program.SyncWithRemote();
             this.Close();
         }
