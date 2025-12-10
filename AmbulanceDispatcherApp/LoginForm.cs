@@ -24,6 +24,26 @@ namespace AmbulanceDispatcherApp
 
         private void button_login_Click(object sender, EventArgs e)
         {
+            if (Program.DEBUG_MODE == true)
+            {
+                sqlConnection = new MySqlConnection();
+                MySqlConnectionStringBuilder connStringBuilderDbg = new MySqlConnectionStringBuilder()
+                {
+                    Server = Program.SQL_HOST,
+                    Port = Program.SQL_PORT,
+                    UserID = Program.DEBUG_USER,
+                    Password = Program.DEBUG_PASSWORD,
+                    DefaultAuthenticationPlugin = "mysql_native_password"
+                };
+                sqlConnection.ConnectionString = connStringBuilderDbg.ConnectionString;
+                sqlConnection.Open();
+
+                Program.SqlLogin = Program.DEBUG_USER;
+                Program.SqlConnection = sqlConnection;
+                DialogResult = DialogResult.OK;
+                return;
+            }
+
             if (textbox_login.Text.Trim().Length == 0)
             {
                 MessageBox.Show("Логін не може бути порожнім", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -38,8 +58,8 @@ namespace AmbulanceDispatcherApp
             sqlConnection = new MySqlConnection();
             MySqlConnectionStringBuilder connStringBuilder = new MySqlConnectionStringBuilder()
             {
-                Server = "localhost",
-                Port = 3306,
+                Server = Program.SQL_HOST,
+                Port = Program.SQL_PORT,
                 UserID = textbox_login.Text,
                 Password = textbox_password.Text,
                 DefaultAuthenticationPlugin = "mysql_native_password"
