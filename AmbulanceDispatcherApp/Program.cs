@@ -27,6 +27,7 @@ namespace AmbulanceDispatcherApp
         public static string SqlRole;
         public static int SqlWorkerId = -1;
         public static int SqlDispatcherId = -1;
+        public static DataRow? SqlAuthorizedAs;
 
         [AllowNull]
         public static DataTable SqlCallTable;
@@ -50,6 +51,27 @@ namespace AmbulanceDispatcherApp
         public static DataTable SqlUsersTable;
 
         [AllowNull]
+        public static DataTable SqlFilteredCallTable;
+        [AllowNull]
+        public static DataTable SqlFilteredCalloutTable;
+        [AllowNull]
+        public static DataTable SqlFilteredDispatcherTable;
+        [AllowNull]
+        public static DataTable SqlFilteredDepartureTable;
+        [AllowNull]
+        public static DataTable SqlFilteredHospitalTable;
+        [AllowNull]
+        public static DataTable SqlFilteredPatientTable;
+        [AllowNull]
+        public static DataTable SqlFilteredWorkerTable;
+        [AllowNull]
+        public static DataTable SqlFilteredSubstationTable;
+        [AllowNull]
+        public static DataTable SqlFilteredBrigadeTable;
+        [AllowNull]
+        public static DataTable SqlFilteredUsersTable;
+
+        [AllowNull]
         public static MySqlDataAdapter SqlCallAdapter;
         [AllowNull]
         public static MySqlDataAdapter SqlCalloutAdapter;
@@ -69,6 +91,27 @@ namespace AmbulanceDispatcherApp
         public static MySqlDataAdapter SqlBrigadeAdapter;
         [AllowNull]
         public static MySqlDataAdapter SqlUsersAdapter;
+
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredCallAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredCalloutAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredDispatcherAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredDepartureAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredHospitalAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredPatientAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredWorkerAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredSubstationAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredBrigadeAdapter;
+        [AllowNull]
+        public static MySqlDataAdapter SqlFilteredUsersAdapter;
 
         public static void Logout()
         {
@@ -98,6 +141,28 @@ namespace AmbulanceDispatcherApp
             SqlSubstationAdapter = null;
             SqlBrigadeAdapter = null;
             SqlUsersAdapter = null;
+
+            SqlFilteredCallTable = null;
+            SqlFilteredCalloutTable = null;
+            SqlFilteredDispatcherTable = null;
+            SqlFilteredDepartureTable = null;
+            SqlFilteredHospitalTable = null;
+            SqlFilteredPatientTable = null;
+            SqlFilteredWorkerTable = null;
+            SqlFilteredSubstationTable = null;
+            SqlFilteredBrigadeTable = null;
+            SqlFilteredUsersTable = null;
+
+            SqlFilteredCallAdapter = null;
+            SqlFilteredCalloutAdapter = null;
+            SqlFilteredDispatcherAdapter = null;
+            SqlFilteredDepartureAdapter = null;
+            SqlFilteredHospitalAdapter = null;
+            SqlFilteredPatientAdapter = null;
+            SqlFilteredWorkerAdapter = null;
+            SqlFilteredSubstationAdapter = null;
+            SqlFilteredBrigadeAdapter = null;
+            SqlFilteredUsersAdapter = null;
 
             AskLogin();
         }
@@ -202,9 +267,13 @@ namespace AmbulanceDispatcherApp
             SqlCallAdapter.Fill(SqlCallTable);
 
             SqlCallTable.PrimaryKey = new DataColumn[]{ SqlCallTable.Columns[0] };
-            SqlCallTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlCallAdapter);
+
+            if (SqlFilteredCallTable == null)
+                SqlFilteredCallTable = SqlCallTable;
+            if (SqlFilteredCallAdapter == null)
+                SqlFilteredCallAdapter = SqlCallAdapter;
         }
 
         private static void RetrieveCallouts()
@@ -215,9 +284,13 @@ namespace AmbulanceDispatcherApp
             SqlCalloutAdapter.Fill(SqlCalloutTable);
 
             SqlCalloutTable.PrimaryKey = new DataColumn[] { SqlCalloutTable.Columns[0] };
-            SqlCalloutTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlCalloutAdapter);
+
+            if (SqlFilteredCalloutTable == null)
+                SqlFilteredCalloutTable = SqlCalloutTable;
+            if (SqlFilteredCalloutAdapter == null)
+                SqlFilteredCalloutAdapter = SqlCalloutAdapter;
         }
 
         private static void RetrieveDispatchers()
@@ -228,100 +301,132 @@ namespace AmbulanceDispatcherApp
             SqlDispatcherAdapter.Fill(SqlDispatcherTable);
 
             SqlDispatcherTable.PrimaryKey = new DataColumn[] { SqlDispatcherTable.Columns[0] };
-            SqlDispatcherTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlDispatcherAdapter);
+
+            if (SqlFilteredDispatcherTable == null)
+                SqlFilteredDispatcherTable = SqlDispatcherTable;
+            if (SqlFilteredDispatcherAdapter == null)
+                SqlFilteredDispatcherAdapter = SqlDispatcherAdapter;
         }
 
         private static void RetrieveSubstations()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `substation`", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `substation` LIMIT 200", SqlConnection);
             SqlSubstationAdapter = new MySqlDataAdapter(command);
             SqlSubstationTable = new DataTable();
             SqlSubstationAdapter.Fill(SqlSubstationTable);
 
             SqlSubstationTable.PrimaryKey = new DataColumn[] { SqlSubstationTable.Columns[0] };
-            SqlSubstationTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlSubstationAdapter);
+
+            if (SqlFilteredSubstationTable == null)
+                SqlFilteredSubstationTable = SqlSubstationTable;
+            if (SqlFilteredSubstationAdapter == null)
+                SqlFilteredSubstationAdapter = SqlSubstationAdapter;
         }
 
         private static void RetrieveBrigades()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `brigade`", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `brigade` LIMIT 200", SqlConnection);
             SqlBrigadeAdapter = new MySqlDataAdapter(command);
             SqlBrigadeTable = new DataTable();
             SqlBrigadeAdapter.Fill(SqlBrigadeTable);
 
             SqlBrigadeTable.PrimaryKey = new DataColumn[] { SqlBrigadeTable.Columns[0] };
-            SqlBrigadeTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlBrigadeAdapter);
+
+            if (SqlFilteredBrigadeTable == null)
+                SqlFilteredBrigadeTable = SqlBrigadeTable;
+            if (SqlFilteredBrigadeAdapter == null)
+                SqlFilteredBrigadeAdapter = SqlBrigadeAdapter;
         }
 
         private static void RetrieveHospitals()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `hospital`", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `hospital` LIMIT 200", SqlConnection);
             SqlHospitalAdapter = new MySqlDataAdapter(command);
             SqlHospitalTable = new DataTable();
             SqlHospitalAdapter.Fill(SqlHospitalTable);
 
             SqlHospitalTable.PrimaryKey = new DataColumn[] { SqlHospitalTable.Columns[0] };
-            SqlHospitalTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlHospitalAdapter);
+
+            if (SqlFilteredHospitalTable == null)
+                SqlFilteredHospitalTable = SqlHospitalTable;
+            if (SqlFilteredHospitalAdapter == null)
+                SqlFilteredHospitalAdapter = SqlHospitalAdapter;
         }
 
         private static void RetrieveWorkers()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `worker`", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `worker` LIMIT 200", SqlConnection);
             SqlWorkerAdapter = new MySqlDataAdapter(command);
             SqlWorkerTable = new DataTable();
             SqlWorkerAdapter.Fill(SqlWorkerTable);
 
             SqlWorkerTable.PrimaryKey = new DataColumn[] { SqlWorkerTable.Columns[0] };
-            SqlWorkerTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlWorkerAdapter);
+
+            if (SqlFilteredWorkerTable == null)
+                SqlFilteredWorkerTable = SqlWorkerTable;
+            if (SqlFilteredWorkerAdapter == null)
+                SqlFilteredWorkerAdapter = SqlWorkerAdapter;
         }
 
         private static void RetrieveDepartures()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `departure`", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `departure` LIMIT 200", SqlConnection);
             SqlDepartureAdapter = new MySqlDataAdapter(command);
             SqlDepartureTable = new DataTable();
             SqlDepartureAdapter.Fill(SqlDepartureTable);
 
             SqlDepartureTable.PrimaryKey = new DataColumn[] { SqlDepartureTable.Columns[0] };
-            SqlDepartureTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlDepartureAdapter);
+
+            if (SqlFilteredDepartureTable == null)
+                SqlFilteredDepartureTable = SqlDepartureTable;
+            if (SqlFilteredDepartureAdapter == null)
+                SqlFilteredDepartureAdapter = SqlDepartureAdapter;
         }
 
         private static void RetrievePatients()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `patient`", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `patient` LIMIT 200", SqlConnection);
             SqlPatientAdapter = new MySqlDataAdapter(command);
             SqlPatientTable = new DataTable();
             SqlPatientAdapter.Fill(SqlPatientTable);
 
             SqlPatientTable.PrimaryKey = new DataColumn[] { SqlPatientTable.Columns[0] };
-            SqlPatientTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlPatientAdapter);
+
+            if (SqlFilteredPatientTable == null)
+                SqlFilteredPatientTable = SqlPatientTable;
+            if (SqlFilteredPatientAdapter == null)
+                SqlFilteredPatientAdapter = SqlPatientAdapter;
         }
 
         private static void RetrieveUsers()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `users`", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `users` LIMIT 200", SqlConnection);
             SqlUsersAdapter = new MySqlDataAdapter(command);
             SqlUsersTable = new DataTable();
             SqlUsersAdapter.Fill(SqlUsersTable);
 
             SqlUsersTable.PrimaryKey = new DataColumn[] { SqlUsersTable.Columns[0] };
-            SqlUsersTable.PrimaryKey[0].AllowDBNull = true;
 
             MySqlCommandBuilder commandBuilder = new MySqlCommandBuilder(SqlUsersAdapter);
+
+            if (SqlFilteredUsersTable == null)
+                SqlFilteredUsersTable = SqlUsersTable;
+            if (SqlFilteredUsersAdapter == null)
+                SqlFilteredUsersAdapter = SqlUsersAdapter;
         }
 
         sealed class StructuralComparer : IEqualityComparer<int[]>
@@ -341,10 +446,10 @@ namespace AmbulanceDispatcherApp
 
             adapter.Fill(table);
 
+            // вся ця ***** для видалення рядків, які були видалені на віддаленій БД, але не на локальній машині
             var newData = new DataTable();
             adapter.Fill(newData);
 
-            // вся ця ***** для видалення рядків, які були видалені на віддаленій БД, але не на локальній машині
             if (table.PrimaryKey.Length == 1)
             {
                 HashSet<int?> existing;
@@ -386,6 +491,25 @@ namespace AmbulanceDispatcherApp
             SyncTable(Program.SqlDepartureAdapter, Program.SqlDepartureTable);
             SyncTable(Program.SqlPatientAdapter, Program.SqlPatientTable);
             SyncTable(Program.SqlUsersAdapter, Program.SqlUsersTable);
+
+            if(SqlFilteredCallAdapter != SqlCallAdapter)
+                SyncTable(Program.SqlFilteredCallAdapter, Program.SqlFilteredCallTable);
+            if (SqlFilteredCallAdapter != SqlCalloutAdapter)
+                SyncTable(Program.SqlFilteredCalloutAdapter, Program.SqlFilteredCalloutTable);
+            if (SqlFilteredCallAdapter != SqlDispatcherAdapter)
+                SyncTable(Program.SqlFilteredDispatcherAdapter, Program.SqlFilteredDispatcherTable);
+            if (SqlFilteredCallAdapter != SqlHospitalAdapter)
+                SyncTable(Program.SqlFilteredHospitalAdapter, Program.SqlFilteredHospitalTable);
+            if (SqlFilteredCallAdapter != SqlBrigadeAdapter)
+                SyncTable(Program.SqlFilteredBrigadeAdapter, Program.SqlFilteredBrigadeTable);
+            if (SqlFilteredCallAdapter != SqlWorkerAdapter)
+                SyncTable(Program.SqlFilteredWorkerAdapter, Program.SqlFilteredWorkerTable);
+            if (SqlFilteredDepartureAdapter != SqlDepartureAdapter)
+                SyncTable(Program.SqlFilteredDepartureAdapter, Program.SqlFilteredDepartureTable);
+            if (SqlFilteredPatientAdapter != SqlPatientAdapter)
+                SyncTable(Program.SqlFilteredPatientAdapter, Program.SqlFilteredPatientTable);
+            if (SqlFilteredUsersAdapter != SqlUsersAdapter)
+                SyncTable(Program.SqlFilteredUsersAdapter, Program.SqlFilteredUsersTable);
         }
 
         [STAThread]

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
 
 namespace AmbulanceDispatcherApp
@@ -16,6 +18,8 @@ namespace AmbulanceDispatcherApp
         CreateCallForm createCallForm = null;
         EditCallForm editCallForm = null;
         ViewCallForm viewCallForm = null;
+
+        CallFilters callFilters = new CallFilters();
 
         private bool loggingOut = false;
 
@@ -35,7 +39,7 @@ namespace AmbulanceDispatcherApp
 
         private void DispatcherMainForm_Load(object sender, EventArgs e)
         {
-
+            label_authorized_as.Text = $"Ви авторизовані як:\n{Program.SqlLogin}";
         }
 
         private void button_logout_Click(object sender, EventArgs e)
@@ -163,12 +167,38 @@ namespace AmbulanceDispatcherApp
 
         private void button_call_filters_Click(object sender, EventArgs e)
         {
-
+            CallFiltersForm callFiltersForm = new CallFiltersForm(callFilters);
+            if (callFiltersForm.ShowDialog() == DialogResult.OK)
+            {
+                callFilters = callFiltersForm.Filters;
+                MySqlCommand command = callFilters.GetSQLQuery();
+                command.Connection = Program.SqlConnection;
+                Program.SqlFilteredCallAdapter = new MySqlDataAdapter(command);
+                Program.SqlFilteredCallAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                Program.SqlFilteredCallTable = new DataTable();
+                Program.SqlFilteredCallAdapter.Fill(Program.SqlFilteredCallTable);
+                datagridview_call.DataSource = Program.SqlFilteredCallTable;
+                datagridview_call.Sort(column_call_time_created, ListSortDirection.Descending);
+            }
         }
 
         private void button_call_filters_reset_Click(object sender, EventArgs e)
         {
+            callFilters = new CallFilters();
 
+            datagridview_call.DataSource = Program.SqlCallTable;
+        }
+
+        private void checkbox_call_resize_columns_CheckedChanged(object sender, EventArgs e)
+        {
+            datagridview_call.AutoSizeColumnsMode = checkbox_call_resize_columns.Checked ? DataGridViewAutoSizeColumnsMode.AllCells : DataGridViewAutoSizeColumnsMode.None;
+            datagridview_call.AutoResizeColumns();
+        }
+
+        private void checkbox_callout_resize_columns_CheckedChanged(object sender, EventArgs e)
+        {
+            datagridview_callout.AutoSizeColumnsMode = checkbox_callout_resize_columns.Checked ? DataGridViewAutoSizeColumnsMode.AllCells : DataGridViewAutoSizeColumnsMode.None;
+            datagridview_callout.AutoResizeColumns();
         }
     }
 }

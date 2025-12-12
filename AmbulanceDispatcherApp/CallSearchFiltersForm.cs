@@ -15,7 +15,7 @@ namespace AmbulanceDispatcherApp
 {
     public partial class CallFiltersForm : Form
     {
-        DataTable dispatchers;
+        DataTable dispatchers = new DataTable();
 
         public (DateTime? Min, DateTime? Max) TimeRange;
         public (int? Min, int? Max) CalloutIDRange;
@@ -28,11 +28,31 @@ namespace AmbulanceDispatcherApp
         public string? Reason;
         public string? Channel;
 
-        public CallFiltersForm(DataTable dispatchers)
+        public CallFilters Filters {
+            get {
+                return new CallFilters()
+                {
+                    TimeRange = TimeRange,
+                    CalloutIDRange = CalloutIDRange,
+                    DispatcherID = DispatcherID,
+                    CallerSurname = CallerSurname,
+                    CallerName = CallerName,
+                    CallerPatriarchic = CallerPatriarchic,
+                    CallerTel = CallerTel,
+                    Channel = Channel,
+                    Address = Address,
+                    Reason = Reason
+                };
+            }
+        }
+
+        public CallFiltersForm()
         {
             InitializeComponent();
 
-            this.dispatchers = dispatchers;
+            var command = new MySqlCommand("SELECT *, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `dispatcher`", Program.SqlConnection);
+            var adapter = new MySqlDataAdapter(command);
+            adapter.Fill(dispatchers);
 
             combo_dispatcher.DataSource = dispatchers;
             combo_dispatcher.ValueMember = "dispatcher_id";
@@ -42,6 +62,48 @@ namespace AmbulanceDispatcherApp
             spin_callout_to.Text = "";
             combo_dispatcher.Text = "";
             combo_dispatcher.SelectedValue = "-1";
+        }
+
+        public CallFiltersForm(CallFilters existingFilters)
+        {
+            InitializeComponent();
+
+            var command = new MySqlCommand("SELECT *, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `dispatcher`", Program.SqlConnection);
+            var adapter = new MySqlDataAdapter(command);
+            adapter.Fill(dispatchers);
+
+            combo_dispatcher.DataSource = dispatchers;
+            combo_dispatcher.ValueMember = "dispatcher_id";
+            combo_dispatcher.DisplayMember = "dispatcher_fullname";
+
+            spin_callout_from.Text = "";
+            spin_callout_to.Text = "";
+            combo_dispatcher.Text = "";
+            combo_dispatcher.SelectedValue = "-1";
+
+            if (existingFilters.TimeRange.Min.HasValue)
+                datetime_time_created_from.Value = existingFilters.TimeRange.Min.Value;
+
+            if (existingFilters.TimeRange.Max.HasValue)
+                datetime_time_created_to.Value = existingFilters.TimeRange.Max.Value;
+
+            spin_callout_from.Text = existingFilters.CalloutIDRange.Min?.ToString() ?? "";
+            spin_callout_to.Text = existingFilters.CalloutIDRange.Max?.ToString() ?? "";
+
+            if (existingFilters.DispatcherID.HasValue)
+                combo_dispatcher.SelectedValue = existingFilters.DispatcherID.Value;
+            else
+                combo_dispatcher.SelectedIndex = -1;
+
+            textbox_surname.Text = existingFilters.CallerSurname ?? "";
+            textbox_name.Text = existingFilters.CallerName ?? "";
+            textbox_patriarchic.Text = existingFilters.CallerPatriarchic ?? "";
+            textbox_tel.Text = existingFilters.CallerTel ?? "";
+
+            textbox_channel.Text = existingFilters.Channel ?? "";
+            textbox_reason.Text = existingFilters.Reason ?? "";
+            textbox_address.Text = existingFilters.Address ?? "";
+
         }
 
         private void button_save_Click(object sender, EventArgs e)

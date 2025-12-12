@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             splitbox = new SplitContainer();
             group_calls = new GroupBox();
-            button_call_resize_columns = new Button();
+            checkbox_call_resize_columns = new CheckBox();
             datagridview_call = new DataGridView();
             column_call_id = new DataGridViewTextBoxColumn();
             column_call_time_created = new DataGridViewTextBoxColumn();
@@ -55,7 +55,6 @@
             button_call_filters = new Button();
             label1 = new Label();
             group_callouts = new GroupBox();
-            button_callout_resize_columns = new Button();
             panel_callout_filters = new Panel();
             button_callout_filters_reset = new Button();
             button_callout_filters = new Button();
@@ -78,6 +77,15 @@
             button_logout = new Button();
             timer_auto_refresh = new System.Windows.Forms.Timer(components);
             label3 = new Label();
+            label_authorized_as = new Label();
+            panel_refresh = new Panel();
+            panel_otherdata = new Panel();
+            button_view_brigades = new Button();
+            button_view_departures = new Button();
+            button_view_hospitals = new Button();
+            button_view_workers = new Button();
+            button_view_patients = new Button();
+            checkbox_callout_resize_columns = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)splitbox).BeginInit();
             splitbox.Panel1.SuspendLayout();
             splitbox.Panel2.SuspendLayout();
@@ -90,6 +98,8 @@
             panel_callout_filters.SuspendLayout();
             panel_callout_crud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)datagridview_callout).BeginInit();
+            panel_refresh.SuspendLayout();
+            panel_otherdata.SuspendLayout();
             SuspendLayout();
             // 
             // splitbox
@@ -115,7 +125,7 @@
             // group_calls
             // 
             group_calls.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            group_calls.Controls.Add(button_call_resize_columns);
+            group_calls.Controls.Add(checkbox_call_resize_columns);
             group_calls.Controls.Add(datagridview_call);
             group_calls.Controls.Add(panel_call_crud);
             group_calls.Controls.Add(textbox_call_search);
@@ -128,16 +138,19 @@
             group_calls.TabStop = false;
             group_calls.Text = "Дзвінки";
             // 
-            // button_call_resize_columns
+            // checkbox_call_resize_columns
             // 
-            button_call_resize_columns.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_call_resize_columns.Location = new Point(744, 14);
-            button_call_resize_columns.Name = "button_call_resize_columns";
-            button_call_resize_columns.Size = new Size(192, 43);
-            button_call_resize_columns.TabIndex = 23;
-            button_call_resize_columns.Text = "Авто-розмір стовпців";
-            button_call_resize_columns.UseVisualStyleBackColor = true;
-            button_call_resize_columns.Click += button_call_resize_columns_Click;
+            checkbox_call_resize_columns.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            checkbox_call_resize_columns.AutoSize = true;
+            checkbox_call_resize_columns.Checked = true;
+            checkbox_call_resize_columns.CheckState = CheckState.Checked;
+            checkbox_call_resize_columns.Location = new Point(755, 22);
+            checkbox_call_resize_columns.Name = "checkbox_call_resize_columns";
+            checkbox_call_resize_columns.Size = new Size(184, 25);
+            checkbox_call_resize_columns.TabIndex = 24;
+            checkbox_call_resize_columns.Text = "Авто-розмір стовпців";
+            checkbox_call_resize_columns.UseVisualStyleBackColor = true;
+            checkbox_call_resize_columns.CheckedChanged += checkbox_call_resize_columns_CheckedChanged;
             // 
             // datagridview_call
             // 
@@ -145,6 +158,7 @@
             datagridview_call.AllowUserToDeleteRows = false;
             datagridview_call.AllowUserToResizeRows = false;
             datagridview_call.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            datagridview_call.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             datagridview_call.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             datagridview_call.Columns.AddRange(new DataGridViewColumn[] { column_call_id, column_call_time_created, column_call_dispatcher, column_call_callout, column_call_surname, column_call_name, column_call_patriarchic, column_call_tel, column_call_address, column_call_reason, column_call_channel });
             datagridview_call.Location = new Point(6, 63);
@@ -163,7 +177,7 @@
             column_call_id.HeaderText = "№";
             column_call_id.Name = "column_call_id";
             column_call_id.ReadOnly = true;
-            column_call_id.Width = 40;
+            column_call_id.Width = 51;
             // 
             // column_call_time_created
             // 
@@ -171,7 +185,7 @@
             column_call_time_created.HeaderText = "Час дзвінка";
             column_call_time_created.Name = "column_call_time_created";
             column_call_time_created.ReadOnly = true;
-            column_call_time_created.Width = 210;
+            column_call_time_created.Width = 116;
             // 
             // column_call_dispatcher
             // 
@@ -179,7 +193,7 @@
             column_call_dispatcher.HeaderText = "Диспетчер";
             column_call_dispatcher.Name = "column_call_dispatcher";
             column_call_dispatcher.ReadOnly = true;
-            column_call_dispatcher.Width = 197;
+            column_call_dispatcher.Width = 110;
             // 
             // column_call_callout
             // 
@@ -187,7 +201,7 @@
             column_call_callout.HeaderText = "№ Виклику";
             column_call_callout.Name = "column_call_callout";
             column_call_callout.ReadOnly = true;
-            column_call_callout.Width = 208;
+            column_call_callout.Width = 114;
             // 
             // column_call_surname
             // 
@@ -195,7 +209,7 @@
             column_call_surname.HeaderText = "Прізвище";
             column_call_surname.Name = "column_call_surname";
             column_call_surname.ReadOnly = true;
-            column_call_surname.Width = 179;
+            column_call_surname.Width = 102;
             // 
             // column_call_name
             // 
@@ -203,7 +217,7 @@
             column_call_name.HeaderText = "Ім'я";
             column_call_name.Name = "column_call_name";
             column_call_name.ReadOnly = true;
-            column_call_name.Width = 96;
+            column_call_name.Width = 60;
             // 
             // column_call_patriarchic
             // 
@@ -211,7 +225,7 @@
             column_call_patriarchic.HeaderText = "По батькові";
             column_call_patriarchic.Name = "column_call_patriarchic";
             column_call_patriarchic.ReadOnly = true;
-            column_call_patriarchic.Width = 212;
+            column_call_patriarchic.Width = 118;
             // 
             // column_call_tel
             // 
@@ -219,7 +233,7 @@
             column_call_tel.HeaderText = "Телефон";
             column_call_tel.Name = "column_call_tel";
             column_call_tel.ReadOnly = true;
-            column_call_tel.Width = 170;
+            column_call_tel.Width = 94;
             // 
             // column_call_address
             // 
@@ -227,7 +241,7 @@
             column_call_address.HeaderText = "Адреса";
             column_call_address.Name = "column_call_address";
             column_call_address.ReadOnly = true;
-            column_call_address.Width = 144;
+            column_call_address.Width = 84;
             // 
             // column_call_reason
             // 
@@ -235,7 +249,7 @@
             column_call_reason.HeaderText = "Привід";
             column_call_reason.Name = "column_call_reason";
             column_call_reason.ReadOnly = true;
-            column_call_reason.Width = 140;
+            column_call_reason.Width = 83;
             // 
             // column_call_channel
             // 
@@ -243,7 +257,7 @@
             column_call_channel.HeaderText = "Канал зв'язку";
             column_call_channel.Name = "column_call_channel";
             column_call_channel.ReadOnly = true;
-            column_call_channel.Width = 242;
+            column_call_channel.Width = 129;
             // 
             // panel_call_crud
             // 
@@ -355,7 +369,7 @@
             // group_callouts
             // 
             group_callouts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            group_callouts.Controls.Add(button_callout_resize_columns);
+            group_callouts.Controls.Add(checkbox_callout_resize_columns);
             group_callouts.Controls.Add(panel_callout_filters);
             group_callouts.Controls.Add(panel_callout_crud);
             group_callouts.Controls.Add(label2);
@@ -368,17 +382,6 @@
             group_callouts.TabIndex = 0;
             group_callouts.TabStop = false;
             group_callouts.Text = "Виклики";
-            // 
-            // button_callout_resize_columns
-            // 
-            button_callout_resize_columns.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_callout_resize_columns.Location = new Point(744, 16);
-            button_callout_resize_columns.Name = "button_callout_resize_columns";
-            button_callout_resize_columns.Size = new Size(192, 43);
-            button_callout_resize_columns.TabIndex = 22;
-            button_callout_resize_columns.Text = "Авто-розмір стовпців";
-            button_callout_resize_columns.UseVisualStyleBackColor = true;
-            button_callout_resize_columns.Click += button_callout_resize_columns_Click;
             // 
             // panel_callout_filters
             // 
@@ -487,6 +490,7 @@
             datagridview_callout.AllowUserToDeleteRows = false;
             datagridview_callout.AllowUserToResizeRows = false;
             datagridview_callout.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            datagridview_callout.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             datagridview_callout.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             datagridview_callout.Columns.AddRange(new DataGridViewColumn[] { column_callout_id, column_callout_time, column_callout_address, column_callout_reason, column_callout_comment, column_callout_canceled });
             datagridview_callout.Location = new Point(6, 64);
@@ -505,7 +509,7 @@
             column_callout_id.HeaderText = "№";
             column_callout_id.Name = "column_callout_id";
             column_callout_id.ReadOnly = true;
-            column_callout_id.Width = 40;
+            column_callout_id.Width = 51;
             // 
             // column_callout_time
             // 
@@ -513,7 +517,7 @@
             column_callout_time.HeaderText = "Час створення";
             column_callout_time.Name = "column_callout_time";
             column_callout_time.ReadOnly = true;
-            column_callout_time.Width = 254;
+            column_callout_time.Width = 137;
             // 
             // column_callout_address
             // 
@@ -521,7 +525,7 @@
             column_callout_address.HeaderText = "Адреса";
             column_callout_address.Name = "column_callout_address";
             column_callout_address.ReadOnly = true;
-            column_callout_address.Width = 144;
+            column_callout_address.Width = 84;
             // 
             // column_callout_reason
             // 
@@ -529,7 +533,7 @@
             column_callout_reason.HeaderText = "Привід";
             column_callout_reason.Name = "column_callout_reason";
             column_callout_reason.ReadOnly = true;
-            column_callout_reason.Width = 140;
+            column_callout_reason.Width = 83;
             // 
             // column_callout_comment
             // 
@@ -537,7 +541,7 @@
             column_callout_comment.HeaderText = "Коментар";
             column_callout_comment.Name = "column_callout_comment";
             column_callout_comment.ReadOnly = true;
-            column_callout_comment.Width = 181;
+            column_callout_comment.Width = 103;
             // 
             // column_callout_canceled
             // 
@@ -545,14 +549,14 @@
             column_callout_canceled.HeaderText = "Скасовано";
             column_callout_canceled.Name = "column_callout_canceled";
             column_callout_canceled.ReadOnly = true;
-            column_callout_canceled.Width = 174;
+            column_callout_canceled.Width = 90;
             // 
             // button_refresh
             // 
             button_refresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_refresh.Location = new Point(966, 44);
+            button_refresh.Location = new Point(3, 34);
             button_refresh.Name = "button_refresh";
-            button_refresh.Size = new Size(201, 46);
+            button_refresh.Size = new Size(190, 46);
             button_refresh.TabIndex = 13;
             button_refresh.Text = "Оновити";
             button_refresh.UseVisualStyleBackColor = true;
@@ -564,7 +568,7 @@
             checkbox_autoupdate.AutoSize = true;
             checkbox_autoupdate.Checked = true;
             checkbox_autoupdate.CheckState = CheckState.Checked;
-            checkbox_autoupdate.Location = new Point(974, 13);
+            checkbox_autoupdate.Location = new Point(7, 3);
             checkbox_autoupdate.Name = "checkbox_autoupdate";
             checkbox_autoupdate.Size = new Size(192, 25);
             checkbox_autoupdate.TabIndex = 3;
@@ -591,6 +595,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Location = new Point(963, 661);
             label3.Name = "label3";
@@ -598,16 +603,118 @@
             label3.TabIndex = 24;
             label3.Text = "Макс. кількість рядків - 200";
             // 
+            // label_authorized_as
+            // 
+            label_authorized_as.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label_authorized_as.AutoSize = true;
+            label_authorized_as.Location = new Point(963, 616);
+            label_authorized_as.MaximumSize = new Size(200, 0);
+            label_authorized_as.Name = "label_authorized_as";
+            label_authorized_as.Size = new Size(150, 21);
+            label_authorized_as.TabIndex = 25;
+            label_authorized_as.Text = "Ви авторизовані як:";
+            label_authorized_as.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // panel_refresh
+            // 
+            panel_refresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel_refresh.BorderStyle = BorderStyle.Fixed3D;
+            panel_refresh.Controls.Add(button_refresh);
+            panel_refresh.Controls.Add(checkbox_autoupdate);
+            panel_refresh.Location = new Point(966, 12);
+            panel_refresh.Name = "panel_refresh";
+            panel_refresh.Size = new Size(200, 88);
+            panel_refresh.TabIndex = 26;
+            // 
+            // panel_otherdata
+            // 
+            panel_otherdata.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel_otherdata.BorderStyle = BorderStyle.Fixed3D;
+            panel_otherdata.Controls.Add(button_view_brigades);
+            panel_otherdata.Controls.Add(button_view_departures);
+            panel_otherdata.Controls.Add(button_view_hospitals);
+            panel_otherdata.Controls.Add(button_view_workers);
+            panel_otherdata.Controls.Add(button_view_patients);
+            panel_otherdata.Location = new Point(966, 106);
+            panel_otherdata.Name = "panel_otherdata";
+            panel_otherdata.Size = new Size(200, 265);
+            panel_otherdata.TabIndex = 27;
+            // 
+            // button_view_brigades
+            // 
+            button_view_brigades.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_view_brigades.Location = new Point(3, 211);
+            button_view_brigades.Name = "button_view_brigades";
+            button_view_brigades.Size = new Size(190, 46);
+            button_view_brigades.TabIndex = 11;
+            button_view_brigades.Text = "Бригади";
+            button_view_brigades.UseVisualStyleBackColor = true;
+            // 
+            // button_view_departures
+            // 
+            button_view_departures.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_view_departures.Location = new Point(3, 55);
+            button_view_departures.Name = "button_view_departures";
+            button_view_departures.Size = new Size(190, 46);
+            button_view_departures.TabIndex = 10;
+            button_view_departures.Text = "Виїзди";
+            button_view_departures.UseVisualStyleBackColor = true;
+            // 
+            // button_view_hospitals
+            // 
+            button_view_hospitals.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_view_hospitals.Location = new Point(3, 107);
+            button_view_hospitals.Name = "button_view_hospitals";
+            button_view_hospitals.Size = new Size(190, 46);
+            button_view_hospitals.TabIndex = 8;
+            button_view_hospitals.Text = "Лікарні";
+            button_view_hospitals.UseVisualStyleBackColor = true;
+            // 
+            // button_view_workers
+            // 
+            button_view_workers.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_view_workers.Location = new Point(3, 159);
+            button_view_workers.Name = "button_view_workers";
+            button_view_workers.Size = new Size(190, 46);
+            button_view_workers.TabIndex = 7;
+            button_view_workers.Text = "Працівники";
+            button_view_workers.UseVisualStyleBackColor = true;
+            // 
+            // button_view_patients
+            // 
+            button_view_patients.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_view_patients.Location = new Point(3, 3);
+            button_view_patients.Name = "button_view_patients";
+            button_view_patients.Size = new Size(190, 46);
+            button_view_patients.TabIndex = 6;
+            button_view_patients.Text = "Пацієнти";
+            button_view_patients.UseVisualStyleBackColor = true;
+            // 
+            // checkbox_callout_resize_columns
+            // 
+            checkbox_callout_resize_columns.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            checkbox_callout_resize_columns.AutoSize = true;
+            checkbox_callout_resize_columns.Checked = true;
+            checkbox_callout_resize_columns.CheckState = CheckState.Checked;
+            checkbox_callout_resize_columns.Location = new Point(755, 26);
+            checkbox_callout_resize_columns.Name = "checkbox_callout_resize_columns";
+            checkbox_callout_resize_columns.Size = new Size(184, 25);
+            checkbox_callout_resize_columns.TabIndex = 25;
+            checkbox_callout_resize_columns.Text = "Авто-розмір стовпців";
+            checkbox_callout_resize_columns.UseVisualStyleBackColor = true;
+            checkbox_callout_resize_columns.CheckedChanged += checkbox_callout_resize_columns_CheckedChanged;
+            // 
             // DispatcherMainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 754);
+            Controls.Add(panel_otherdata);
+            Controls.Add(panel_refresh);
+            Controls.Add(label_authorized_as);
             Controls.Add(label3);
             Controls.Add(button_logout);
-            Controls.Add(checkbox_autoupdate);
             Controls.Add(splitbox);
-            Controls.Add(button_refresh);
             Font = new Font("Segoe UI", 12F);
             Margin = new Padding(4);
             MinimumSize = new Size(840, 670);
@@ -629,6 +736,9 @@
             panel_callout_filters.ResumeLayout(false);
             panel_callout_crud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)datagridview_callout).EndInit();
+            panel_refresh.ResumeLayout(false);
+            panel_refresh.PerformLayout();
+            panel_otherdata.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -660,8 +770,6 @@
         private Panel panel_callout_filters;
         private Button button_callout_filters_reset;
         private Button button_callout_filters;
-        private Button button_call_resize_columns;
-        private Button button_callout_resize_columns;
         private GroupBox group_callouts;
         private GroupBox group_calls;
         private DataGridViewTextBoxColumn column_call_id;
@@ -683,5 +791,16 @@
         private DataGridViewCheckBoxColumn column_callout_canceled;
         private System.Windows.Forms.Timer timer_auto_refresh;
         private Label label3;
+        private Label label_authorized_as;
+        private Panel panel_refresh;
+        private Panel panel_otherdata;
+        private Button button3;
+        private Button button_view_hospitals;
+        private Button button_view_workers;
+        private Button button_view_patients;
+        private Button button_view_brigades;
+        private Button button_view_departures;
+        private CheckBox checkbox_call_resize_columns;
+        private CheckBox checkbox_callout_resize_columns;
     }
 }
