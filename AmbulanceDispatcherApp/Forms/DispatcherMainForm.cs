@@ -200,5 +200,30 @@ namespace AmbulanceDispatcherApp
             datagridview_callout.AutoSizeColumnsMode = checkbox_callout_resize_columns.Checked ? DataGridViewAutoSizeColumnsMode.AllCells : DataGridViewAutoSizeColumnsMode.None;
             datagridview_callout.AutoResizeColumns();
         }
+
+        private void button_view_patients_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_view_departures_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_view_hospitals_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_view_workers_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_view_brigades_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -55,6 +55,7 @@
             button_call_filters = new Button();
             label1 = new Label();
             group_callouts = new GroupBox();
+            checkbox_callout_resize_columns = new CheckBox();
             panel_callout_filters = new Panel();
             button_callout_filters_reset = new Button();
             button_callout_filters = new Button();
@@ -85,7 +86,6 @@
             button_view_hospitals = new Button();
             button_view_workers = new Button();
             button_view_patients = new Button();
-            checkbox_callout_resize_columns = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)splitbox).BeginInit();
             splitbox.Panel1.SuspendLayout();
             splitbox.Panel2.SuspendLayout();
@@ -383,6 +383,20 @@
             group_callouts.TabStop = false;
             group_callouts.Text = "Виклики";
             // 
+            // checkbox_callout_resize_columns
+            // 
+            checkbox_callout_resize_columns.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            checkbox_callout_resize_columns.AutoSize = true;
+            checkbox_callout_resize_columns.Checked = true;
+            checkbox_callout_resize_columns.CheckState = CheckState.Checked;
+            checkbox_callout_resize_columns.Location = new Point(755, 26);
+            checkbox_callout_resize_columns.Name = "checkbox_callout_resize_columns";
+            checkbox_callout_resize_columns.Size = new Size(184, 25);
+            checkbox_callout_resize_columns.TabIndex = 25;
+            checkbox_callout_resize_columns.Text = "Авто-розмір стовпців";
+            checkbox_callout_resize_columns.UseVisualStyleBackColor = true;
+            checkbox_callout_resize_columns.CheckedChanged += checkbox_callout_resize_columns_CheckedChanged;
+            // 
             // panel_callout_filters
             // 
             panel_callout_filters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -649,6 +663,7 @@
             button_view_brigades.TabIndex = 11;
             button_view_brigades.Text = "Бригади";
             button_view_brigades.UseVisualStyleBackColor = true;
+            button_view_brigades.Click += button_view_brigades_Click;
             // 
             // button_view_departures
             // 
@@ -659,6 +674,7 @@
             button_view_departures.TabIndex = 10;
             button_view_departures.Text = "Виїзди";
             button_view_departures.UseVisualStyleBackColor = true;
+            button_view_departures.Click += button_view_departures_Click;
             // 
             // button_view_hospitals
             // 
@@ -669,6 +685,7 @@
             button_view_hospitals.TabIndex = 8;
             button_view_hospitals.Text = "Лікарні";
             button_view_hospitals.UseVisualStyleBackColor = true;
+            button_view_hospitals.Click += button_view_hospitals_Click;
             // 
             // button_view_workers
             // 
@@ -679,6 +696,7 @@
             button_view_workers.TabIndex = 7;
             button_view_workers.Text = "Працівники";
             button_view_workers.UseVisualStyleBackColor = true;
+            button_view_workers.Click += button_view_workers_Click;
             // 
             // button_view_patients
             // 
@@ -689,20 +707,7 @@
             button_view_patients.TabIndex = 6;
             button_view_patients.Text = "Пацієнти";
             button_view_patients.UseVisualStyleBackColor = true;
-            // 
-            // checkbox_callout_resize_columns
-            // 
-            checkbox_callout_resize_columns.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            checkbox_callout_resize_columns.AutoSize = true;
-            checkbox_callout_resize_columns.Checked = true;
-            checkbox_callout_resize_columns.CheckState = CheckState.Checked;
-            checkbox_callout_resize_columns.Location = new Point(755, 26);
-            checkbox_callout_resize_columns.Name = "checkbox_callout_resize_columns";
-            checkbox_callout_resize_columns.Size = new Size(184, 25);
-            checkbox_callout_resize_columns.TabIndex = 25;
-            checkbox_callout_resize_columns.Text = "Авто-розмір стовпців";
-            checkbox_callout_resize_columns.UseVisualStyleBackColor = true;
-            checkbox_callout_resize_columns.CheckedChanged += checkbox_callout_resize_columns_CheckedChanged;
+            button_view_patients.Click += button_view_patients_Click;
             // 
             // DispatcherMainForm
             // 
