@@ -81,6 +81,7 @@
             label_authorized_as = new Label();
             panel_refresh = new Panel();
             panel_otherdata = new Panel();
+            button_view_substations = new Button();
             button_view_brigades = new Button();
             button_view_departures = new Button();
             button_view_hospitals = new Button();
@@ -431,6 +432,7 @@
             // panel_callout_crud
             // 
             panel_callout_crud.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            panel_callout_crud.BackColor = Color.IndianRed;
             panel_callout_crud.BorderStyle = BorderStyle.Fixed3D;
             panel_callout_crud.Controls.Add(button_callout_view);
             panel_callout_crud.Controls.Add(button_callout_create);
@@ -644,6 +646,7 @@
             // 
             panel_otherdata.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel_otherdata.BorderStyle = BorderStyle.Fixed3D;
+            panel_otherdata.Controls.Add(button_view_substations);
             panel_otherdata.Controls.Add(button_view_brigades);
             panel_otherdata.Controls.Add(button_view_departures);
             panel_otherdata.Controls.Add(button_view_hospitals);
@@ -651,8 +654,19 @@
             panel_otherdata.Controls.Add(button_view_patients);
             panel_otherdata.Location = new Point(966, 106);
             panel_otherdata.Name = "panel_otherdata";
-            panel_otherdata.Size = new Size(200, 265);
+            panel_otherdata.Size = new Size(200, 318);
             panel_otherdata.TabIndex = 27;
+            // 
+            // button_view_substations
+            // 
+            button_view_substations.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_view_substations.Location = new Point(3, 263);
+            button_view_substations.Name = "button_view_substations";
+            button_view_substations.Size = new Size(190, 46);
+            button_view_substations.TabIndex = 12;
+            button_view_substations.Text = "Підстанції";
+            button_view_substations.UseVisualStyleBackColor = true;
+            button_view_substations.Click += button_view_substations_Click;
             // 
             // button_view_brigades
             // 
@@ -807,5 +821,6 @@
         private Button button_view_departures;
         private CheckBox checkbox_call_resize_columns;
         private CheckBox checkbox_callout_resize_columns;
+        private Button button_view_substations;
     }
 }

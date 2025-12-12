@@ -24,7 +24,7 @@ namespace AmbulanceDispatcherApp
 
         private void button_login_Click(object sender, EventArgs e)
         {
-            if (Program.DEBUG_MODE == true)
+            if (Program.DEBUG_MODE == true && textbox_login.Text.Trim().Length == 0)
             {
                 sqlConnection = new MySqlConnection();
                 MySqlConnectionStringBuilder connStringBuilderDbg = new MySqlConnectionStringBuilder()

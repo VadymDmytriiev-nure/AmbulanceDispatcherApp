@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AmbulanceDispatcherApp.Forms;
+using AmbulanceDispatcherApp.Forms.Brigade;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
 
@@ -18,6 +20,8 @@ namespace AmbulanceDispatcherApp
         CreateCallForm createCallForm = null;
         EditCallForm editCallForm = null;
         ViewCallForm viewCallForm = null;
+        SubstationsForm substationsForm = null;
+        BrigadesForm brigadesForm = null;
 
         CallFilters callFilters = new CallFilters();
 
@@ -69,6 +73,9 @@ namespace AmbulanceDispatcherApp
 
         private void button_call_view_Click(object sender, EventArgs e)
         {
+            if (datagridview_call.SelectedRows.Count == 0)
+                return;
+
             viewCallForm = new ViewCallForm((datagridview_call.SelectedRows[0].DataBoundItem as DataRowView)!);
             viewCallForm.Show();
         }
@@ -86,6 +93,9 @@ namespace AmbulanceDispatcherApp
 
         private void button_call_edit_Click(object sender, EventArgs e)
         {
+            if (datagridview_call.SelectedRows.Count == 0)
+                return;
+
             if (editCallForm == null || editCallForm.IsDisposed || editCallForm.IsClosed)
             {
                 editCallForm = new EditCallForm((datagridview_call.SelectedRows[0].DataBoundItem as DataRowView)!);
@@ -97,6 +107,9 @@ namespace AmbulanceDispatcherApp
 
         private void button_call_delete_Click(object sender, EventArgs e)
         {
+            if (datagridview_call.SelectedRows.Count == 0)
+                return;
+
             var row_data = datagridview_call.SelectedRows[0].DataBoundItem as DataRowView;
 
             if (MessageBox.Show($"Підтвердити видалення дзвінку о {row_data!["call_time_created"]} по привіду {row_data!["call_reason"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -171,8 +184,7 @@ namespace AmbulanceDispatcherApp
             if (callFiltersForm.ShowDialog() == DialogResult.OK)
             {
                 callFilters = callFiltersForm.Filters;
-                MySqlCommand command = callFilters.GetSQLQuery();
-                command.Connection = Program.SqlConnection;
+                MySqlCommand command = callFilters.GetSQLCommand(Program.SqlConnection);
                 Program.SqlFilteredCallAdapter = new MySqlDataAdapter(command);
                 Program.SqlFilteredCallAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
                 Program.SqlFilteredCallTable = new DataTable();
@@ -223,7 +235,24 @@ namespace AmbulanceDispatcherApp
 
         private void button_view_brigades_Click(object sender, EventArgs e)
         {
+            if (brigadesForm == null || brigadesForm.IsDisposed)
+            {
+                brigadesForm = new BrigadesForm(Program.SqlRole != "Адміністратор");
+                brigadesForm.Show();
+            }
+            else
+                brigadesForm.Focus();
+        }
 
+        private void button_view_substations_Click(object sender, EventArgs e)
+        {
+            if (substationsForm == null || substationsForm.IsDisposed)
+            {
+                substationsForm = new SubstationsForm(Program.SqlRole != "Адміністратор");
+                substationsForm.Show();
+            }
+            else
+                substationsForm.Focus();
         }
     }
 }

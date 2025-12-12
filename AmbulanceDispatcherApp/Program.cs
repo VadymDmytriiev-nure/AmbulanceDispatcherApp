@@ -223,6 +223,7 @@ namespace AmbulanceDispatcherApp
                 if (Program.SqlRole == "Адміністратор")
                 {
                     RetrieveUsers();
+                    new DispatcherMainForm().Show();
                 }
                 else if (Program.SqlRole == "Диспетчер")
                 {
@@ -312,7 +313,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveSubstations()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `substation` LIMIT 200", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT * FROM `substation` ORDER BY `substation`.`substation_code` ASC", SqlConnection);
             SqlSubstationAdapter = new MySqlDataAdapter(command);
             SqlSubstationTable = new DataTable();
             SqlSubstationAdapter.Fill(SqlSubstationTable);
@@ -329,7 +330,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveBrigades()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `brigade` LIMIT 200", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT b.*, s.`substation_address`, s.`substation_code`, COUNT(worker_id) as brigade_worker_count FROM `brigade` b LEFT JOIN `worker` w ON w.`brigade_id` = b.`brigade_id` inner join `substation` s on s.`substation_id` = b.`substation_id` GROUP BY b.`brigade_id`", SqlConnection);
             SqlBrigadeAdapter = new MySqlDataAdapter(command);
             SqlBrigadeTable = new DataTable();
             SqlBrigadeAdapter.Fill(SqlBrigadeTable);
