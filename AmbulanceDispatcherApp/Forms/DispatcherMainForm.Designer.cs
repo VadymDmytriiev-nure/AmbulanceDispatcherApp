@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             splitbox = new SplitContainer();
             group_calls = new GroupBox();
             checkbox_call_resize_columns = new CheckBox();
@@ -416,6 +415,7 @@
             button_callout_filters_reset.TabIndex = 12;
             button_callout_filters_reset.Text = "Скинути";
             button_callout_filters_reset.UseVisualStyleBackColor = true;
+            button_callout_filters_reset.Click += button_callout_filters_reset_Click;
             // 
             // button_callout_filters
             // 
@@ -426,11 +426,12 @@
             button_callout_filters.TabIndex = 11;
             button_callout_filters.Text = "Фільтри";
             button_callout_filters.UseVisualStyleBackColor = true;
+            button_callout_filters.Click += button_callout_filters_Click;
             // 
             // panel_callout_crud
             // 
             panel_callout_crud.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            panel_callout_crud.BackColor = Color.IndianRed;
+            panel_callout_crud.BackColor = SystemColors.Control;
             panel_callout_crud.BorderStyle = BorderStyle.Fixed3D;
             panel_callout_crud.Controls.Add(button_callout_view);
             panel_callout_crud.Controls.Add(button_callout_create);
@@ -450,6 +451,7 @@
             button_callout_view.TabIndex = 5;
             button_callout_view.Text = "Переглянути";
             button_callout_view.UseVisualStyleBackColor = true;
+            button_callout_view.Click += button_callout_view_Click;
             // 
             // button_callout_create
             // 
@@ -460,6 +462,7 @@
             button_callout_create.TabIndex = 6;
             button_callout_create.Text = "Створити";
             button_callout_create.UseVisualStyleBackColor = true;
+            button_callout_create.Click += button_callout_create_Click;
             // 
             // button_callout_delete
             // 
@@ -481,6 +484,7 @@
             button_callout_edit.TabIndex = 11;
             button_callout_edit.Text = "Редагувати";
             button_callout_edit.UseVisualStyleBackColor = true;
+            button_callout_edit.Click += button_callout_edit_Click;
             // 
             // label2
             // 

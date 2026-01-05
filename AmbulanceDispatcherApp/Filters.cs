@@ -20,6 +20,7 @@ namespace AmbulanceDispatcherApp
     public class CallFilters : IFilters
     {
         public (DateTime? Min, DateTime? Max) TimeRange;
+        public (int? Min, int? Max) CallIDRange;
         public (int? Min, int? Max) CalloutIDRange;
         public int? DispatcherID;
         public string? CallerSurname;
@@ -66,6 +67,12 @@ namespace AmbulanceDispatcherApp
             if (CalloutIDRange.Max != null)
                 filters.Add("`call`.callout_id <= @callout_max");
 
+            if (CallIDRange.Min != null)
+                filters.Add("`call`.call_id >= @call_min");
+
+            if (CallIDRange.Max != null)
+                filters.Add("`call`.call_id <= @call_max");
+
             filters.Add("`call`.call_time_created >= @time_from");
             filters.Add("`call`.call_time_created <= @time_to");
 
@@ -85,8 +92,77 @@ namespace AmbulanceDispatcherApp
             p.Add(new MySqlParameter("@dispatcher", DispatcherID));
             p.Add(new MySqlParameter("@callout_min", CalloutIDRange.Min));
             p.Add(new MySqlParameter("@callout_max", CalloutIDRange.Max));
+            p.Add(new MySqlParameter("@call_min", CallIDRange.Min));
+            p.Add(new MySqlParameter("@call_max", CallIDRange.Max));
             p.Add(new MySqlParameter("@time_from", TimeRange.Min));
             p.Add(new MySqlParameter("@time_to", TimeRange.Max));
+
+            return new Tuple<string, List<MySqlParameter>>(filter, p);
+        }
+
+        public MySqlCommand GetSQLCommand(MySqlConnection conn)
+        {
+            var filter = GetSQLFilter();
+            var cmd = new MySqlCommand($"SELECT `call`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `call` INNER JOIN `dispatcher` ON `call`.dispatcher_id = `dispatcher`.dispatcher_id {filter.Item1}", conn);
+            cmd.Parameters.AddRange(filter.Item2.ToArray());
+
+            return cmd;
+        }
+    }
+
+    public class CalloutFilters : IFilters
+    {
+        public (DateTime? Min, DateTime? Max) CalloutTimeCreated;
+        public (int? Min, int? Max) CalloutIDRange;
+        public string? CalloutAddress;
+        public string? CalloutReason;
+        public string? CalloutComment;
+        public bool? CalloutCanceled;
+
+        public CalloutFilters() { }
+
+        public Tuple<string, List<MySqlParameter>> GetSQLFilter()
+        {
+            List<string> filters = new List<string>();
+
+            if (CalloutAddress != null)
+                filters.Add("lower(`callout_address`) LIKE lower(@addy)");
+
+            if (CalloutReason != null)
+                filters.Add("lower(`callout_reason`) LIKE lower(@rs)");
+
+            if (CalloutComment != null)
+                filters.Add("lower(`callout_comment`) LIKE lower(@cm)");
+
+            if (CalloutTimeCreated.Min.HasValue)
+                filters.Add("`callout_time_created` >= @tc_min");
+
+            if (CalloutTimeCreated.Max.HasValue)
+                filters.Add("`callout_time_created` <= @tc_max");
+
+            if (CalloutIDRange.Min.HasValue)
+                filters.Add("`callout_id` >= @id_min");
+
+            if (CalloutIDRange.Max.HasValue)
+                filters.Add("`callout_id` <= @id_max");
+
+            filters.Add("`call`.call_time_created >= @time_from");
+            filters.Add("`call`.call_time_created <= @time_to");
+
+            string filter = "WHERE " + String.Join(" AND ", filters);
+            if (filters.Count == 0)
+                filter = "";
+
+            List<MySqlParameter> p = new List<MySqlParameter>();
+
+            p.Add(new MySqlParameter("@addy", "%" + CalloutAddress + "%"));
+            p.Add(new MySqlParameter("@rs", "%" + CalloutReason + "%"));
+            p.Add(new MySqlParameter("@cm", "%" + CalloutComment + "%"));
+            p.Add(new MySqlParameter("@tc_min", CalloutTimeCreated.Min));
+            p.Add(new MySqlParameter("@tc_max", CalloutTimeCreated.Max));
+            p.Add(new MySqlParameter("@id_min", CalloutIDRange.Min));
+            p.Add(new MySqlParameter("@id_max", CalloutIDRange.Max));
+            p.Add(new MySqlParameter("@c", CalloutCanceled));
 
             return new Tuple<string, List<MySqlParameter>>(filter, p);
         }
@@ -349,6 +425,79 @@ namespace AmbulanceDispatcherApp
         {
             var filter = GetSQLFilter();
             var cmd = new MySqlCommand($"SELECT `hospital`.* FROM `hospital` {filter.Item1}", conn);
+            cmd.Parameters.AddRange(filter.Item2.ToArray());
+
+            return cmd;
+        }
+    }
+
+    public class DepartureFilters : IFilters
+    {
+        public (DateTime? Min, DateTime? Max) DepartureTimeDeparted;
+        public (DateTime? Min, DateTime? Max) DepartureTimeArrived;
+        public (float? Min, float? Max) DepartureMileageKM;
+        public string? DepartureFromAddress;
+        public string? DepartureToAddress;
+        public (int? Min, int? Max) CalloutID;
+
+        public Tuple<string, List<MySqlParameter>> GetSQLFilter()
+        {
+            List<string> filters = new List<string>();
+
+            if (DepartureTimeDeparted.Min != null)
+                filters.Add("`departure_time_departed` >= @dtd_min");
+
+            if (DepartureTimeDeparted.Min != null)
+                filters.Add("`departure_time_departed` <= @dtd_max");
+
+            if (DepartureTimeArrived.Min != null)
+                filters.Add("`departure_time_arrived` >= @dta_min");
+
+            if (DepartureTimeArrived.Max != null)
+                filters.Add("`departure_time_arrived` <= @dta_max");
+
+            if (DepartureMileageKM.Min != null)
+                filters.Add("`departure_mileage_km` >= @dm_min");
+
+            if (DepartureMileageKM.Max != null)
+                filters.Add("`departure_mileage_km` <= @dm_max");
+
+            if (DepartureFromAddress != null)
+                filters.Add("`departure_from_address` >= @from_addy");
+            
+            if (DepartureToAddress != null)
+                filters.Add("`departure_to_address` >= @to_addy");
+
+            if (CalloutID.Min.HasValue)
+                filters.Add("`callout_id` >= @callout_min");
+
+            if (CalloutID.Max.HasValue)
+                filters.Add("`callout_id` <= @callout_max");
+
+            string filter = "WHERE " + String.Join(" AND ", filters);
+            if (filters.Count == 0)
+                filter = "";
+
+            List<MySqlParameter> p = new List<MySqlParameter>();
+
+            p.Add(new MySqlParameter("@dtd_min", DepartureTimeDeparted.Min));
+            p.Add(new MySqlParameter("@dtd_max", DepartureTimeDeparted.Max));
+            p.Add(new MySqlParameter("@dta_min", DepartureTimeArrived.Min));
+            p.Add(new MySqlParameter("@dta_max", DepartureTimeArrived.Max));
+            p.Add(new MySqlParameter("@dm_min", DepartureMileageKM.Min));
+            p.Add(new MySqlParameter("@dm_max", DepartureMileageKM.Max));
+            p.Add(new MySqlParameter("@from_addy", "%" + DepartureFromAddress + "%"));
+            p.Add(new MySqlParameter("@to_addy", "%" + DepartureToAddress + "%"));
+            p.Add(new MySqlParameter("@callout_min", CalloutID.Min));
+            p.Add(new MySqlParameter("@callout_max", CalloutID.Max));
+
+            return new Tuple<string, List<MySqlParameter>>(filter, p);
+        }
+
+        public MySqlCommand GetSQLCommand(MySqlConnection conn)
+        {
+            var filter = GetSQLFilter();
+            var cmd = new MySqlCommand($"SELECT `departure`.* FROM `departure` {filter.Item1}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;

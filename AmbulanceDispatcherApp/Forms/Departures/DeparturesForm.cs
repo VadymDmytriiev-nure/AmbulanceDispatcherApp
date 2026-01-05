@@ -7,23 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AmbulanceDispatcherApp.Forms.Substation;
+using AmbulanceDispatcherApp.Forms.Brigade;
 using MySql.Data.MySqlClient;
 
-namespace AmbulanceDispatcherApp.Forms.Brigade
+namespace AmbulanceDispatcherApp.Forms.Departures
 {
-    public partial class BrigadesForm : Form
+    public partial class DeparturesForm : Form
     {
-        BrigadeFilters filters = new BrigadeFilters();
-        
-        public BrigadesForm(bool readOnly)
+        DepartureFilters filters = new DepartureFilters();
+
+        public DeparturesForm(bool readOnly)
         {
             InitializeComponent();
 
             datagridview_main.AutoGenerateColumns = false;
-            datagridview_main.DataSource = Program.SqlBrigadeTable;
-            datagridview_main.Sort(column_substation_code, ListSortDirection.Ascending);
-
+            datagridview_main.DataSource = Program.SqlDepartureTable;
+            datagridview_main.Sort(column_callout_id, ListSortDirection.Ascending);
+            
             if (readOnly)
             {
                 button_refresh.Visible = false;
@@ -39,7 +39,7 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
 
         private void button_crud_create_Click(object sender, EventArgs e)
         {
-            CreateEditBrigadeForm subform = new CreateEditBrigadeForm(false, null);
+            CreateEditDepartureForm subform = new CreateEditDepartureForm(false, null);
             subform.ShowDialog();
         }
 
@@ -49,10 +49,10 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
                 return;
 
             var row_data = datagridview_main.SelectedRows[0].DataBoundItem as DataRowView;
-            CreateEditBrigadeForm subform = new CreateEditBrigadeForm(true, row_data);
+            CreateEditDepartureForm subform = new CreateEditDepartureForm(true, row_data);
             subform.ShowDialog();
         }
-
+        
         private void button_crud_delete_Click(object sender, EventArgs e)
         {
             if (datagridview_main.SelectedRows.Count == 0)
@@ -60,43 +60,43 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
 
             var row_data = datagridview_main.SelectedRows[0].DataBoundItem as DataRowView;
 
-            if (MessageBox.Show($"Підтвердити видалення бригади {row_data!["brigade_code"]} на підстанції по адресі {row_data!["substation_address"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show($"Підтвердити видалення виїзду по виклику {row_data!["callout_id"]} до адреси {row_data!["departure_to_address"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                MySqlCommand cmd = new MySqlCommand("DELETE FROM `brigade` WHERE `brigade_id` = @id", Program.SqlConnection);
-                cmd.Parameters.AddWithValue("@id", row_data!["brigade_id"] as int?);
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM `departure` WHERE `departure_id` = @id", Program.SqlConnection);
+                cmd.Parameters.AddWithValue("@id", row_data!["departure_id"] as int?);
                 try
                 {
                     cmd.ExecuteNonQuery();
                 }
                 catch
                 {
-                    MessageBox.Show("Не вдалося видалити дану бригаду. Скоріш за все, дані цієї бригади ще використовуються.", "Помилка видалення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Не вдалося видалити даний виїзд. Скоріш за все, дані цього виїзду ще використовуються в іншому місці.", "Помилка видалення", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                
-                Program.SyncTableBrigade();
+
+                Program.SyncTableDeparture();
             }
         }
 
         private void button_filters_reset_Click(object sender, EventArgs e)
         {
-            filters = new BrigadeFilters();
-            datagridview_main.DataSource = Program.SqlBrigadeTable;
+            filters = new DepartureFilters();
+            datagridview_main.DataSource = Program.SqlDepartureTable;
         }
 
         private void button_filters_Click(object sender, EventArgs e)
         {
-            BrigadeFiltersForm filtersForm = new BrigadeFiltersForm(filters);
+            DepartureFiltersForm filtersForm = new DepartureFiltersForm(filters);
             if (filtersForm.ShowDialog() == DialogResult.OK)
             {
                 filters = filtersForm.Filters;
                 MySqlCommand command = filters.GetSQLCommand(Program.SqlConnection);
-                Program.SqlFilteredBrigadeAdapter = new MySqlDataAdapter(command);
-                Program.SqlFilteredBrigadeAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
-                Program.SqlFilteredBrigadeTable = new DataTable();
-                Program.SqlFilteredBrigadeAdapter.Fill(Program.SqlFilteredBrigadeTable);
-                datagridview_main.DataSource = Program.SqlFilteredBrigadeTable;
-                datagridview_main.Sort(column_brigade_code, ListSortDirection.Ascending);
+                Program.SqlFilteredDepartureAdapter = new MySqlDataAdapter(command);
+                Program.SqlFilteredDepartureAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                Program.SqlFilteredDepartureTable = new DataTable();
+                Program.SqlFilteredDepartureAdapter.Fill(Program.SqlFilteredDepartureTable);
+                datagridview_main.DataSource = Program.SqlFilteredDepartureTable;
+                datagridview_main.Sort(column_callout_id, ListSortDirection.Ascending);
             }
         }
 
@@ -107,7 +107,10 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
                 foreach (DataGridViewRow row in datagridview_main.Rows)
                 {
                     var row_data = row.DataBoundItem as DataRowView;
-                    bool isGreen = (row_data!["brigade_code"] as string)!.ToLower().Contains(textbox_search.Text.ToLower());
+                    bool isGreen = (row_data!["departure_time_departed"] as string)!.ToLower().Contains(textbox_search.Text.ToLower())
+                                || (row_data!["departure_time_arrived"] as string)!.ToLower().Contains(textbox_search.Text.ToLower())
+                                || (row_data!["departure_from_address"] as string)!.ToLower().Contains(textbox_search.Text.ToLower())
+                                || (row_data!["departure_to_address"] as string)!.ToLower().Contains(textbox_search.Text.ToLower());
 
                     row.DefaultCellStyle.BackColor = isGreen ? Color.DarkGreen : Color.DarkRed;
                 }

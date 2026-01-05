@@ -15,6 +15,7 @@ using AmbulanceDispatcherApp.Forms.Patient;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
 using AmbulanceDispatcherApp.Forms.Hospital;
+using AmbulanceDispatcherApp.Forms.Departures;
 
 namespace AmbulanceDispatcherApp
 {
@@ -24,12 +25,14 @@ namespace AmbulanceDispatcherApp
         EditCallForm editCallForm = null;
         ViewCallForm viewCallForm = null;
         PatientsForm patientsForm = null;
+        DeparturesForm departuresForm = null;
         WorkersForm workersForm = null;
         HospitalsForm hospitalsForm = null;
         SubstationsForm substationsForm = null;
         BrigadesForm brigadesForm = null;
 
         CallFilters callFilters = new CallFilters();
+        CalloutFilters calloutFilters = new CalloutFilters();
 
         private bool loggingOut = false;
 
@@ -223,7 +226,7 @@ namespace AmbulanceDispatcherApp
         {
             if (patientsForm == null || patientsForm.IsDisposed)
             {
-                patientsForm = new PatientsForm(Program.SqlRole != "Адміністратор");
+                patientsForm = new PatientsForm(false);
                 patientsForm.Show();
             }
             else
@@ -232,14 +235,20 @@ namespace AmbulanceDispatcherApp
 
         private void button_view_departures_Click(object sender, EventArgs e)
         {
-
+            if (departuresForm == null || departuresForm.IsDisposed)
+            {
+                departuresForm = new DeparturesForm(Program.SqlRole != "Адміністратор" && Program.SqlRole != "Диспетчер");
+                departuresForm.Show();
+            }
+            else
+                departuresForm.Focus();
         }
 
         private void button_view_hospitals_Click(object sender, EventArgs e)
         {
             if (hospitalsForm == null || hospitalsForm.IsDisposed)
             {
-                hospitalsForm = new HospitalsForm(Program.SqlRole != "Адміністратор");
+                hospitalsForm = new HospitalsForm(false);
                 hospitalsForm.Show();
             }
             else
@@ -279,6 +288,24 @@ namespace AmbulanceDispatcherApp
                 substationsForm.Focus();
         }
 
+        private void button_callout_view_Click(object sender, EventArgs e)
+        {
+            CreateEditViewCallForm f = new CreateEditViewCallForm(CreateEditViewCallFormMode.View, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
+            f.Show();
+        }
+
+        private void button_callout_create_Click(object sender, EventArgs e)
+        {
+            CreateEditViewCallForm f = new CreateEditViewCallForm(CreateEditViewCallFormMode.Create);
+            f.Show();
+        }
+
+        private void button_callout_edit_Click(object sender, EventArgs e)
+        {
+            CreateEditViewCallForm f = new CreateEditViewCallForm(CreateEditViewCallFormMode.Edit, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
+            f.Show();
+        }
+
         private void button_callout_delete_Click(object sender, EventArgs e)
         {
             if (datagridview_callout.SelectedRows.Count == 0)
@@ -301,6 +328,16 @@ namespace AmbulanceDispatcherApp
                 }
                 Program.SyncTableCallout();
             }
+        }
+
+        private void button_callout_filters_reset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_callout_filters_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
