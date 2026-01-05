@@ -32,7 +32,7 @@ namespace AmbulanceDispatcherApp.Forms.Substation
         {
             InitializeComponent();
 
-            if(existingFilters != null)
+            if (existingFilters != null)
             {
                 textbox_address.Text = existingFilters.SubstationAddress;
                 textbox_code.Text = existingFilters.SubstationCode;
@@ -41,13 +41,18 @@ namespace AmbulanceDispatcherApp.Forms.Substation
 
         private void button_save_Click(object sender, EventArgs e)
         {
-            if(textbox_address.Text.Trim().Length > 0)
+            if (textbox_address.Text.Trim().Length > 0)
                 Address = textbox_address.Text;
 
             if (textbox_code.Text.Trim().Length > 0)
                 Code = textbox_code.Text;
 
             DialogResult = DialogResult.OK;
+        }
+
+        private void button_cancel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

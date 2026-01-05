@@ -453,23 +453,52 @@ namespace AmbulanceDispatcherApp
             if (table.PrimaryKey.Length == 0)
                 throw new InvalidOperationException("PrimaryKey required");
 
-            var pkCol = table.PrimaryKey[0];
-
-            foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
+            else if (table.PrimaryKey.Length == 1)
             {
-                var key = row[pkCol, DataRowVersion.Original];
+                var pkCol = table.PrimaryKey[0];
 
-                if (incoming.Rows.Find(key) == null)
-                    row.Delete();
+                foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
+                {
+                    var key = row[pkCol, DataRowVersion.Original];
+
+                    if (incoming.Rows.Find(key) == null)
+                        row.Delete();
+                }
+
+                foreach (DataRow src in incoming.Rows)
+                {
+                    var dst = table.Rows.Find(src[src.Table.PrimaryKey[0]]);
+                    if (dst == null)
+                        table.ImportRow(src);
+                    else
+                        dst.ItemArray = src.ItemArray;
+                }
             }
-
-            foreach (DataRow src in incoming.Rows)
+            else if (table.PrimaryKey.Length == 2)
             {
-                var dst = table.Rows.Find(src[src.Table.PrimaryKey[0]]);
-                if (dst == null)
-                    table.ImportRow(src);
-                else
-                    dst.ItemArray = src.ItemArray;
+                var pkCol1 = table.PrimaryKey[0];
+                var pkCol2 = table.PrimaryKey[1];
+
+                foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
+                {
+                    var key1 = row[pkCol1, DataRowVersion.Original];
+                    var key2 = row[pkCol2, DataRowVersion.Original];
+
+                    if (incoming.Rows.Find(new object[] { key1, key2 }) == null)
+                        row.Delete();
+                }
+
+                foreach (DataRow src in incoming.Rows)
+                {
+                    var key1 = src[pkCol1, DataRowVersion.Original];
+                    var key2 = src[pkCol2, DataRowVersion.Original];
+
+                    var dst = table.Rows.Find(new object[] { key1, key2 });
+                    if (dst == null)
+                        table.ImportRow(src);
+                    else
+                        dst.ItemArray = src.ItemArray;
+                }
             }
 
             table.EndLoadData();

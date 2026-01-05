@@ -45,7 +45,7 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
 
             textbox_code.Text = existingFilters.BrigadeCode as string;
             textbox_type.Text = existingFilters.BrigadeType as string;
-            if(existingFilters.BrigadeSubstationId != null)
+            if (existingFilters.BrigadeSubstationId != null)
                 combo_substation.SelectedValue = (existingFilters.BrigadeSubstationId as int?)!;
         }
 
@@ -60,6 +60,11 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
             BrigadeSubstationId = combo_substation.SelectedIndex == -1 || combo_substation.SelectedValue == null ? null : (combo_substation.SelectedValue as int?)!;
 
             DialogResult = DialogResult.OK;
+        }
+
+        private void button_cancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

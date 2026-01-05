@@ -13,17 +13,17 @@ namespace AmbulanceDispatcherApp.Forms.Workers
 {
     public partial class WorkerFiltersForm : Form
     {
-        public int? ID;
+        public int? WorkerID;
         public int? BrigadeID;
-        public string? Surname;
-        new public string? Name;
-        public string? Patriarchic;
-        public string? Tel;
-        public char? Sex;
-        public string? KPP;
-        public string? License;
-        public string? Role;
-        public (DateTime? Min, DateTime? Max) DOB;
+        public string? WorkerSurname;
+        public string? WorkerName;
+        public string? WorkerPatriarchic;
+        public string? WorkerTel;
+        public char? WorkerSex;
+        public string? WorkerKPP;
+        public string? WorkerLicense;
+        public string? WorkerRole;
+        public (DateTime? Min, DateTime? Max) WorkerDOB;
 
         public WorkerFilters Filters
         {
@@ -31,16 +31,16 @@ namespace AmbulanceDispatcherApp.Forms.Workers
             {
                 return new WorkerFilters()
                 {
-                    ID = ID,
-                    Name = Name,
-                    Surname = Surname,
-                    Patriarchic = Patriarchic,
-                    Sex = Sex,
-                    Tel = Tel,
-                    DOB = DOB,
-                    KPP = KPP,
-                    License = License,
-                    Role = Role,
+                    WorkerID = WorkerID,
+                    WorkerName = WorkerName,
+                    WorkerSurname = WorkerSurname,
+                    WorkerPatriarchic = WorkerPatriarchic,
+                    WorkerSex = WorkerSex,
+                    WorkerTel = WorkerTel,
+                    WorkerDOB = WorkerDOB,
+                    WorkerKPP = WorkerKPP,
+                    WorkerLicense = WorkerLicense,
+                    WorkerRole = WorkerRole,
                     BrigadeID = BrigadeID,
                 };
             }
@@ -62,17 +62,17 @@ namespace AmbulanceDispatcherApp.Forms.Workers
             if (existingFilters == null)
                 return;
 
-            textbox_surname.Text = existingFilters.Surname ?? "";
-            textbox_name.Text = existingFilters.Name ?? "";
-            textbox_patriarchic.Text = existingFilters.Patriarchic ?? "";
-            textbox_tel.Text = existingFilters.Tel ?? "";
-            textbox_kpp.Text = existingFilters.KPP ?? "";
-            textbox_role.Text = existingFilters.Role ?? "";
-            textbox_license.Text = existingFilters.License ?? "";
+            textbox_surname.Text = existingFilters.WorkerSurname ?? "";
+            textbox_name.Text = existingFilters.WorkerName ?? "";
+            textbox_patriarchic.Text = existingFilters.WorkerPatriarchic ?? "";
+            textbox_tel.Text = existingFilters.WorkerTel ?? "";
+            textbox_kpp.Text = existingFilters.WorkerKPP ?? "";
+            textbox_role.Text = existingFilters.WorkerRole ?? "";
+            textbox_license.Text = existingFilters.WorkerLicense ?? "";
 
-            if (existingFilters.Sex.HasValue)
+            if (existingFilters.WorkerSex.HasValue)
             {
-                switch (existingFilters.Sex.Value.ToString())
+                switch (existingFilters.WorkerSex.Value.ToString())
                 {
                     case "Ч":
                         radio_sex_male.Checked = true;
@@ -83,11 +83,11 @@ namespace AmbulanceDispatcherApp.Forms.Workers
                 }
             }
 
-            if (existingFilters.DOB.Min.HasValue)
-                datetime_dob_from.Value = existingFilters.DOB.Min.Value;
+            if (existingFilters.WorkerDOB.Min.HasValue)
+                datetime_dob_from.Value = existingFilters.WorkerDOB.Min.Value;
 
-            if (existingFilters.DOB.Max.HasValue)
-                datetime_dob_to.Value = existingFilters.DOB.Max.Value;
+            if (existingFilters.WorkerDOB.Max.HasValue)
+                datetime_dob_to.Value = existingFilters.WorkerDOB.Max.Value;
 
             if (existingFilters.BrigadeID != null)
                 combo_brigade.SelectedValue = (existingFilters.BrigadeID as int?)!;
@@ -119,33 +119,33 @@ namespace AmbulanceDispatcherApp.Forms.Workers
             }
 
             if (textbox_surname.Text.Trim() != "")
-                Surname = textbox_surname.Text;
+                WorkerSurname = textbox_surname.Text;
 
             if (textbox_name.Text.Trim() != "")
-                Name = textbox_name.Text;
+                WorkerName = textbox_name.Text;
 
             if (textbox_patriarchic.Text.Trim() != "")
-                Patriarchic = textbox_patriarchic.Text;
+                WorkerPatriarchic = textbox_patriarchic.Text;
 
             if (textbox_tel.Text.Trim() != "")
-                Tel = textbox_tel.Text;
+                WorkerTel = textbox_tel.Text;
 
             if (textbox_kpp.Text.Trim() != "")
-                KPP = textbox_kpp.Text;
+                WorkerKPP = textbox_kpp.Text;
 
             if (textbox_license.Text.Trim() != "")
-                License = textbox_license.Text;
+                WorkerLicense = textbox_license.Text;
 
             if (textbox_role.Text.Trim() != "")
-                Role = textbox_role.Text;
+                WorkerRole = textbox_role.Text;
 
             if ((int)combo_brigade.SelectedValue! > 0)
                 BrigadeID = (int)combo_brigade.SelectedValue;
 
-            Sex = radio_sex_unknown.Checked ? null : (radio_sex_male.Checked ? 'Ч' : 'Ж');
+            WorkerSex = radio_sex_unknown.Checked ? null : (radio_sex_male.Checked ? 'Ч' : 'Ж');
 
-            DOB.Min = datetime_dob_from.Value;
-            DOB.Max = datetime_dob_to.Value;
+            WorkerDOB.Min = datetime_dob_from.Value;
+            WorkerDOB.Max = datetime_dob_to.Value;
 
             DialogResult = DialogResult.OK;
         }

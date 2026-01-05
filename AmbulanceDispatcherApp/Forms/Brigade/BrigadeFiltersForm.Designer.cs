@@ -52,6 +52,7 @@
             button_cancel.TabIndex = 38;
             button_cancel.Text = "Скасувати";
             button_cancel.UseVisualStyleBackColor = true;
+            button_cancel.Click += button_cancel_Click;
             // 
             // button_save
             // 
@@ -141,7 +142,7 @@
             Controls.Add(label_type);
             Controls.Add(label4);
             Font = new Font("Segoe UI", 12F);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             MinimumSize = new Size(330, 210);
             Name = "BrigadeFiltersForm";
             Text = "Бригади - Фільтри";

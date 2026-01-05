@@ -14,6 +14,7 @@ using AmbulanceDispatcherApp.Forms.Workers;
 using AmbulanceDispatcherApp.Forms.Patient;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
+using AmbulanceDispatcherApp.Forms.Hospital;
 
 namespace AmbulanceDispatcherApp
 {
@@ -24,6 +25,7 @@ namespace AmbulanceDispatcherApp
         ViewCallForm viewCallForm = null;
         PatientsForm patientsForm = null;
         WorkersForm workersForm = null;
+        HospitalsForm hospitalsForm = null;
         SubstationsForm substationsForm = null;
         BrigadesForm brigadesForm = null;
 
@@ -235,7 +237,13 @@ namespace AmbulanceDispatcherApp
 
         private void button_view_hospitals_Click(object sender, EventArgs e)
         {
-
+            if (hospitalsForm == null || hospitalsForm.IsDisposed)
+            {
+                hospitalsForm = new HospitalsForm(Program.SqlRole != "Адміністратор");
+                hospitalsForm.Show();
+            }
+            else
+                hospitalsForm.Focus();
         }
 
         private void button_view_workers_Click(object sender, EventArgs e)

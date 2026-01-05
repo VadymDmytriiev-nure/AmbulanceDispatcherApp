@@ -254,47 +254,47 @@ namespace AmbulanceDispatcherApp
 
     public class WorkerFilters : IFilters
     {
-        public int? ID;
-        public string? Name;
-        public string? Surname;
-        public string? Patriarchic;
-        public char? Sex;
-        public string? Tel;
-        public string? Role;
-        public string? KPP;
-        public string? License;
+        public int? WorkerID;
+        public string? WorkerName;
+        public string? WorkerSurname;
+        public string? WorkerPatriarchic;
+        public char? WorkerSex;
+        public string? WorkerTel;
+        public string? WorkerRole;
+        public string? WorkerKPP;
+        public string? WorkerLicense;
         public int? BrigadeID;
-        public (DateTime? Min, DateTime? Max) DOB;
+        public (DateTime? Min, DateTime? Max) WorkerDOB;
 
         public Tuple<string, List<MySqlParameter>> GetSQLFilter()
         {
             List<string> f = new();
 
-            if (ID != null) f.Add("worker_id = @id");
-            if (Name != null) f.Add("lower(worker_name) LIKE lower(@name)");
-            if (Surname != null) f.Add("lower(worker_surname) LIKE lower(@surname)");
-            if (Patriarchic != null) f.Add("lower(worker_patriarchic) LIKE lower(@pat)");
-            if (Sex != null) f.Add("lower(worker_sex) = lower(@sex)");
-            if (Tel != null) f.Add("worker_tel = @tel");
-            if (KPP != null) f.Add("lower(worker_kpp) LIKE lower(@kpp)");
-            if (Role != null) f.Add("lower(worker_role) LIKE lower(@role)");
-            if (License != null) f.Add("lower(worker_license) LIKE lower(@license)");
+            if (WorkerID != null) f.Add("worker_id = @id");
+            if (WorkerName != null) f.Add("lower(worker_name) LIKE lower(@name)");
+            if (WorkerSurname != null) f.Add("lower(worker_surname) LIKE lower(@surname)");
+            if (WorkerPatriarchic != null) f.Add("lower(worker_patriarchic) LIKE lower(@pat)");
+            if (WorkerSex != null) f.Add("lower(worker_sex) = lower(@sex)");
+            if (WorkerTel != null) f.Add("worker_tel = @tel");
+            if (WorkerKPP != null) f.Add("lower(worker_kpp) LIKE lower(@kpp)");
+            if (WorkerRole != null) f.Add("lower(worker_role) LIKE lower(@role)");
+            if (WorkerLicense != null) f.Add("lower(worker_license) LIKE lower(@license)");
             if (BrigadeID != null) f.Add("brigade_id = @brigade");
 
             string where = f.Count > 0 ? "WHERE " + string.Join(" AND ", f) : "";
 
             List<MySqlParameter> p = new()
             {
-                new("@id", ID),
-                new("@name", "%" + Name + "%"),
-                new("@surname", "%" + Surname + "%"),
-                new("@pat", "%" + Patriarchic + "%"),
-                new("@role", "%" + Role + "%"),
-                new("@kpp", "%" + KPP + "%"),
-                new("@license", "%" + License + "%"),
-                new("@sex", Sex),
-                new("@tel", Tel),
-                new("@role", "%" + Role + "%"),
+                new("@id", WorkerID),
+                new("@name", "%" + WorkerName + "%"),
+                new("@surname", "%" + WorkerSurname + "%"),
+                new("@pat", "%" + WorkerPatriarchic + "%"),
+                new("@role", "%" + WorkerRole + "%"),
+                new("@kpp", "%" + WorkerKPP + "%"),
+                new("@license", "%" + WorkerLicense + "%"),
+                new("@sex", WorkerSex),
+                new("@tel", WorkerTel),
+                new("@role", "%" + WorkerRole + "%"),
                 new("@brigade", BrigadeID)
             };
 
@@ -308,6 +308,49 @@ namespace AmbulanceDispatcherApp
                 $"SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker INNER JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id {f.Item1}",
                 conn);
             cmd.Parameters.AddRange(f.Item2.ToArray());
+            return cmd;
+        }
+    }
+
+    public class HospitalFilters : IFilters
+    {
+        public string? HospitalName;
+        public string? HospitalAddress;
+        public string? HospitalSpecialization;
+
+        public HospitalFilters() { }
+
+        public Tuple<string, List<MySqlParameter>> GetSQLFilter()
+        {
+            List<string> filters = new List<string>();
+            if (HospitalName != null)
+                filters.Add("lower(`hospital_name`) LIKE lower(@nm)");
+
+            if (HospitalAddress != null)
+                filters.Add("lower(`hospital_address`) LIKE lower(@ad)");
+
+            if (HospitalSpecialization != null)
+                filters.Add("lower(`hospital_specialization`) LIKE lower(@sp)");
+
+            string filter = "WHERE " + String.Join(" AND ", filters);
+            if (filters.Count == 0)
+                filter = "";
+
+            List<MySqlParameter> p = new List<MySqlParameter>();
+
+            p.Add(new MySqlParameter("@nm", "%" + HospitalName + "%"));
+            p.Add(new MySqlParameter("@ad", "%" + HospitalAddress + "%"));
+            p.Add(new MySqlParameter("@sp", "%" + HospitalSpecialization + "%"));
+
+            return new Tuple<string, List<MySqlParameter>>(filter, p);
+        }
+
+        public MySqlCommand GetSQLCommand(MySqlConnection conn)
+        {
+            var filter = GetSQLFilter();
+            var cmd = new MySqlCommand($"SELECT `hospital`.* FROM `hospital` {filter.Item1}", conn);
+            cmd.Parameters.AddRange(filter.Item2.ToArray());
+
             return cmd;
         }
     }

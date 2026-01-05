@@ -73,7 +73,7 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
                 command.Parameters.AddWithValue("@substation_id", (brigade!["substation_id"] as int?)!);
                 command.Parameters.AddWithValue("@id", (brigade!["brigade_id"] as int?)!);
 
-                command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
             else
             {
@@ -87,7 +87,7 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
                 command.Parameters.AddWithValue("@br_type", textbox_type.Text.Trim());
                 command.Parameters.AddWithValue("@code", textbox_code.Text.Trim());
 
-                command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
 
             Program.SyncTableBrigade();
