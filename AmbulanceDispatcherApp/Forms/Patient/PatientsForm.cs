@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AmbulanceDispatcherApp.Forms.Brigade;
 using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp.Forms.Patient
@@ -39,7 +40,11 @@ namespace AmbulanceDispatcherApp.Forms.Patient
 
         private void button_crud_edit_Click(object sender, EventArgs e)
         {
-            CreateEditPatientForm subform = new CreateEditPatientForm(false, null);
+            if (datagridview_main.SelectedRows.Count == 0)
+                return;
+
+            var row_data = datagridview_main.SelectedRows[0].DataBoundItem as DataRowView;
+            CreateEditPatientForm subform = new CreateEditPatientForm(true, row_data);
             subform.ShowDialog();
         }
 

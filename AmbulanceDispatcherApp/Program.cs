@@ -453,14 +453,15 @@ namespace AmbulanceDispatcherApp
             if (table.PrimaryKey.Length == 0)
                 throw new InvalidOperationException("PrimaryKey required");
 
-            foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
-                if (incoming.Rows.Find(row[table.PrimaryKey[0]]) == null)
-                    row.Delete();
+            var pkCol = table.PrimaryKey[0];
 
-            var pkNames = table.PrimaryKey.Select(c => c.ColumnName).ToArray();
-            incoming.PrimaryKey = pkNames
-                .Select(name => incoming.Columns[name])
-                .ToArray()!;
+            foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
+            {
+                var key = row[pkCol, DataRowVersion.Original];
+
+                if (incoming.Rows.Find(key) == null)
+                    row.Delete();
+            }
 
             foreach (DataRow src in incoming.Rows)
             {

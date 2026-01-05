@@ -96,7 +96,7 @@ namespace AmbulanceDispatcherApp.Forms.Patient
                 command.Parameters.AddWithValue("@sex", radio_sex_male.Checked ? "Ч" : "Ж");
                 command.Parameters.AddWithValue("@id", (int)patient!["patient_id"]);
 
-                command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
             else
             {
@@ -113,7 +113,7 @@ namespace AmbulanceDispatcherApp.Forms.Patient
                 command.Parameters.AddWithValue("@dob", datetime_dob.Value.Date);
                 command.Parameters.AddWithValue("@sex", radio_sex_male.Checked ? "Ч" : "Ж");
 
-                command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
 
             Program.SyncTablePatient();
