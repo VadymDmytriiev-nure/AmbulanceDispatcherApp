@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Media;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace AmbulanceDispatcherApp
 {
@@ -364,7 +365,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveWorkers()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `worker` LIMIT 200", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker INNER JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id", SqlConnection);
             SqlWorkerAdapter = new MySqlDataAdapter(command);
             SqlWorkerTable = new DataTable();
             SqlWorkerAdapter.Fill(SqlWorkerTable);
@@ -398,7 +399,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrievePatients()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `patient` LIMIT 200", SqlConnection);
+            MySqlCommand command = new MySqlCommand("SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname FROM `patient` LIMIT 200", SqlConnection);
             SqlPatientAdapter = new MySqlDataAdapter(command);
             SqlPatientTable = new DataTable();
             SqlPatientAdapter.Fill(SqlPatientTable);
@@ -439,78 +440,121 @@ namespace AmbulanceDispatcherApp
                 a.Aggregate(17, (h, v) => h * 31 + v.GetHashCode());
         }
 
-
-        private static void SyncTable(MySqlDataAdapter adapter, DataTable table)
+        public static void SyncTable(MySqlDataAdapter adapter, DataTable table)
         {
             if (adapter == null || table == null)
                 return;
 
-            adapter.Fill(table);
+            var incoming = table.Clone();
+            adapter.Fill(incoming);
 
-            // вся ця ***** для видалення рядків, які були видалені на віддаленій БД, але не на локальній машині
-            var newData = new DataTable();
-            adapter.Fill(newData);
+            table.BeginLoadData();
 
-            if (table.PrimaryKey.Length == 1)
+            if (table.PrimaryKey.Length == 0)
+                throw new InvalidOperationException("PrimaryKey required");
+
+            foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
+                if (incoming.Rows.Find(row[table.PrimaryKey[0]]) == null)
+                    row.Delete();
+
+            var pkNames = table.PrimaryKey.Select(c => c.ColumnName).ToArray();
+            incoming.PrimaryKey = pkNames
+                .Select(name => incoming.Columns[name])
+                .ToArray()!;
+
+            foreach (DataRow src in incoming.Rows)
             {
-                HashSet<int?> existing;
-                HashSet<int?> returned;
-                existing = table.AsEnumerable().Select(r => r.Field<int?>(table.PrimaryKey[0].ColumnName)).ToHashSet();
-                returned = newData.AsEnumerable().Select(r => r.Field<int?>(table.PrimaryKey[0].ColumnName)).ToHashSet();
-
-                foreach (var id in existing.Where(id => !returned.Contains(id)))
-                {
-                    var row = table.Rows.Find(id);
-                    if(row != null)
-                        table.Rows.Remove(row!);
-                }
-                    
+                var dst = table.Rows.Find(src[src.Table.PrimaryKey[0]]);
+                if (dst == null)
+                    table.ImportRow(src);
+                else
+                    dst.ItemArray = src.ItemArray;
             }
-            else if (table.PrimaryKey.Length == 2)
-            {
-                int[] pk(DataRow row) => table.PrimaryKey.Select(k => k.ColumnName).Select(k => row.Field<int>(k)).ToArray();
-                var existing = table.AsEnumerable().Select(pk).ToHashSet(new StructuralComparer());
-                var returned = newData.AsEnumerable().Select(pk).ToHashSet(new StructuralComparer());
 
-                foreach (var id in existing.Where(id => !returned.Contains(id)))
-                {
-                    var row = table.Rows.Find(id);
-                    if (row != null)
-                        table.Rows.Remove(row!);
-                }
-            }
+            table.EndLoadData();
+        }
+
+        public static void SyncTableCall()
+        {
+            SyncTable(Program.SqlCallAdapter, Program.SqlCallTable);
+            if (SqlFilteredCallAdapter != SqlCallAdapter)
+                SyncTable(Program.SqlFilteredCallAdapter, Program.SqlFilteredCallTable);
+        }
+
+        public static void SyncTableCallout()
+        {
+            SyncTable(Program.SqlCalloutAdapter, Program.SqlCalloutTable);
+            if (SqlFilteredCalloutAdapter != SqlCalloutAdapter)
+                SyncTable(Program.SqlFilteredCalloutAdapter, Program.SqlFilteredCalloutTable);
+        }
+
+        public static void SyncTableDispatcher()
+        {
+            SyncTable(Program.SqlDispatcherAdapter, Program.SqlDispatcherTable);
+            if (SqlFilteredDispatcherAdapter != SqlDispatcherAdapter)
+                SyncTable(Program.SqlFilteredDispatcherAdapter, Program.SqlFilteredDispatcherTable);
+        }
+
+        public static void SyncTableSubstation()
+        {
+            SyncTable(Program.SqlSubstationAdapter, Program.SqlSubstationTable);
+            if (SqlFilteredSubstationAdapter != SqlSubstationAdapter)
+                SyncTable(Program.SqlFilteredSubstationAdapter, Program.SqlFilteredSubstationTable);
+        }
+
+        public static void SyncTableHospital()
+        {
+            SyncTable(Program.SqlHospitalAdapter, Program.SqlHospitalTable);
+            if (SqlFilteredHospitalAdapter != SqlHospitalAdapter)
+                SyncTable(Program.SqlFilteredHospitalAdapter, Program.SqlFilteredHospitalTable);
+        }
+
+        public static void SyncTableBrigade()
+        {
+            SyncTable(Program.SqlBrigadeAdapter, Program.SqlBrigadeTable);
+            if (SqlFilteredBrigadeAdapter != SqlBrigadeAdapter)
+                SyncTable(Program.SqlFilteredBrigadeAdapter, Program.SqlFilteredBrigadeTable);
+        }
+
+        public static void SyncTableWorker()
+        {
+            SyncTable(Program.SqlWorkerAdapter, Program.SqlWorkerTable);
+            if (SqlFilteredWorkerAdapter != SqlWorkerAdapter)
+                SyncTable(Program.SqlFilteredWorkerAdapter, Program.SqlFilteredWorkerTable);
+        }
+
+        public static void SyncTableDeparture()
+        {
+            SyncTable(Program.SqlDepartureAdapter, Program.SqlDepartureTable);
+            if (SqlFilteredDepartureAdapter != SqlDepartureAdapter)
+                SyncTable(Program.SqlFilteredDepartureAdapter, Program.SqlFilteredDepartureTable);
+        }
+
+        public static void SyncTablePatient()
+        {
+            SyncTable(Program.SqlPatientAdapter, Program.SqlPatientTable);
+            if (SqlFilteredPatientAdapter != SqlPatientAdapter)
+                SyncTable(Program.SqlFilteredPatientAdapter, Program.SqlFilteredPatientTable);
+        }
+
+        public static void SyncTableUsers()
+        {
+            SyncTable(Program.SqlUsersAdapter, Program.SqlUsersTable);
+            if (SqlFilteredUsersAdapter != SqlUsersAdapter)
+                SyncTable(Program.SqlFilteredUsersAdapter, Program.SqlFilteredUsersTable);
         }
 
         public static void SyncWithRemote()
         {
-            SyncTable(Program.SqlCallAdapter, Program.SqlCallTable);
-            SyncTable(Program.SqlCalloutAdapter, Program.SqlCalloutTable);
-            SyncTable(Program.SqlDispatcherAdapter, Program.SqlDispatcherTable);
-            SyncTable(Program.SqlHospitalAdapter, Program.SqlHospitalTable);
-            SyncTable(Program.SqlBrigadeAdapter, Program.SqlBrigadeTable);
-            SyncTable(Program.SqlWorkerAdapter, Program.SqlWorkerTable);
-            SyncTable(Program.SqlDepartureAdapter, Program.SqlDepartureTable);
-            SyncTable(Program.SqlPatientAdapter, Program.SqlPatientTable);
-            SyncTable(Program.SqlUsersAdapter, Program.SqlUsersTable);
-
-            if(SqlFilteredCallAdapter != SqlCallAdapter)
-                SyncTable(Program.SqlFilteredCallAdapter, Program.SqlFilteredCallTable);
-            if (SqlFilteredCallAdapter != SqlCalloutAdapter)
-                SyncTable(Program.SqlFilteredCalloutAdapter, Program.SqlFilteredCalloutTable);
-            if (SqlFilteredCallAdapter != SqlDispatcherAdapter)
-                SyncTable(Program.SqlFilteredDispatcherAdapter, Program.SqlFilteredDispatcherTable);
-            if (SqlFilteredCallAdapter != SqlHospitalAdapter)
-                SyncTable(Program.SqlFilteredHospitalAdapter, Program.SqlFilteredHospitalTable);
-            if (SqlFilteredCallAdapter != SqlBrigadeAdapter)
-                SyncTable(Program.SqlFilteredBrigadeAdapter, Program.SqlFilteredBrigadeTable);
-            if (SqlFilteredCallAdapter != SqlWorkerAdapter)
-                SyncTable(Program.SqlFilteredWorkerAdapter, Program.SqlFilteredWorkerTable);
-            if (SqlFilteredDepartureAdapter != SqlDepartureAdapter)
-                SyncTable(Program.SqlFilteredDepartureAdapter, Program.SqlFilteredDepartureTable);
-            if (SqlFilteredPatientAdapter != SqlPatientAdapter)
-                SyncTable(Program.SqlFilteredPatientAdapter, Program.SqlFilteredPatientTable);
-            if (SqlFilteredUsersAdapter != SqlUsersAdapter)
-                SyncTable(Program.SqlFilteredUsersAdapter, Program.SqlFilteredUsersTable);
+            SyncTableCall();
+            SyncTableCallout();
+            SyncTableDispatcher();
+            SyncTableSubstation();
+            SyncTableBrigade();
+            SyncTableHospital();
+            SyncTableDeparture();
+            SyncTablePatient();
+            SyncTableUsers();
         }
 
         [STAThread]

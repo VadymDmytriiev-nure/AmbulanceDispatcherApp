@@ -110,7 +110,7 @@ namespace AmbulanceDispatcherApp
             command.Parameters.AddWithValue("@call_id", (call["call_id"] as int?)!);
 
             command.ExecuteNonQuery();
-            Program.SyncWithRemote();
+            Program.SyncTableCall();
             this.Close();
         }
 

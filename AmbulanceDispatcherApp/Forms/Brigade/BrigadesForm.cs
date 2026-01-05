@@ -62,8 +62,19 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
 
             if (MessageBox.Show($"Підтвердити видалення бригади {row_data!["brigade_code"]} на підстанції по адресі {row_data!["substation_address"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                row_data!.Delete();
-                Program.SyncWithRemote();
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM `brigade` WHERE `brigade_id` = @id", Program.SqlConnection);
+                cmd.Parameters.AddWithValue("@id", row_data!["brigade_id"] as int?);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show("Не вдалося видалити дану бригаду. Скоріш за все, дані цієї бригада ще використовуються.", "Помилка видалення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                
+                Program.SyncTableBrigade();
             }
         }
 

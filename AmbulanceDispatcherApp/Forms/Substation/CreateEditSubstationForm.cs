@@ -80,7 +80,7 @@ namespace AmbulanceDispatcherApp.Forms.Substation
                 command.ExecuteNonQueryAsync();
             }
 
-            Program.SyncWithRemote();
+            Program.SyncTableSubstation();
             Close();
         }
     }

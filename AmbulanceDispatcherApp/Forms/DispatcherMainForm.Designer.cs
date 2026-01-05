@@ -74,9 +74,7 @@
             column_callout_comment = new DataGridViewTextBoxColumn();
             column_callout_canceled = new DataGridViewCheckBoxColumn();
             button_refresh = new Button();
-            checkbox_autoupdate = new CheckBox();
             button_logout = new Button();
-            timer_auto_refresh = new System.Windows.Forms.Timer(components);
             label3 = new Label();
             label_authorized_as = new Label();
             panel_refresh = new Panel();
@@ -472,6 +470,7 @@
             button_callout_delete.TabIndex = 12;
             button_callout_delete.Text = "Видалити";
             button_callout_delete.UseVisualStyleBackColor = true;
+            button_callout_delete.Click += button_callout_delete_Click;
             // 
             // button_callout_edit
             // 
@@ -570,27 +569,13 @@
             // button_refresh
             // 
             button_refresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_refresh.Location = new Point(3, 34);
+            button_refresh.Location = new Point(3, 3);
             button_refresh.Name = "button_refresh";
             button_refresh.Size = new Size(190, 46);
             button_refresh.TabIndex = 13;
             button_refresh.Text = "Оновити";
             button_refresh.UseVisualStyleBackColor = true;
             button_refresh.Click += button_refresh_Click;
-            // 
-            // checkbox_autoupdate
-            // 
-            checkbox_autoupdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            checkbox_autoupdate.AutoSize = true;
-            checkbox_autoupdate.Checked = true;
-            checkbox_autoupdate.CheckState = CheckState.Checked;
-            checkbox_autoupdate.Location = new Point(7, 3);
-            checkbox_autoupdate.Name = "checkbox_autoupdate";
-            checkbox_autoupdate.Size = new Size(192, 25);
-            checkbox_autoupdate.TabIndex = 3;
-            checkbox_autoupdate.Text = "Авто-оновлення даних";
-            checkbox_autoupdate.UseVisualStyleBackColor = true;
-            checkbox_autoupdate.CheckedChanged += checkbox_autoupdate_CheckedChanged;
             // 
             // button_logout
             // 
@@ -602,12 +587,6 @@
             button_logout.Text = "Вийти";
             button_logout.UseVisualStyleBackColor = true;
             button_logout.Click += button_logout_Click;
-            // 
-            // timer_auto_refresh
-            // 
-            timer_auto_refresh.Enabled = true;
-            timer_auto_refresh.Interval = 2000;
-            timer_auto_refresh.Tick += timer_auto_refresh_Tick;
             // 
             // label3
             // 
@@ -636,10 +615,9 @@
             panel_refresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel_refresh.BorderStyle = BorderStyle.Fixed3D;
             panel_refresh.Controls.Add(button_refresh);
-            panel_refresh.Controls.Add(checkbox_autoupdate);
             panel_refresh.Location = new Point(966, 12);
             panel_refresh.Name = "panel_refresh";
-            panel_refresh.Size = new Size(200, 88);
+            panel_refresh.Size = new Size(200, 57);
             panel_refresh.TabIndex = 26;
             // 
             // panel_otherdata
@@ -652,7 +630,7 @@
             panel_otherdata.Controls.Add(button_view_hospitals);
             panel_otherdata.Controls.Add(button_view_workers);
             panel_otherdata.Controls.Add(button_view_patients);
-            panel_otherdata.Location = new Point(966, 106);
+            panel_otherdata.Location = new Point(966, 75);
             panel_otherdata.Name = "panel_otherdata";
             panel_otherdata.Size = new Size(200, 318);
             panel_otherdata.TabIndex = 27;
@@ -756,7 +734,6 @@
             panel_callout_crud.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)datagridview_callout).EndInit();
             panel_refresh.ResumeLayout(false);
-            panel_refresh.PerformLayout();
             panel_otherdata.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -771,7 +748,6 @@
         private TextBox textbox_call_search;
         private Button button_call_create;
         private Button button_call_view;
-        private CheckBox checkbox_autoupdate;
         private Button button_logout;
         private Button button_refresh;
         private Button button_call_delete;
@@ -808,7 +784,6 @@
         private DataGridViewTextBoxColumn column_callout_reason;
         private DataGridViewTextBoxColumn column_callout_comment;
         private DataGridViewCheckBoxColumn column_callout_canceled;
-        private System.Windows.Forms.Timer timer_auto_refresh;
         private Label label3;
         private Label label_authorized_as;
         private Panel panel_refresh;

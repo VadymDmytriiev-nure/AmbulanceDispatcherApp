@@ -183,4 +183,132 @@ namespace AmbulanceDispatcherApp
             return cmd;
         }
     }
+
+    public class PatientFilters : IFilters
+    {
+        public int? PatientID;
+        public string? PatientSurname;
+        public string? PatientName;
+        public string? PatientPatriarchic;
+        public string? PatientTel;
+        public char? PatientSex;
+        public (DateTime? Min, DateTime? Max) PatientDOB;
+
+        public PatientFilters() { }
+
+        public Tuple<string, List<MySqlParameter>> GetSQLFilter()
+        {
+            List<string> filters = new List<string>();
+
+            if (PatientID != null)
+                filters.Add("`patient_id` = @id");
+
+            if (PatientSurname != null)
+                filters.Add("lower(`patient_name`) LIKE lower(@name)");
+
+            if (PatientName != null)
+                filters.Add("lower(`patient_surname`) LIKE lower(@surname)");
+
+            if (PatientPatriarchic != null)
+                filters.Add("lower(`patient_patriarchic`) LIKE lower(@patriarchic)");
+
+            if (PatientTel != null)
+                filters.Add("`tel` = @tel");
+
+            if (PatientSex != null)
+                filters.Add("lower(`patient_sex`) LIKE lower(@sex)");
+
+            if (PatientDOB.Min != null)
+                filters.Add("`patient_dob` >= @dob_min");
+
+            if (PatientDOB.Max != null)
+                filters.Add("`patient_dob` <= @dob_max");
+
+            string filter = "WHERE " + String.Join(" AND ", filters);
+            if (filters.Count == 0)
+                filter = "";
+
+            List<MySqlParameter> p = new List<MySqlParameter>();
+
+            p.Add(new MySqlParameter("@id", PatientID));
+            p.Add(new MySqlParameter("@name", "%" + PatientName + "%"));
+            p.Add(new MySqlParameter("@surname", "%" + PatientSurname + "%"));
+            p.Add(new MySqlParameter("@patriarchic", "%" + PatientPatriarchic + "%"));
+            p.Add(new MySqlParameter("@tel", PatientTel));
+            p.Add(new MySqlParameter("@dob_min", PatientDOB.Min));
+            p.Add(new MySqlParameter("@dob_max", PatientDOB.Max));
+            p.Add(new MySqlParameter("@sex", PatientSex));
+
+            return new Tuple<string, List<MySqlParameter>>(filter, p);
+        }
+
+        public MySqlCommand GetSQLCommand(MySqlConnection conn)
+        {
+            var filter = GetSQLFilter();
+            var cmd = new MySqlCommand($"SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname FROM `patient` {filter.Item1}", conn);
+            cmd.Parameters.AddRange(filter.Item2.ToArray());
+
+            return cmd;
+        }
+    }
+
+    public class WorkerFilters : IFilters
+    {
+        public int? ID;
+        public string? Name;
+        public string? Surname;
+        public string? Patriarchic;
+        public char? Sex;
+        public string? Tel;
+        public string? Role;
+        public string? KPP;
+        public string? License;
+        public int? BrigadeID;
+        public (DateTime? Min, DateTime? Max) DOB;
+
+        public Tuple<string, List<MySqlParameter>> GetSQLFilter()
+        {
+            List<string> f = new();
+
+            if (ID != null) f.Add("worker_id = @id");
+            if (Name != null) f.Add("lower(worker_name) LIKE lower(@name)");
+            if (Surname != null) f.Add("lower(worker_surname) LIKE lower(@surname)");
+            if (Patriarchic != null) f.Add("lower(worker_patriarchic) LIKE lower(@pat)");
+            if (Sex != null) f.Add("lower(worker_sex) = lower(@sex)");
+            if (Tel != null) f.Add("worker_tel = @tel");
+            if (KPP != null) f.Add("lower(worker_kpp) LIKE lower(@kpp)");
+            if (Role != null) f.Add("lower(worker_role) LIKE lower(@role)");
+            if (License != null) f.Add("lower(worker_license) LIKE lower(@license)");
+            if (BrigadeID != null) f.Add("brigade_id = @brigade");
+
+            string where = f.Count > 0 ? "WHERE " + string.Join(" AND ", f) : "";
+
+            List<MySqlParameter> p = new()
+            {
+                new("@id", ID),
+                new("@name", "%" + Name + "%"),
+                new("@surname", "%" + Surname + "%"),
+                new("@pat", "%" + Patriarchic + "%"),
+                new("@role", "%" + Role + "%"),
+                new("@kpp", "%" + KPP + "%"),
+                new("@license", "%" + License + "%"),
+                new("@sex", Sex),
+                new("@tel", Tel),
+                new("@role", "%" + Role + "%"),
+                new("@brigade", BrigadeID)
+            };
+
+            return new(where, p);
+        }
+
+        public MySqlCommand GetSQLCommand(MySqlConnection conn)
+        {
+            var f = GetSQLFilter();
+            var cmd = new MySqlCommand(
+                $"SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker INNER JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id {f.Item1}",
+                conn);
+            cmd.Parameters.AddRange(f.Item2.ToArray());
+            return cmd;
+        }
+    }
 }

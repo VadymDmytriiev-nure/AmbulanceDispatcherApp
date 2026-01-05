@@ -90,7 +90,7 @@ namespace AmbulanceDispatcherApp.Forms.Brigade
                 command.ExecuteNonQueryAsync();
             }
 
-            Program.SyncWithRemote();
+            Program.SyncTableBrigade();
             Close();
         }
 

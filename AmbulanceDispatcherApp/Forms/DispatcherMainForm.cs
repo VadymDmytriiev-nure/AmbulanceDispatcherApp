@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AmbulanceDispatcherApp.Forms;
 using AmbulanceDispatcherApp.Forms.Brigade;
+using AmbulanceDispatcherApp.Forms.Workers;
+using AmbulanceDispatcherApp.Forms.Patient;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Relational;
 
@@ -20,6 +22,8 @@ namespace AmbulanceDispatcherApp
         CreateCallForm createCallForm = null;
         EditCallForm editCallForm = null;
         ViewCallForm viewCallForm = null;
+        PatientsForm patientsForm = null;
+        WorkersForm workersForm = null;
         SubstationsForm substationsForm = null;
         BrigadesForm brigadesForm = null;
 
@@ -114,8 +118,18 @@ namespace AmbulanceDispatcherApp
 
             if (MessageBox.Show($"Підтвердити видалення дзвінку о {row_data!["call_time_created"]} по привіду {row_data!["call_reason"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                row_data!.Delete();
-                Program.SyncWithRemote();
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM `call` WHERE `call_id` = @id", Program.SqlConnection);
+                cmd.Parameters.AddWithValue("@id", row_data!["call_id"] as int?);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show("Не вдалося видалити даний дзвінок. Скоріш за все, дані цього дзвінку ще використовуються.", "Помилка видалення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                Program.SyncTableCall();
             }
         }
 
@@ -168,16 +182,6 @@ namespace AmbulanceDispatcherApp
             Program.SyncWithRemote();
         }
 
-        private void timer_auto_refresh_Tick(object sender, EventArgs e)
-        {
-            Program.SyncWithRemote();
-        }
-
-        private void checkbox_autoupdate_CheckedChanged(object sender, EventArgs e)
-        {
-            timer_auto_refresh.Enabled = checkbox_autoupdate.Checked;
-        }
-
         private void button_call_filters_Click(object sender, EventArgs e)
         {
             CallFiltersForm callFiltersForm = new CallFiltersForm(callFilters);
@@ -215,7 +219,13 @@ namespace AmbulanceDispatcherApp
 
         private void button_view_patients_Click(object sender, EventArgs e)
         {
-
+            if (patientsForm == null || patientsForm.IsDisposed)
+            {
+                patientsForm = new PatientsForm(Program.SqlRole != "Адміністратор");
+                patientsForm.Show();
+            }
+            else
+                patientsForm.Focus();
         }
 
         private void button_view_departures_Click(object sender, EventArgs e)
@@ -230,7 +240,13 @@ namespace AmbulanceDispatcherApp
 
         private void button_view_workers_Click(object sender, EventArgs e)
         {
-
+            if (workersForm == null || workersForm.IsDisposed)
+            {
+                workersForm = new WorkersForm(Program.SqlRole != "Адміністратор");
+                workersForm.Show();
+            }
+            else
+                workersForm.Focus();
         }
 
         private void button_view_brigades_Click(object sender, EventArgs e)
@@ -253,6 +269,30 @@ namespace AmbulanceDispatcherApp
             }
             else
                 substationsForm.Focus();
+        }
+
+        private void button_callout_delete_Click(object sender, EventArgs e)
+        {
+            if (datagridview_callout.SelectedRows.Count == 0)
+                return;
+
+            var row_data = datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView;
+
+            if (MessageBox.Show($"Підтвердити видалення виклику о {row_data!["callout_time_created"]} по привіду {row_data!["callout_reason"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM `callout` WHERE `callout_id` = @id", Program.SqlConnection);
+                cmd.Parameters.AddWithValue("@id", row_data!["callout_id"] as int?);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show("Не вдалося видалити даний виклик. Скоріш за все, дані цього виклику ще використовуються в ішному місці.", "Помилка видалення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                Program.SyncTableCallout();
+            }
         }
     }
 }

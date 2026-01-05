@@ -107,7 +107,7 @@ namespace AmbulanceDispatcherApp
             command.Parameters.AddWithValue("@callout_id", spin_callout.Text == "" ? DBNull.Value : spin_callout.Value);
 
             command.ExecuteNonQuery();
-            Program.SyncWithRemote();
+            Program.SyncTableCall();
             this.Close();
         }
 

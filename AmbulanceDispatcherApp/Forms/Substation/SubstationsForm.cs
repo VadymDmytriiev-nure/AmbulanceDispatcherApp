@@ -32,16 +32,6 @@ namespace AmbulanceDispatcherApp.Forms
             }
         }
 
-        private void SubstationsForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button_crud_view_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_crud_create_Click(object sender, EventArgs e)
         {
             CreateEditSubstationForm subform = new CreateEditSubstationForm(false, null);
@@ -67,8 +57,18 @@ namespace AmbulanceDispatcherApp.Forms
 
             if (MessageBox.Show($"Підтвердити видалення підстанції {row_data!["substation_code"]} по адресі {row_data!["substation_address"]}?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                row_data!.Delete();
-                Program.SyncWithRemote();
+                MySqlCommand cmd = new MySqlCommand("DELETE FROM `substation` WHERE `substation_id` = @id", Program.SqlConnection);
+                cmd.Parameters.AddWithValue("@id", row_data!["substation_id"] as int?);
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show("Не вдалося видалити дану підстанцію. Скоріш за все, дані цієї підстанції ще використовуються.", "Помилка видалення", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                Program.SyncTableSubstation();
             }
         }
 
