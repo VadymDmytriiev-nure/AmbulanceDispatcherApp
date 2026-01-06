@@ -48,6 +48,9 @@ namespace AmbulanceDispatcherApp
 
             datagridview_call.Sort(column_call_time_created, ListSortDirection.Descending);
             datagridview_callout.Sort(column_callout_id, ListSortDirection.Descending);
+
+            label_max_rows.Text = $"Макс. кількість рядків: {Program.SQL_MAX_ROWS}";
+            button_view_dispatchers.Enabled = Program.SqlRole == "Адміністратор";
         }
 
         private void DispatcherMainForm_Load(object sender, EventArgs e)
@@ -173,12 +176,14 @@ namespace AmbulanceDispatcherApp
                 button_call_view.Enabled = false;
                 button_call_edit.Enabled = false;
                 button_call_delete.Enabled = false;
+                button_callout_from_call.Enabled = false;
             }
             else
             {
                 button_call_view.Enabled = true;
                 button_call_edit.Enabled = true;
                 button_call_delete.Enabled = true;
+                button_callout_from_call.Enabled = true;
             }
         }
 
@@ -226,7 +231,7 @@ namespace AmbulanceDispatcherApp
         {
             if (patientsForm == null || patientsForm.IsDisposed)
             {
-                patientsForm = new PatientsForm(false);
+                patientsForm = new PatientsForm(FormMode.Edit);
                 patientsForm.Show();
             }
             else
@@ -259,7 +264,7 @@ namespace AmbulanceDispatcherApp
         {
             if (workersForm == null || workersForm.IsDisposed)
             {
-                workersForm = new WorkersForm(Program.SqlRole != "Адміністратор");
+                workersForm = new WorkersForm(Program.SqlRole == "Адміністратор" ? FormMode.Edit : FormMode.View);
                 workersForm.Show();
             }
             else
@@ -290,19 +295,19 @@ namespace AmbulanceDispatcherApp
 
         private void button_callout_view_Click(object sender, EventArgs e)
         {
-            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(CreateEditViewCalloutFormMode.View, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
+            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(FormMode.View, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
             f.Show();
         }
 
         private void button_callout_create_Click(object sender, EventArgs e)
         {
-            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(CreateEditViewCalloutFormMode.Create);
+            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(FormMode.Create);
             f.Show();
         }
 
         private void button_callout_edit_Click(object sender, EventArgs e)
         {
-            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(CreateEditViewCalloutFormMode.Edit, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
+            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(FormMode.Edit, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
             f.Show();
         }
 
@@ -351,6 +356,23 @@ namespace AmbulanceDispatcherApp
                 datagridview_callout.DataSource = Program.SqlFilteredCalloutTable;
                 datagridview_callout.Sort(column_callout_time_created, ListSortDirection.Descending);
             }
+        }
+
+        private void button_callout_from_call_Click(object sender, EventArgs e)
+        {
+            if (datagridview_call.SelectedRows.Count == 0)
+            {
+                button_callout_from_call.Enabled = false;
+                return;
+            }
+
+            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm((datagridview_call.SelectedRows[0].DataBoundItem as DataRowView)!);
+            f.Show();
+        }
+
+        private void button_view_dispatchers_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

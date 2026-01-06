@@ -46,9 +46,13 @@
             button_filters = new Button();
             button_refresh = new Button();
             label_search = new Label();
+            panel_dialog = new Panel();
+            button2 = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)datagridview_main).BeginInit();
             panel_crud.SuspendLayout();
             panel_filters.SuspendLayout();
+            panel_dialog.SuspendLayout();
             SuspendLayout();
             // 
             // checkbox_auto_resize_columns
@@ -239,11 +243,48 @@
             label_search.TabIndex = 34;
             label_search.Text = "Пошук";
             // 
+            // panel_dialog
+            // 
+            panel_dialog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            panel_dialog.Controls.Add(button2);
+            panel_dialog.Controls.Add(button1);
+            panel_dialog.Location = new Point(606, 317);
+            panel_dialog.Name = "panel_dialog";
+            panel_dialog.Size = new Size(192, 110);
+            panel_dialog.TabIndex = 47;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button2.DialogResult = DialogResult.Cancel;
+            button2.Image = Properties.Resources._212384_16x16;
+            button2.ImageAlign = ContentAlignment.MiddleLeft;
+            button2.Location = new Point(4, 6);
+            button2.Name = "button2";
+            button2.Size = new Size(183, 46);
+            button2.TabIndex = 8;
+            button2.Text = "Скасувати";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.DialogResult = DialogResult.OK;
+            button1.Image = Properties.Resources._212376_16x16;
+            button1.ImageAlign = ContentAlignment.MiddleLeft;
+            button1.Location = new Point(4, 58);
+            button1.Name = "button1";
+            button1.Size = new Size(183, 46);
+            button1.TabIndex = 7;
+            button1.Text = "Обрати";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // PatientsForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(806, 437);
+            Controls.Add(panel_dialog);
             Controls.Add(checkbox_auto_resize_columns);
             Controls.Add(datagridview_main);
             Controls.Add(panel_crud);
@@ -258,6 +299,7 @@
             ((System.ComponentModel.ISupportInitialize)datagridview_main).EndInit();
             panel_crud.ResumeLayout(false);
             panel_filters.ResumeLayout(false);
+            panel_dialog.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -282,5 +324,8 @@
         private DataGridViewTextBoxColumn column_patient_tel;
         private DataGridViewTextBoxColumn column_patient_dob;
         private DataGridViewTextBoxColumn column_patient_sex;
+        private Panel panel_dialog;
+        private Button button2;
+        private Button button1;
     }
 }

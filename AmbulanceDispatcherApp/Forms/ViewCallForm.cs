@@ -21,6 +21,9 @@ namespace AmbulanceDispatcherApp
         DataTable callouts;
         DataRowView call;
 
+        DataTable patientsTable = new DataTable();
+        MySqlDataAdapter patientsAdapter;
+
         public bool IsClosed = false;
 
         public ViewCallForm(DataRowView call)
@@ -49,6 +52,12 @@ namespace AmbulanceDispatcherApp
             textbox_dispatcher.Text = call["dispatcher_fullname"].ToString();
 
             this.Text = $"Дзвінок №{call["call_id"]}";
+
+            datagridview_patient.AutoGenerateColumns = false;
+            patientsAdapter = new MySqlDataAdapter(new MySqlCommand($"SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname, `patientcall`.`call_id` FROM `patient` INNER JOIN `patientcall` ON `patient`.`patient_id` = `patientcall`.`patient_id` WHERE `call_id` = {call!["call_id"] as int?} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", Program.SqlConnection));
+            patientsAdapter.Fill(patientsTable);
+            patientsTable.PrimaryKey = new DataColumn[] { patientsTable.Columns["patient_id"]!, patientsTable.Columns["call_id"]! };
+            datagridview_patient.DataSource = patientsTable;
         }
 
         private void button_cancel_Click(object sender, EventArgs e)

@@ -41,6 +41,16 @@
             checkbox_canceled = new CheckBox();
             label3 = new Label();
             button_ok = new Button();
+            group_patients = new GroupBox();
+            datagridview_patient = new DataGridView();
+            column_patient_fullname = new DataGridViewTextBoxColumn();
+            column_patient_tel = new DataGridViewTextBoxColumn();
+            column_patient_dob = new DataGridViewTextBoxColumn();
+            column_patient_sex = new DataGridViewTextBoxColumn();
+            button_patient_remove = new Button();
+            button_patient_add = new Button();
+            group_patients.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)datagridview_patient).BeginInit();
             SuspendLayout();
             // 
             // datetime_time_created
@@ -57,7 +67,7 @@
             datetime_time_created.Margin = new Padding(1, 2, 1, 2);
             datetime_time_created.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
             datetime_time_created.Name = "datetime_time_created";
-            datetime_time_created.Size = new Size(256, 29);
+            datetime_time_created.Size = new Size(370, 29);
             datetime_time_created.TabIndex = 4;
             datetime_time_created.Value = new DateTime(2000, 1, 1, 0, 0, 0, 0);
             // 
@@ -77,7 +87,7 @@
             textbox_comment.Location = new Point(149, 77);
             textbox_comment.Margin = new Padding(1, 2, 1, 2);
             textbox_comment.Name = "textbox_comment";
-            textbox_comment.Size = new Size(256, 29);
+            textbox_comment.Size = new Size(370, 29);
             textbox_comment.TabIndex = 3;
             // 
             // label2
@@ -96,7 +106,7 @@
             textbox_reason.Location = new Point(148, 44);
             textbox_reason.Margin = new Padding(1, 2, 1, 2);
             textbox_reason.Name = "textbox_reason";
-            textbox_reason.Size = new Size(256, 29);
+            textbox_reason.Size = new Size(370, 29);
             textbox_reason.TabIndex = 2;
             // 
             // label1
@@ -116,7 +126,7 @@
             button_cancel.DialogResult = DialogResult.Cancel;
             button_cancel.Image = Properties.Resources._212384_16x16;
             button_cancel.ImageAlign = ContentAlignment.MiddleLeft;
-            button_cancel.Location = new Point(84, 223);
+            button_cancel.Location = new Point(141, 556);
             button_cancel.Margin = new Padding(1, 2, 1, 2);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(124, 28);
@@ -130,7 +140,7 @@
             button_save.Anchor = AnchorStyles.Bottom;
             button_save.Image = Properties.Resources._212394_16x16;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
-            button_save.Location = new Point(210, 223);
+            button_save.Location = new Point(267, 556);
             button_save.Margin = new Padding(1, 2, 1, 2);
             button_save.Name = "button_save";
             button_save.Size = new Size(124, 28);
@@ -145,7 +155,7 @@
             textbox_address.Location = new Point(149, 11);
             textbox_address.Margin = new Padding(1, 2, 1, 2);
             textbox_address.Name = "textbox_address";
-            textbox_address.Size = new Size(256, 29);
+            textbox_address.Size = new Size(370, 29);
             textbox_address.TabIndex = 1;
             // 
             // label4
@@ -185,7 +195,7 @@
             button_ok.Anchor = AnchorStyles.Bottom;
             button_ok.Image = Properties.Resources._212394_16x16;
             button_ok.ImageAlign = ContentAlignment.MiddleLeft;
-            button_ok.Location = new Point(145, 223);
+            button_ok.Location = new Point(202, 556);
             button_ok.Margin = new Padding(1, 2, 1, 2);
             button_ok.Name = "button_ok";
             button_ok.Size = new Size(124, 28);
@@ -193,12 +203,101 @@
             button_ok.Text = "    OK";
             button_ok.UseVisualStyleBackColor = true;
             button_ok.Visible = false;
+            button_ok.Click += button_ok_Click;
+            // 
+            // group_patients
+            // 
+            group_patients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            group_patients.Controls.Add(datagridview_patient);
+            group_patients.Controls.Add(button_patient_remove);
+            group_patients.Controls.Add(button_patient_add);
+            group_patients.Location = new Point(12, 180);
+            group_patients.Name = "group_patients";
+            group_patients.Size = new Size(501, 371);
+            group_patients.TabIndex = 104;
+            group_patients.TabStop = false;
+            group_patients.Text = "Пацієнти";
+            // 
+            // datagridview_patient
+            // 
+            datagridview_patient.AllowUserToAddRows = false;
+            datagridview_patient.AllowUserToDeleteRows = false;
+            datagridview_patient.AllowUserToResizeRows = false;
+            datagridview_patient.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            datagridview_patient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            datagridview_patient.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            datagridview_patient.Columns.AddRange(new DataGridViewColumn[] { column_patient_fullname, column_patient_tel, column_patient_dob, column_patient_sex });
+            datagridview_patient.Location = new Point(7, 28);
+            datagridview_patient.MultiSelect = false;
+            datagridview_patient.Name = "datagridview_patient";
+            datagridview_patient.ReadOnly = true;
+            datagridview_patient.RowHeadersVisible = false;
+            datagridview_patient.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            datagridview_patient.Size = new Size(427, 337);
+            datagridview_patient.TabIndex = 100;
+            // 
+            // column_patient_fullname
+            // 
+            column_patient_fullname.DataPropertyName = "patient_fullname";
+            column_patient_fullname.HeaderText = "ПІБ";
+            column_patient_fullname.Name = "column_patient_fullname";
+            column_patient_fullname.ReadOnly = true;
+            column_patient_fullname.Width = 57;
+            // 
+            // column_patient_tel
+            // 
+            column_patient_tel.DataPropertyName = "patient_tel";
+            column_patient_tel.HeaderText = "Телефон";
+            column_patient_tel.Name = "column_patient_tel";
+            column_patient_tel.ReadOnly = true;
+            column_patient_tel.Width = 94;
+            // 
+            // column_patient_dob
+            // 
+            column_patient_dob.DataPropertyName = "patient_dob";
+            column_patient_dob.HeaderText = "Дата народження";
+            column_patient_dob.Name = "column_patient_dob";
+            column_patient_dob.ReadOnly = true;
+            column_patient_dob.Width = 147;
+            // 
+            // column_patient_sex
+            // 
+            column_patient_sex.DataPropertyName = "patient_sex";
+            column_patient_sex.HeaderText = "Стать";
+            column_patient_sex.Name = "column_patient_sex";
+            column_patient_sex.ReadOnly = true;
+            column_patient_sex.Width = 73;
+            // 
+            // button_patient_remove
+            // 
+            button_patient_remove.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_patient_remove.Image = Properties.Resources._212377_32x32;
+            button_patient_remove.Location = new Point(442, 93);
+            button_patient_remove.Margin = new Padding(1, 2, 1, 2);
+            button_patient_remove.Name = "button_patient_remove";
+            button_patient_remove.Size = new Size(52, 61);
+            button_patient_remove.TabIndex = 99;
+            button_patient_remove.UseVisualStyleBackColor = true;
+            button_patient_remove.Click += button_patient_remove_Click;
+            // 
+            // button_patient_add
+            // 
+            button_patient_add.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_patient_add.Image = Properties.Resources._212376_32x32;
+            button_patient_add.Location = new Point(442, 28);
+            button_patient_add.Margin = new Padding(1, 2, 1, 2);
+            button_patient_add.Name = "button_patient_add";
+            button_patient_add.Size = new Size(52, 61);
+            button_patient_add.TabIndex = 98;
+            button_patient_add.UseVisualStyleBackColor = true;
+            button_patient_add.Click += button_patient_add_Click;
             // 
             // CreateEditViewCalloutForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(411, 262);
+            ClientSize = new Size(525, 595);
+            Controls.Add(group_patients);
             Controls.Add(button_ok);
             Controls.Add(label3);
             Controls.Add(checkbox_canceled);
@@ -216,6 +315,8 @@
             Margin = new Padding(4);
             Name = "CreateEditViewCalloutForm";
             Text = "CreateEditCallForm";
+            group_patients.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)datagridview_patient).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -236,5 +337,13 @@
         private CheckBox checkbox_canceled;
         private Label label3;
         private Button button_ok;
+        private GroupBox group_patients;
+        private DataGridView datagridview_patient;
+        private DataGridViewTextBoxColumn column_patient_fullname;
+        private DataGridViewTextBoxColumn column_patient_tel;
+        private DataGridViewTextBoxColumn column_patient_dob;
+        private DataGridViewTextBoxColumn column_patient_sex;
+        private Button button_patient_remove;
+        private Button button_patient_add;
     }
 }

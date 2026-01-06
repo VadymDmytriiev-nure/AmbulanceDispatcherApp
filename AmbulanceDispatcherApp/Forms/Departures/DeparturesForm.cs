@@ -39,7 +39,7 @@ namespace AmbulanceDispatcherApp.Forms.Departures
 
         private void button_crud_create_Click(object sender, EventArgs e)
         {
-            CreateEditDepartureForm subform = new CreateEditDepartureForm(false, null);
+            CreateEditDepartureForm subform = new CreateEditDepartureForm(FormMode.Create, null);
             subform.ShowDialog();
         }
 
@@ -49,7 +49,7 @@ namespace AmbulanceDispatcherApp.Forms.Departures
                 return;
 
             var row_data = datagridview_main.SelectedRows[0].DataBoundItem as DataRowView;
-            CreateEditDepartureForm subform = new CreateEditDepartureForm(true, row_data);
+            CreateEditDepartureForm subform = new CreateEditDepartureForm(FormMode.Edit, row_data);
             subform.ShowDialog();
         }
         

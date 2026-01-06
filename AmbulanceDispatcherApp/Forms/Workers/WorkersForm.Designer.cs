@@ -38,8 +38,6 @@
             button_crud_edit = new Button();
             checkbox_auto_resize_columns = new CheckBox();
             datagridview_main = new DataGridView();
-            panel_crud = new Panel();
-            panel_filters = new Panel();
             column_worker_brigade = new DataGridViewTextBoxColumn();
             column_worker_name = new DataGridViewTextBoxColumn();
             column_worker_surname = new DataGridViewTextBoxColumn();
@@ -50,9 +48,15 @@
             column_worker_kpp = new DataGridViewTextBoxColumn();
             column_worker_role = new DataGridViewTextBoxColumn();
             column_worker_license = new DataGridViewTextBoxColumn();
+            panel_crud = new Panel();
+            panel_filters = new Panel();
+            panel_dialog = new Panel();
+            button2 = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)datagridview_main).BeginInit();
             panel_crud.SuspendLayout();
             panel_filters.SuspendLayout();
+            panel_dialog.SuspendLayout();
             SuspendLayout();
             // 
             // button_refresh
@@ -172,29 +176,6 @@
             datagridview_main.TabIndex = 39;
             datagridview_main.SelectionChanged += datagridview_main_SelectionChanged;
             // 
-            // panel_crud
-            // 
-            panel_crud.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            panel_crud.BorderStyle = BorderStyle.Fixed3D;
-            panel_crud.Controls.Add(button_crud_create);
-            panel_crud.Controls.Add(button_crud_delete);
-            panel_crud.Controls.Add(button_crud_edit);
-            panel_crud.Location = new Point(610, 268);
-            panel_crud.Name = "panel_crud";
-            panel_crud.Size = new Size(192, 160);
-            panel_crud.TabIndex = 43;
-            // 
-            // panel_filters
-            // 
-            panel_filters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            panel_filters.BorderStyle = BorderStyle.Fixed3D;
-            panel_filters.Controls.Add(button_filters_reset);
-            panel_filters.Controls.Add(button_filters);
-            panel_filters.Location = new Point(362, 9);
-            panel_filters.Name = "panel_filters";
-            panel_filters.Size = new Size(242, 43);
-            panel_filters.TabIndex = 42;
-            // 
             // column_worker_brigade
             // 
             column_worker_brigade.DataPropertyName = "brigade_code";
@@ -225,7 +206,7 @@
             column_worker_patriarchic.HeaderText = "По батькові";
             column_worker_patriarchic.Name = "column_worker_patriarchic";
             column_worker_patriarchic.ReadOnly = true;
-            column_worker_patriarchic.Width = 118;
+            column_worker_patriarchic.Width = 108;
             // 
             // column_worker_tel
             // 
@@ -275,11 +256,71 @@
             column_worker_license.ReadOnly = true;
             column_worker_license.Width = 136;
             // 
+            // panel_crud
+            // 
+            panel_crud.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            panel_crud.BorderStyle = BorderStyle.Fixed3D;
+            panel_crud.Controls.Add(button_crud_create);
+            panel_crud.Controls.Add(button_crud_delete);
+            panel_crud.Controls.Add(button_crud_edit);
+            panel_crud.Location = new Point(610, 268);
+            panel_crud.Name = "panel_crud";
+            panel_crud.Size = new Size(192, 160);
+            panel_crud.TabIndex = 43;
+            // 
+            // panel_filters
+            // 
+            panel_filters.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            panel_filters.BorderStyle = BorderStyle.Fixed3D;
+            panel_filters.Controls.Add(button_filters_reset);
+            panel_filters.Controls.Add(button_filters);
+            panel_filters.Location = new Point(362, 9);
+            panel_filters.Name = "panel_filters";
+            panel_filters.Size = new Size(242, 43);
+            panel_filters.TabIndex = 42;
+            // 
+            // panel_dialog
+            // 
+            panel_dialog.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            panel_dialog.Controls.Add(button2);
+            panel_dialog.Controls.Add(button1);
+            panel_dialog.Location = new Point(610, 318);
+            panel_dialog.Name = "panel_dialog";
+            panel_dialog.Size = new Size(192, 110);
+            panel_dialog.TabIndex = 46;
+            // 
+            // button2
+            // 
+            button2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button2.DialogResult = DialogResult.Cancel;
+            button2.Image = Properties.Resources._212384_16x16;
+            button2.ImageAlign = ContentAlignment.MiddleLeft;
+            button2.Location = new Point(5, 6);
+            button2.Name = "button2";
+            button2.Size = new Size(183, 46);
+            button2.TabIndex = 8;
+            button2.Text = "Скасувати";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button1.DialogResult = DialogResult.OK;
+            button1.Image = Properties.Resources._212376_16x16;
+            button1.ImageAlign = ContentAlignment.MiddleLeft;
+            button1.Location = new Point(5, 58);
+            button1.Name = "button1";
+            button1.Size = new Size(183, 46);
+            button1.TabIndex = 7;
+            button1.Text = "Обрати";
+            button1.UseVisualStyleBackColor = true;
+            // 
             // WorkersForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(806, 437);
+            Controls.Add(panel_dialog);
             Controls.Add(button_refresh);
             Controls.Add(label_search);
             Controls.Add(textbox_search);
@@ -294,6 +335,7 @@
             ((System.ComponentModel.ISupportInitialize)datagridview_main).EndInit();
             panel_crud.ResumeLayout(false);
             panel_filters.ResumeLayout(false);
+            panel_dialog.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -322,5 +364,8 @@
         private DataGridViewTextBoxColumn column_worker_kpp;
         private DataGridViewTextBoxColumn column_worker_role;
         private DataGridViewTextBoxColumn column_worker_license;
+        private Panel panel_dialog;
+        private Button button2;
+        private Button button1;
     }
 }

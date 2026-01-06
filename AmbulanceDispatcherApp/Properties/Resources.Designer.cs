@@ -103,9 +103,29 @@ namespace AmbulanceDispatcherApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _212240_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("212240-32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _212376_16x16 {
             get {
                 object obj = ResourceManager.GetObject("212376-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _212376_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("212376-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,6 +143,16 @@ namespace AmbulanceDispatcherApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _212377_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("212377-32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _212384_16x16 {
             get {
                 object obj = ResourceManager.GetObject("212384-16x16", resourceCulture);
@@ -133,9 +163,29 @@ namespace AmbulanceDispatcherApp.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _212384_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("212384-32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _212394_16x16 {
             get {
                 object obj = ResourceManager.GetObject("212394-16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _212394_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("212394-32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

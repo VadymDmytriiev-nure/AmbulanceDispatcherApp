@@ -458,7 +458,7 @@ namespace AmbulanceDispatcherApp
 
             else if (table.PrimaryKey.Length == 1)
             {
-                var pkCol = table.PrimaryKey[0];
+                var pkCol = table.PrimaryKey[0].ColumnName;
 
                 foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
                 {
@@ -479,8 +479,8 @@ namespace AmbulanceDispatcherApp
             }
             else if (table.PrimaryKey.Length == 2)
             {
-                var pkCol1 = table.PrimaryKey[0];
-                var pkCol2 = table.PrimaryKey[1];
+                var pkCol1 = table.PrimaryKey[0].ColumnName;
+                var pkCol2 = table.PrimaryKey[1].ColumnName;
 
                 foreach (DataRow row in table.Rows.Cast<DataRow>().ToList())
                 {

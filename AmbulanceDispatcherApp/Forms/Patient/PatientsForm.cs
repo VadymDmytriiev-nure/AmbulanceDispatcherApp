@@ -16,7 +16,9 @@ namespace AmbulanceDispatcherApp.Forms.Patient
     {
         PatientFilters filters = new PatientFilters();
 
-        public PatientsForm(bool readOnly = false)
+        public int? SelectedPatientID;
+
+        public PatientsForm(FormMode mode = FormMode.View)
         {
             InitializeComponent();
 
@@ -24,11 +26,17 @@ namespace AmbulanceDispatcherApp.Forms.Patient
             datagridview_main.DataSource = Program.SqlPatientTable;
             datagridview_main.Sort(column_patient_name, ListSortDirection.Ascending);
 
-            if (readOnly)
+            panel_dialog.Visible = false;
+            if (mode == FormMode.View)
             {
                 button_refresh.Visible = false;
                 panel_crud.Visible = false;
                 datagridview_main.Size = new Size(748, datagridview_main.Size.Height);
+            }
+            else if (mode == FormMode.Select)
+            {
+                panel_crud.Visible = false;
+                panel_dialog.Visible = true;
             }
         }
 
@@ -124,11 +132,13 @@ namespace AmbulanceDispatcherApp.Forms.Patient
         {
             if (datagridview_main.SelectedRows.Count == 0)
             {
+                SelectedPatientID = null;
                 button_crud_edit.Enabled = false;
                 button_crud_delete.Enabled = false;
             }
             else
             {
+                SelectedPatientID = ((datagridview_main.SelectedRows[0].DataBoundItem as DataRowView)!["patient_id"] as int?)!;
                 button_crud_edit.Enabled = true;
                 button_crud_delete.Enabled = true;
             }

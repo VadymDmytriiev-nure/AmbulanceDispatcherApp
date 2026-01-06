@@ -59,6 +59,7 @@
             button_callout_filters_reset = new Button();
             button_callout_filters = new Button();
             panel_callout_crud = new Panel();
+            button_callout_from_call = new Button();
             button_callout_view = new Button();
             button_callout_create = new Button();
             button_callout_delete = new Button();
@@ -74,10 +75,11 @@
             column_callout_canceled = new DataGridViewCheckBoxColumn();
             button_refresh = new Button();
             button_logout = new Button();
-            label3 = new Label();
+            label_max_rows = new Label();
             label_authorized_as = new Label();
             panel_refresh = new Panel();
             panel_otherdata = new Panel();
+            button_view_dispatchers = new Button();
             button_view_substations = new Button();
             button_view_brigades = new Button();
             button_view_departures = new Button();
@@ -433,6 +435,7 @@
             panel_callout_crud.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             panel_callout_crud.BackColor = SystemColors.Control;
             panel_callout_crud.BorderStyle = BorderStyle.Fixed3D;
+            panel_callout_crud.Controls.Add(button_callout_from_call);
             panel_callout_crud.Controls.Add(button_callout_view);
             panel_callout_crud.Controls.Add(button_callout_create);
             panel_callout_crud.Controls.Add(button_callout_delete);
@@ -441,6 +444,17 @@
             panel_callout_crud.Name = "panel_callout_crud";
             panel_callout_crud.Size = new Size(192, 216);
             panel_callout_crud.TabIndex = 21;
+            // 
+            // button_callout_from_call
+            // 
+            button_callout_from_call.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_callout_from_call.Image = Properties.Resources._212240_32x32;
+            button_callout_from_call.Location = new Point(134, 58);
+            button_callout_from_call.Name = "button_callout_from_call";
+            button_callout_from_call.Size = new Size(51, 46);
+            button_callout_from_call.TabIndex = 26;
+            button_callout_from_call.UseVisualStyleBackColor = true;
+            button_callout_from_call.Click += button_callout_from_call_Click;
             // 
             // button_callout_view
             // 
@@ -458,7 +472,7 @@
             button_callout_create.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_callout_create.Location = new Point(3, 58);
             button_callout_create.Name = "button_callout_create";
-            button_callout_create.Size = new Size(183, 46);
+            button_callout_create.Size = new Size(125, 46);
             button_callout_create.TabIndex = 6;
             button_callout_create.Text = "Створити";
             button_callout_create.UseVisualStyleBackColor = true;
@@ -584,6 +598,7 @@
             // button_logout
             // 
             button_logout.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_logout.ImageAlign = ContentAlignment.MiddleLeft;
             button_logout.Location = new Point(966, 696);
             button_logout.Name = "button_logout";
             button_logout.Size = new Size(201, 46);
@@ -592,21 +607,21 @@
             button_logout.UseVisualStyleBackColor = true;
             button_logout.Click += button_logout_Click;
             // 
-            // label3
+            // label_max_rows
             // 
-            label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Location = new Point(963, 661);
-            label3.Name = "label3";
-            label3.Size = new Size(207, 21);
-            label3.TabIndex = 24;
-            label3.Text = "Макс. кількість рядків - 500";
+            label_max_rows.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label_max_rows.AutoSize = true;
+            label_max_rows.Location = new Point(966, 661);
+            label_max_rows.Name = "label_max_rows";
+            label_max_rows.Size = new Size(207, 21);
+            label_max_rows.TabIndex = 24;
+            label_max_rows.Text = "Макс. кількість рядків - 500";
             // 
             // label_authorized_as
             // 
             label_authorized_as.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             label_authorized_as.AutoSize = true;
-            label_authorized_as.Location = new Point(963, 616);
+            label_authorized_as.Location = new Point(966, 616);
             label_authorized_as.MaximumSize = new Size(200, 0);
             label_authorized_as.Name = "label_authorized_as";
             label_authorized_as.Size = new Size(150, 21);
@@ -628,6 +643,7 @@
             // 
             panel_otherdata.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel_otherdata.BorderStyle = BorderStyle.Fixed3D;
+            panel_otherdata.Controls.Add(button_view_dispatchers);
             panel_otherdata.Controls.Add(button_view_substations);
             panel_otherdata.Controls.Add(button_view_brigades);
             panel_otherdata.Controls.Add(button_view_departures);
@@ -636,8 +652,20 @@
             panel_otherdata.Controls.Add(button_view_patients);
             panel_otherdata.Location = new Point(966, 75);
             panel_otherdata.Name = "panel_otherdata";
-            panel_otherdata.Size = new Size(200, 318);
+            panel_otherdata.Size = new Size(200, 370);
             panel_otherdata.TabIndex = 27;
+            // 
+            // button_view_dispatchers
+            // 
+            button_view_dispatchers.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_view_dispatchers.Enabled = false;
+            button_view_dispatchers.Location = new Point(3, 315);
+            button_view_dispatchers.Name = "button_view_dispatchers";
+            button_view_dispatchers.Size = new Size(190, 46);
+            button_view_dispatchers.TabIndex = 13;
+            button_view_dispatchers.Text = "Диспетчери";
+            button_view_dispatchers.UseVisualStyleBackColor = true;
+            button_view_dispatchers.Click += button_view_dispatchers_Click;
             // 
             // button_view_substations
             // 
@@ -713,7 +741,7 @@
             Controls.Add(panel_otherdata);
             Controls.Add(panel_refresh);
             Controls.Add(label_authorized_as);
-            Controls.Add(label3);
+            Controls.Add(label_max_rows);
             Controls.Add(button_logout);
             Controls.Add(splitbox);
             Font = new Font("Segoe UI", 12F);
@@ -782,7 +810,7 @@
         private DataGridViewTextBoxColumn column_call_address;
         private DataGridViewTextBoxColumn column_call_reason;
         private DataGridViewTextBoxColumn column_call_channel;
-        private Label label3;
+        private Label label_max_rows;
         private Label label_authorized_as;
         private Panel panel_refresh;
         private Panel panel_otherdata;
@@ -801,5 +829,7 @@
         private DataGridViewTextBoxColumn column_callout_reason;
         private DataGridViewTextBoxColumn column_callout_comment;
         private DataGridViewCheckBoxColumn column_callout_canceled;
+        private Button button_callout_from_call;
+        public Button button_view_dispatchers;
     }
 }

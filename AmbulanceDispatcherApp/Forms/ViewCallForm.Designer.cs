@@ -45,6 +45,14 @@
             textbox_dispatcher = new TextBox();
             textbox_time_created = new TextBox();
             textbox_callout = new TextBox();
+            group_patients = new GroupBox();
+            datagridview_patient = new DataGridView();
+            column_patient_fullname = new DataGridViewTextBoxColumn();
+            column_patient_tel = new DataGridViewTextBoxColumn();
+            column_patient_dob = new DataGridViewTextBoxColumn();
+            column_patient_sex = new DataGridViewTextBoxColumn();
+            group_patients.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)datagridview_patient).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -134,7 +142,7 @@
             textbox_fullname.Margin = new Padding(1, 2, 1, 2);
             textbox_fullname.Name = "textbox_fullname";
             textbox_fullname.ReadOnly = true;
-            textbox_fullname.Size = new Size(251, 29);
+            textbox_fullname.Size = new Size(439, 29);
             textbox_fullname.TabIndex = 4;
             // 
             // textbox_tel
@@ -145,7 +153,7 @@
             textbox_tel.Name = "textbox_tel";
             textbox_tel.PlaceholderText = "+380XXXXXXXXX";
             textbox_tel.ReadOnly = true;
-            textbox_tel.Size = new Size(251, 29);
+            textbox_tel.Size = new Size(439, 29);
             textbox_tel.TabIndex = 7;
             // 
             // textbox_channel
@@ -156,7 +164,7 @@
             textbox_channel.Name = "textbox_channel";
             textbox_channel.PlaceholderText = "103";
             textbox_channel.ReadOnly = true;
-            textbox_channel.Size = new Size(251, 29);
+            textbox_channel.Size = new Size(439, 29);
             textbox_channel.TabIndex = 10;
             // 
             // textbox_address
@@ -167,7 +175,7 @@
             textbox_address.Name = "textbox_address";
             textbox_address.PlaceholderText = "м. Харків, вул. Сумська 42";
             textbox_address.ReadOnly = true;
-            textbox_address.Size = new Size(251, 29);
+            textbox_address.Size = new Size(439, 29);
             textbox_address.TabIndex = 8;
             // 
             // textbox_reason
@@ -177,7 +185,7 @@
             textbox_reason.Margin = new Padding(1, 2, 1, 2);
             textbox_reason.Name = "textbox_reason";
             textbox_reason.ReadOnly = true;
-            textbox_reason.Size = new Size(251, 29);
+            textbox_reason.Size = new Size(439, 29);
             textbox_reason.TabIndex = 9;
             // 
             // button_ok
@@ -185,7 +193,7 @@
             button_ok.Anchor = AnchorStyles.Bottom;
             button_ok.Image = Properties.Resources._212394_16x16;
             button_ok.ImageAlign = ContentAlignment.MiddleLeft;
-            button_ok.Location = new Point(142, 302);
+            button_ok.Location = new Point(236, 648);
             button_ok.Margin = new Padding(1, 2, 1, 2);
             button_ok.Name = "button_ok";
             button_ok.Size = new Size(124, 32);
@@ -201,7 +209,7 @@
             textbox_dispatcher.Margin = new Padding(1, 2, 1, 2);
             textbox_dispatcher.Name = "textbox_dispatcher";
             textbox_dispatcher.ReadOnly = true;
-            textbox_dispatcher.Size = new Size(251, 29);
+            textbox_dispatcher.Size = new Size(439, 29);
             textbox_dispatcher.TabIndex = 13;
             // 
             // textbox_time_created
@@ -211,7 +219,7 @@
             textbox_time_created.Margin = new Padding(1, 2, 1, 2);
             textbox_time_created.Name = "textbox_time_created";
             textbox_time_created.ReadOnly = true;
-            textbox_time_created.Size = new Size(251, 29);
+            textbox_time_created.Size = new Size(439, 29);
             textbox_time_created.TabIndex = 14;
             // 
             // textbox_callout
@@ -221,14 +229,76 @@
             textbox_callout.Margin = new Padding(1, 2, 1, 2);
             textbox_callout.Name = "textbox_callout";
             textbox_callout.ReadOnly = true;
-            textbox_callout.Size = new Size(251, 29);
+            textbox_callout.Size = new Size(439, 29);
             textbox_callout.TabIndex = 15;
+            // 
+            // group_patients
+            // 
+            group_patients.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            group_patients.Controls.Add(datagridview_patient);
+            group_patients.Location = new Point(12, 276);
+            group_patients.Name = "group_patients";
+            group_patients.Size = new Size(576, 354);
+            group_patients.TabIndex = 103;
+            group_patients.TabStop = false;
+            group_patients.Text = "Пацієнти";
+            // 
+            // datagridview_patient
+            // 
+            datagridview_patient.AllowUserToAddRows = false;
+            datagridview_patient.AllowUserToDeleteRows = false;
+            datagridview_patient.AllowUserToResizeRows = false;
+            datagridview_patient.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            datagridview_patient.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            datagridview_patient.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            datagridview_patient.Columns.AddRange(new DataGridViewColumn[] { column_patient_fullname, column_patient_tel, column_patient_dob, column_patient_sex });
+            datagridview_patient.Location = new Point(7, 28);
+            datagridview_patient.MultiSelect = false;
+            datagridview_patient.Name = "datagridview_patient";
+            datagridview_patient.ReadOnly = true;
+            datagridview_patient.RowHeadersVisible = false;
+            datagridview_patient.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            datagridview_patient.Size = new Size(560, 320);
+            datagridview_patient.TabIndex = 100;
+            // 
+            // column_patient_fullname
+            // 
+            column_patient_fullname.DataPropertyName = "patient_fullname";
+            column_patient_fullname.HeaderText = "ПІБ";
+            column_patient_fullname.Name = "column_patient_fullname";
+            column_patient_fullname.ReadOnly = true;
+            column_patient_fullname.Width = 57;
+            // 
+            // column_patient_tel
+            // 
+            column_patient_tel.DataPropertyName = "patient_tel";
+            column_patient_tel.HeaderText = "Телефон";
+            column_patient_tel.Name = "column_patient_tel";
+            column_patient_tel.ReadOnly = true;
+            column_patient_tel.Width = 94;
+            // 
+            // column_patient_dob
+            // 
+            column_patient_dob.DataPropertyName = "patient_dob";
+            column_patient_dob.HeaderText = "Дата народження";
+            column_patient_dob.Name = "column_patient_dob";
+            column_patient_dob.ReadOnly = true;
+            column_patient_dob.Width = 147;
+            // 
+            // column_patient_sex
+            // 
+            column_patient_sex.DataPropertyName = "patient_sex";
+            column_patient_sex.HeaderText = "Стать";
+            column_patient_sex.Name = "column_patient_sex";
+            column_patient_sex.ReadOnly = true;
+            column_patient_sex.Width = 73;
             // 
             // ViewCallForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(412, 338);
+            ClientSize = new Size(600, 684);
+            Controls.Add(group_patients);
             Controls.Add(textbox_callout);
             Controls.Add(textbox_time_created);
             Controls.Add(textbox_dispatcher);
@@ -251,6 +321,8 @@
             Name = "ViewCallForm";
             Text = "Дзвінок";
             FormClosed += CreateCallForm_FormClosed;
+            group_patients.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)datagridview_patient).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -282,5 +354,11 @@
         private TextBox textbox_time_created;
         public ComboBox combo_dispatcher;
         private TextBox textbox_callout;
+        private GroupBox group_patients;
+        private DataGridView datagridview_patient;
+        private DataGridViewTextBoxColumn column_patient_fullname;
+        private DataGridViewTextBoxColumn column_patient_tel;
+        private DataGridViewTextBoxColumn column_patient_dob;
+        private DataGridViewTextBoxColumn column_patient_sex;
     }
 }

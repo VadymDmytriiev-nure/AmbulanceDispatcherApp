@@ -15,7 +15,9 @@ namespace AmbulanceDispatcherApp.Forms.Workers
     {
         WorkerFilters filters = new WorkerFilters();
 
-        public WorkersForm(bool readOnly = false)
+        public int? SelectedWorkerID;
+
+        public WorkersForm(FormMode mode = FormMode.Edit)
         {
             InitializeComponent();
 
@@ -23,11 +25,17 @@ namespace AmbulanceDispatcherApp.Forms.Workers
             datagridview_main.DataSource = Program.SqlWorkerTable;
             datagridview_main.Sort(column_worker_brigade, ListSortDirection.Ascending);
 
-            if (readOnly)
+            panel_dialog.Visible = false;
+            if (mode == FormMode.View)
             {
                 panel_crud.Visible = false;
                 button_refresh.Visible = false;
                 datagridview_main.Size = new Size(748, datagridview_main.Size.Height);
+            }
+            else if (mode == FormMode.Select)
+            {
+                panel_crud.Visible = false;
+                panel_dialog.Visible = true;
             }
         }
 
@@ -41,11 +49,13 @@ namespace AmbulanceDispatcherApp.Forms.Workers
         {
             if (datagridview_main.SelectedRows.Count == 0)
             {
+                SelectedWorkerID = null;
                 button_crud_edit.Enabled = false;
                 button_crud_delete.Enabled = false;
             }
             else
             {
+                SelectedWorkerID = ((datagridview_main.SelectedRows[0].DataBoundItem as DataRowView)!["worker_id"] as int?)!;
                 button_crud_edit.Enabled = true;
                 button_crud_delete.Enabled = true;
             }
