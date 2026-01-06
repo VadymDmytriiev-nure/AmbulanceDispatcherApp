@@ -2,20 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using AmbulanceDispatcherApp.Forms;
 using AmbulanceDispatcherApp.Forms.Brigade;
 using AmbulanceDispatcherApp.Forms.Workers;
 using AmbulanceDispatcherApp.Forms.Patient;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Relational;
 using AmbulanceDispatcherApp.Forms.Hospital;
 using AmbulanceDispatcherApp.Forms.Departures;
+using AmbulanceDispatcherApp.Forms.Dispatcher;
 
 namespace AmbulanceDispatcherApp
 {
@@ -30,6 +24,7 @@ namespace AmbulanceDispatcherApp
         HospitalsForm hospitalsForm = null;
         SubstationsForm substationsForm = null;
         BrigadesForm brigadesForm = null;
+        DispatchersForm dispatchersForm = null;
 
         CallFilters callFilters = new CallFilters();
         CalloutFilters calloutFilters = new CalloutFilters();
@@ -372,7 +367,13 @@ namespace AmbulanceDispatcherApp
 
         private void button_view_dispatchers_Click(object sender, EventArgs e)
         {
-
+            if (dispatchersForm == null || dispatchersForm.IsDisposed)
+            {
+                dispatchersForm = new DispatchersForm(Program.SqlRole == "Адміністратор" ? FormMode.Edit : FormMode.View);
+                dispatchersForm.Show();
+            }
+            else
+                dispatchersForm.Focus();
         }
     }
 }

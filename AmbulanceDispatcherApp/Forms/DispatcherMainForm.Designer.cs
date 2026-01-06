@@ -624,9 +624,9 @@
             label_authorized_as.Location = new Point(966, 616);
             label_authorized_as.MaximumSize = new Size(200, 0);
             label_authorized_as.Name = "label_authorized_as";
-            label_authorized_as.Size = new Size(150, 21);
+            label_authorized_as.Size = new Size(150, 42);
             label_authorized_as.TabIndex = 25;
-            label_authorized_as.Text = "Ви авторизовані як:";
+            label_authorized_as.Text = "Ви авторизовані як:\r\n<user>";
             label_authorized_as.TextAlign = ContentAlignment.BottomLeft;
             // 
             // panel_refresh

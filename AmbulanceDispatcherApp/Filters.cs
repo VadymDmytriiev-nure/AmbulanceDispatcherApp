@@ -426,6 +426,55 @@ namespace AmbulanceDispatcherApp
         }
     }
 
+    public class DispatcherFilters : IFilters
+    {
+        public string? DispatcherSurname;
+        public string? DispatcherName;
+        public string? DispatcherPatriarchic;
+        public string? DispatcherTel;
+
+        public DispatcherFilters() { }
+
+        public Tuple<string, List<MySqlParameter>> GetSQLFilter()
+        {
+            List<string> filters = new List<string>();
+
+            if (DispatcherSurname != null)
+                filters.Add("lower(`dispatcher_name`) LIKE lower(@name)");
+
+            if (DispatcherName != null)
+                filters.Add("lower(`dispatcher_surname`) LIKE lower(@surname)");
+
+            if (DispatcherPatriarchic != null)
+                filters.Add("lower(`dispatcher_patriarchic`) LIKE lower(@patriarchic)");
+
+            if (DispatcherTel != null)
+                filters.Add("`dispatcher_tel` = @tel");
+
+            string filter = "WHERE " + String.Join(" AND ", filters);
+            if (filters.Count == 0)
+                filter = "";
+
+            List<MySqlParameter> p = new List<MySqlParameter>();
+
+            p.Add(new MySqlParameter("@name", "%" + DispatcherName + "%"));
+            p.Add(new MySqlParameter("@surname", "%" + DispatcherSurname + "%"));
+            p.Add(new MySqlParameter("@patriarchic", "%" + DispatcherPatriarchic + "%"));
+            p.Add(new MySqlParameter("@tel", DispatcherTel));
+
+            return new Tuple<string, List<MySqlParameter>>(filter, p);
+        }
+
+        public MySqlCommand GetSQLCommand(MySqlConnection conn)
+        {
+            var filter = GetSQLFilter();
+            var cmd = new MySqlCommand($"SELECT `dispatcher`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `dispatcher` {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            cmd.Parameters.AddRange(filter.Item2.ToArray());
+
+            return cmd;
+        }
+    }
+
     public class DepartureFilters : IFilters
     {
         public (DateTime? Min, DateTime? Max) DepartureTimeDeparted;
