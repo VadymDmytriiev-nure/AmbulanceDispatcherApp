@@ -290,19 +290,19 @@ namespace AmbulanceDispatcherApp
 
         private void button_callout_view_Click(object sender, EventArgs e)
         {
-            CreateEditViewCallForm f = new CreateEditViewCallForm(CreateEditViewCallFormMode.View, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
+            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(CreateEditViewCalloutFormMode.View, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
             f.Show();
         }
 
         private void button_callout_create_Click(object sender, EventArgs e)
         {
-            CreateEditViewCallForm f = new CreateEditViewCallForm(CreateEditViewCallFormMode.Create);
+            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(CreateEditViewCalloutFormMode.Create);
             f.Show();
         }
 
         private void button_callout_edit_Click(object sender, EventArgs e)
         {
-            CreateEditViewCallForm f = new CreateEditViewCallForm(CreateEditViewCallFormMode.Edit, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
+            CreateEditViewCalloutForm f = new CreateEditViewCalloutForm(CreateEditViewCalloutFormMode.Edit, (datagridview_callout.SelectedRows[0].DataBoundItem as DataRowView)!);
             f.Show();
         }
 
@@ -332,12 +332,25 @@ namespace AmbulanceDispatcherApp
 
         private void button_callout_filters_reset_Click(object sender, EventArgs e)
         {
+            calloutFilters = new CalloutFilters();
 
+            datagridview_callout.DataSource = Program.SqlCalloutTable;
         }
 
         private void button_callout_filters_Click(object sender, EventArgs e)
         {
-
+            CalloutFiltersForm calloutFiltersForm = new CalloutFiltersForm(calloutFilters);
+            if (calloutFiltersForm.ShowDialog() == DialogResult.OK)
+            {
+                calloutFilters = calloutFiltersForm.Filters;
+                MySqlCommand command = calloutFilters.GetSQLCommand(Program.SqlConnection);
+                Program.SqlFilteredCalloutAdapter = new MySqlDataAdapter(command);
+                Program.SqlFilteredCalloutAdapter.MissingSchemaAction = MissingSchemaAction.AddWithKey;
+                Program.SqlFilteredCalloutTable = new DataTable();
+                Program.SqlFilteredCalloutAdapter.Fill(Program.SqlFilteredCalloutTable);
+                datagridview_callout.DataSource = Program.SqlFilteredCalloutTable;
+                datagridview_callout.Sort(column_callout_time_created, ListSortDirection.Descending);
+            }
         }
     }
 }

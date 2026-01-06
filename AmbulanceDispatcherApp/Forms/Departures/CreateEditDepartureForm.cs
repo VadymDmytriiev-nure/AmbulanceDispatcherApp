@@ -92,8 +92,8 @@ namespace AmbulanceDispatcherApp.Forms.Departures
                 command.Parameters.AddWithValue("@from_addy", textbox_from_address.Text.Trim());
                 command.Parameters.AddWithValue("@to_addy", textbox_to_address.Text.Trim());
                 command.Parameters.AddWithValue("@km", spin_mileage.Value);
-                command.Parameters.AddWithValue("@dtd", datetime_departed);
-                command.Parameters.AddWithValue("@dta", datetime_arrived);
+                command.Parameters.AddWithValue("@dtd", datetime_departed.Value);
+                command.Parameters.AddWithValue("@dta", datetime_arrived.Value);
                 command.Parameters.AddWithValue("@callout", (int)spin_callout.Value);
                 command.Parameters.AddWithValue("@id", (int)departure!["departure_id"]);
 
@@ -104,21 +104,20 @@ namespace AmbulanceDispatcherApp.Forms.Departures
                 var command = new MySqlCommand(
                     "INSERT INTO `departure` " +
                     "(`departure_from_address`,`departure_to_address`,`departure_mileage_km`,`departure_time_departed`,`departure_time_arrived`,`callout_id`) " +
-                    "VALUES (@from_addy,@to_addy,@km,@dtd,@dta,@callout,@id)",
+                    "VALUES (@from_addy,@to_addy,@km,@dtd,@dta,@callout)",
                     Program.SqlConnection);
 
                 command.Parameters.AddWithValue("@from_addy", textbox_from_address.Text.Trim());
                 command.Parameters.AddWithValue("@to_addy", textbox_to_address.Text.Trim());
                 command.Parameters.AddWithValue("@km", spin_mileage.Value);
-                command.Parameters.AddWithValue("@dtd", datetime_departed);
-                command.Parameters.AddWithValue("@dta", datetime_arrived);
+                command.Parameters.AddWithValue("@dtd", datetime_departed.Value);
+                command.Parameters.AddWithValue("@dta", datetime_arrived.Value);
                 command.Parameters.AddWithValue("@callout", (int)spin_callout.Value);
-                command.Parameters.AddWithValue("@id", (int)departure!["departure_id"]);
 
                 command.ExecuteNonQuery();
             }
 
-            Program.SyncTablePatient();
+            Program.SyncTableDeparture();
             Close();
         }
     }

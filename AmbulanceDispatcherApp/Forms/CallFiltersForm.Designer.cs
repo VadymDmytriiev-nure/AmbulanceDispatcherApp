@@ -56,8 +56,15 @@
             label12 = new Label();
             label13 = new Label();
             label14 = new Label();
+            label15 = new Label();
+            label16 = new Label();
+            spin_call_max = new NumericUpDown();
+            spin_call_min = new NumericUpDown();
+            label17 = new Label();
             ((System.ComponentModel.ISupportInitialize)spin_callout_from).BeginInit();
             ((System.ComponentModel.ISupportInitialize)spin_callout_to).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)spin_call_max).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)spin_call_min).BeginInit();
             SuspendLayout();
             // 
             // button_cancel
@@ -67,7 +74,7 @@
             button_cancel.DialogResult = DialogResult.Cancel;
             button_cancel.Image = Properties.Resources._212384_16x16;
             button_cancel.ImageAlign = ContentAlignment.MiddleLeft;
-            button_cancel.Location = new Point(151, 349);
+            button_cancel.Location = new Point(151, 391);
             button_cancel.Margin = new Padding(1, 2, 1, 2);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(124, 28);
@@ -80,7 +87,7 @@
             button_save.Anchor = AnchorStyles.Bottom;
             button_save.Image = Properties.Resources._211861_16x161;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
-            button_save.Location = new Point(277, 349);
+            button_save.Location = new Point(277, 391);
             button_save.Margin = new Padding(1, 2, 1, 2);
             button_save.Name = "button_save";
             button_save.Size = new Size(124, 28);
@@ -98,19 +105,19 @@
             datetime_time_created_from.CalendarTrailingForeColor = Color.Black;
             datetime_time_created_from.CustomFormat = "yyyy-MM-dd HH:mm:ss\n";
             datetime_time_created_from.Format = DateTimePickerFormat.Custom;
-            datetime_time_created_from.Location = new Point(158, 11);
+            datetime_time_created_from.Location = new Point(160, 44);
             datetime_time_created_from.Margin = new Padding(1, 2, 1, 2);
             datetime_time_created_from.MinDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             datetime_time_created_from.Name = "datetime_time_created_from";
-            datetime_time_created_from.Size = new Size(163, 29);
+            datetime_time_created_from.Size = new Size(167, 29);
             datetime_time_created_from.TabIndex = 1;
-            datetime_time_created_from.Value = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+            datetime_time_created_from.Value = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             // 
             // combo_dispatcher
             // 
             combo_dispatcher.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             combo_dispatcher.FormattingEnabled = true;
-            combo_dispatcher.Location = new Point(122, 44);
+            combo_dispatcher.Location = new Point(124, 77);
             combo_dispatcher.Margin = new Padding(1, 2, 1, 2);
             combo_dispatcher.Name = "combo_dispatcher";
             combo_dispatcher.Size = new Size(407, 29);
@@ -118,7 +125,7 @@
             // 
             // spin_callout_from
             // 
-            spin_callout_from.Location = new Point(164, 77);
+            spin_callout_from.Location = new Point(166, 110);
             spin_callout_from.Margin = new Padding(1, 2, 1, 2);
             spin_callout_from.Name = "spin_callout_from";
             spin_callout_from.Size = new Size(161, 29);
@@ -127,7 +134,7 @@
             // textbox_reason
             // 
             textbox_reason.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textbox_reason.Location = new Point(122, 275);
+            textbox_reason.Location = new Point(124, 308);
             textbox_reason.Margin = new Padding(1, 2, 1, 2);
             textbox_reason.Name = "textbox_reason";
             textbox_reason.Size = new Size(407, 29);
@@ -136,7 +143,7 @@
             // textbox_address
             // 
             textbox_address.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textbox_address.Location = new Point(122, 242);
+            textbox_address.Location = new Point(124, 275);
             textbox_address.Margin = new Padding(1, 2, 1, 2);
             textbox_address.Name = "textbox_address";
             textbox_address.PlaceholderText = "м. Харків, вул. Сумська 42";
@@ -146,7 +153,7 @@
             // textbox_channel
             // 
             textbox_channel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textbox_channel.Location = new Point(122, 308);
+            textbox_channel.Location = new Point(124, 341);
             textbox_channel.Margin = new Padding(1, 2, 1, 2);
             textbox_channel.Name = "textbox_channel";
             textbox_channel.PlaceholderText = "103";
@@ -156,7 +163,7 @@
             // textbox_tel
             // 
             textbox_tel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textbox_tel.Location = new Point(122, 209);
+            textbox_tel.Location = new Point(124, 242);
             textbox_tel.Margin = new Padding(1, 2, 1, 2);
             textbox_tel.Name = "textbox_tel";
             textbox_tel.PlaceholderText = "+380XXXXXXXXX";
@@ -166,7 +173,7 @@
             // textbox_patriarchic
             // 
             textbox_patriarchic.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textbox_patriarchic.Location = new Point(122, 176);
+            textbox_patriarchic.Location = new Point(124, 209);
             textbox_patriarchic.Margin = new Padding(1, 2, 1, 2);
             textbox_patriarchic.Name = "textbox_patriarchic";
             textbox_patriarchic.Size = new Size(407, 29);
@@ -175,7 +182,7 @@
             // textbox_name
             // 
             textbox_name.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textbox_name.Location = new Point(122, 143);
+            textbox_name.Location = new Point(124, 176);
             textbox_name.Margin = new Padding(1, 2, 1, 2);
             textbox_name.Name = "textbox_name";
             textbox_name.Size = new Size(407, 29);
@@ -184,7 +191,7 @@
             // textbox_surname
             // 
             textbox_surname.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textbox_surname.Location = new Point(122, 110);
+            textbox_surname.Location = new Point(124, 143);
             textbox_surname.Margin = new Padding(1, 2, 1, 2);
             textbox_surname.Name = "textbox_surname";
             textbox_surname.Size = new Size(407, 29);
@@ -193,7 +200,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(11, 311);
+            label10.Location = new Point(13, 344);
             label10.Margin = new Padding(4, 0, 4, 0);
             label10.Name = "label10";
             label10.Size = new Size(106, 21);
@@ -203,7 +210,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(57, 278);
+            label9.Location = new Point(59, 311);
             label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
             label9.Size = new Size(60, 21);
@@ -213,7 +220,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(56, 245);
+            label8.Location = new Point(58, 278);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(61, 21);
@@ -223,7 +230,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(23, 79);
+            label7.Location = new Point(25, 112);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(90, 21);
@@ -233,7 +240,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(38, 113);
+            label6.Location = new Point(40, 146);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(79, 21);
@@ -243,7 +250,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(80, 146);
+            label5.Location = new Point(82, 179);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(37, 21);
@@ -253,7 +260,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(22, 179);
+            label4.Location = new Point(24, 212);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(95, 21);
@@ -263,7 +270,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(46, 212);
+            label3.Location = new Point(48, 245);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(71, 21);
@@ -273,7 +280,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(30, 47);
+            label2.Location = new Point(32, 80);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(87, 21);
@@ -283,12 +290,12 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(24, 17);
+            label1.Location = new Point(25, 48);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(93, 21);
             label1.TabIndex = 22;
-            label1.Text = "Час дзвінка";
+            label1.Text = "Час дзвінку";
             // 
             // datetime_time_created_to
             // 
@@ -300,7 +307,7 @@
             datetime_time_created_to.CalendarTrailingForeColor = Color.Black;
             datetime_time_created_to.CustomFormat = "yyyy-MM-dd HH:mm:ss\n";
             datetime_time_created_to.Format = DateTimePickerFormat.Custom;
-            datetime_time_created_to.Location = new Point(359, 11);
+            datetime_time_created_to.Location = new Point(366, 44);
             datetime_time_created_to.Margin = new Padding(1, 2, 1, 2);
             datetime_time_created_to.MinDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             datetime_time_created_to.Name = "datetime_time_created_to";
@@ -311,7 +318,7 @@
             // spin_callout_to
             // 
             spin_callout_to.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            spin_callout_to.Location = new Point(365, 77);
+            spin_callout_to.Location = new Point(367, 110);
             spin_callout_to.Margin = new Padding(1, 2, 1, 2);
             spin_callout_to.Name = "spin_callout_to";
             spin_callout_to.Size = new Size(164, 29);
@@ -320,7 +327,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(125, 79);
+            label11.Location = new Point(127, 112);
             label11.Margin = new Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new Size(31, 21);
@@ -330,7 +337,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(330, 79);
+            label12.Location = new Point(334, 110);
             label12.Margin = new Padding(4, 0, 4, 0);
             label12.Name = "label12";
             label12.Size = new Size(28, 21);
@@ -340,7 +347,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(125, 17);
+            label13.Location = new Point(127, 48);
             label13.Margin = new Padding(4, 0, 4, 0);
             label13.Name = "label13";
             label13.Size = new Size(31, 21);
@@ -350,18 +357,70 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(326, 17);
+            label14.Location = new Point(333, 48);
             label14.Margin = new Padding(4, 0, 4, 0);
             label14.Name = "label14";
             label14.Size = new Size(28, 21);
             label14.TabIndex = 49;
             label14.Text = "до";
             // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(334, 13);
+            label15.Margin = new Padding(4, 0, 4, 0);
+            label15.Name = "label15";
+            label15.Size = new Size(28, 21);
+            label15.TabIndex = 54;
+            label15.Text = "до";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(127, 13);
+            label16.Margin = new Padding(4, 0, 4, 0);
+            label16.Name = "label16";
+            label16.Size = new Size(31, 21);
+            label16.TabIndex = 53;
+            label16.Text = "від";
+            // 
+            // spin_call_max
+            // 
+            spin_call_max.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            spin_call_max.Location = new Point(367, 11);
+            spin_call_max.Margin = new Padding(1, 2, 1, 2);
+            spin_call_max.Name = "spin_call_max";
+            spin_call_max.Size = new Size(164, 29);
+            spin_call_max.TabIndex = 51;
+            // 
+            // spin_call_min
+            // 
+            spin_call_min.Location = new Point(166, 11);
+            spin_call_min.Margin = new Padding(1, 2, 1, 2);
+            spin_call_min.Name = "spin_call_min";
+            spin_call_min.Size = new Size(161, 29);
+            spin_call_min.TabIndex = 50;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(34, 13);
+            label17.Margin = new Padding(4, 0, 4, 0);
+            label17.Name = "label17";
+            label17.Size = new Size(85, 21);
+            label17.TabIndex = 52;
+            label17.Text = "№ дзвінку";
+            // 
             // CallFiltersForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(551, 384);
+            ClientSize = new Size(551, 426);
+            Controls.Add(label15);
+            Controls.Add(label16);
+            Controls.Add(spin_call_max);
+            Controls.Add(spin_call_min);
+            Controls.Add(label17);
             Controls.Add(label14);
             Controls.Add(label13);
             Controls.Add(label12);
@@ -391,11 +450,13 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "CallFiltersForm";
             Text = "Дзвінки - Фільтри";
             ((System.ComponentModel.ISupportInitialize)spin_callout_from).EndInit();
             ((System.ComponentModel.ISupportInitialize)spin_callout_to).EndInit();
+            ((System.ComponentModel.ISupportInitialize)spin_call_max).EndInit();
+            ((System.ComponentModel.ISupportInitialize)spin_call_min).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -430,5 +491,10 @@
         private Label label12;
         private Label label13;
         private Label label14;
+        private Label label15;
+        private Label label16;
+        private NumericUpDown spin_call_max;
+        private NumericUpDown spin_call_min;
+        private Label label17;
     }
 }

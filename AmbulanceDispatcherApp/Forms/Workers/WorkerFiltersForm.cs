@@ -19,7 +19,7 @@ namespace AmbulanceDispatcherApp.Forms.Workers
         public string? WorkerName;
         public string? WorkerPatriarchic;
         public string? WorkerTel;
-        public char? WorkerSex;
+        public string? WorkerSex;
         public string? WorkerKPP;
         public string? WorkerLicense;
         public string? WorkerRole;
@@ -70,9 +70,9 @@ namespace AmbulanceDispatcherApp.Forms.Workers
             textbox_role.Text = existingFilters.WorkerRole ?? "";
             textbox_license.Text = existingFilters.WorkerLicense ?? "";
 
-            if (existingFilters.WorkerSex.HasValue)
+            if (existingFilters.WorkerSex != null)
             {
-                switch (existingFilters.WorkerSex.Value.ToString())
+                switch (existingFilters.WorkerSex.ToString())
                 {
                     case "Ч":
                         radio_sex_male.Checked = true;
@@ -91,6 +91,11 @@ namespace AmbulanceDispatcherApp.Forms.Workers
 
             if (existingFilters.BrigadeID != null)
                 combo_brigade.SelectedValue = (existingFilters.BrigadeID as int?)!;
+
+            foreach (var dt in Controls.OfType<DateTimePicker>())
+                dt.MaxDate = DateTime.Now;
+
+            datetime_dob_to.Value = datetime_dob_to.MaxDate;
         }
 
         private void button_save_Click(object sender, EventArgs e)
@@ -142,7 +147,7 @@ namespace AmbulanceDispatcherApp.Forms.Workers
             if ((int)combo_brigade.SelectedValue! > 0)
                 BrigadeID = (int)combo_brigade.SelectedValue;
 
-            WorkerSex = radio_sex_unknown.Checked ? null : (radio_sex_male.Checked ? 'Ч' : 'Ж');
+            WorkerSex = radio_sex_unknown.Checked ? null : (radio_sex_male.Checked ? "Ч" : "Ж");
 
             WorkerDOB.Min = datetime_dob_from.Value;
             WorkerDOB.Max = datetime_dob_to.Value;

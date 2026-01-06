@@ -66,12 +66,6 @@
             label2 = new Label();
             textbox_callout_search = new TextBox();
             datagridview_callout = new DataGridView();
-            column_callout_id = new DataGridViewTextBoxColumn();
-            column_callout_time = new DataGridViewTextBoxColumn();
-            column_callout_address = new DataGridViewTextBoxColumn();
-            column_callout_reason = new DataGridViewTextBoxColumn();
-            column_callout_comment = new DataGridViewTextBoxColumn();
-            column_callout_canceled = new DataGridViewCheckBoxColumn();
             button_refresh = new Button();
             button_logout = new Button();
             label3 = new Label();
@@ -84,6 +78,12 @@
             button_view_hospitals = new Button();
             button_view_workers = new Button();
             button_view_patients = new Button();
+            column_callout_id = new DataGridViewTextBoxColumn();
+            column_callout_time_created = new DataGridViewTextBoxColumn();
+            column_callout_address = new DataGridViewTextBoxColumn();
+            column_callout_reason = new DataGridViewTextBoxColumn();
+            column_callout_comment = new DataGridViewTextBoxColumn();
+            column_callout_canceled = new DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)splitbox).BeginInit();
             splitbox.Panel1.SuspendLayout();
             splitbox.Panel2.SuspendLayout();
@@ -511,7 +511,7 @@
             datagridview_callout.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datagridview_callout.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             datagridview_callout.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            datagridview_callout.Columns.AddRange(new DataGridViewColumn[] { column_callout_id, column_callout_time, column_callout_address, column_callout_reason, column_callout_comment, column_callout_canceled });
+            datagridview_callout.Columns.AddRange(new DataGridViewColumn[] { column_callout_id, column_callout_time_created, column_callout_address, column_callout_reason, column_callout_comment, column_callout_canceled });
             datagridview_callout.Location = new Point(6, 64);
             datagridview_callout.MultiSelect = false;
             datagridview_callout.Name = "datagridview_callout";
@@ -521,54 +521,6 @@
             datagridview_callout.Size = new Size(732, 316);
             datagridview_callout.TabIndex = 16;
             datagridview_callout.SelectionChanged += datagridview_callout_SelectionChanged;
-            // 
-            // column_callout_id
-            // 
-            column_callout_id.DataPropertyName = "callout_id";
-            column_callout_id.HeaderText = "№";
-            column_callout_id.Name = "column_callout_id";
-            column_callout_id.ReadOnly = true;
-            column_callout_id.Width = 51;
-            // 
-            // column_callout_time
-            // 
-            column_callout_time.DataPropertyName = "callout_time_created";
-            column_callout_time.HeaderText = "Час створення";
-            column_callout_time.Name = "column_callout_time";
-            column_callout_time.ReadOnly = true;
-            column_callout_time.Width = 137;
-            // 
-            // column_callout_address
-            // 
-            column_callout_address.DataPropertyName = "callout_address";
-            column_callout_address.HeaderText = "Адреса";
-            column_callout_address.Name = "column_callout_address";
-            column_callout_address.ReadOnly = true;
-            column_callout_address.Width = 84;
-            // 
-            // column_callout_reason
-            // 
-            column_callout_reason.DataPropertyName = "callout_reason";
-            column_callout_reason.HeaderText = "Привід";
-            column_callout_reason.Name = "column_callout_reason";
-            column_callout_reason.ReadOnly = true;
-            column_callout_reason.Width = 83;
-            // 
-            // column_callout_comment
-            // 
-            column_callout_comment.DataPropertyName = "callout_comment";
-            column_callout_comment.HeaderText = "Коментар";
-            column_callout_comment.Name = "column_callout_comment";
-            column_callout_comment.ReadOnly = true;
-            column_callout_comment.Width = 103;
-            // 
-            // column_callout_canceled
-            // 
-            column_callout_canceled.DataPropertyName = "callout_canceled";
-            column_callout_canceled.HeaderText = "Скасовано";
-            column_callout_canceled.Name = "column_callout_canceled";
-            column_callout_canceled.ReadOnly = true;
-            column_callout_canceled.Width = 90;
             // 
             // button_refresh
             // 
@@ -705,6 +657,54 @@
             button_view_patients.UseVisualStyleBackColor = true;
             button_view_patients.Click += button_view_patients_Click;
             // 
+            // column_callout_id
+            // 
+            column_callout_id.DataPropertyName = "callout_id";
+            column_callout_id.HeaderText = "№";
+            column_callout_id.Name = "column_callout_id";
+            column_callout_id.ReadOnly = true;
+            column_callout_id.Width = 51;
+            // 
+            // column_callout_time_created
+            // 
+            column_callout_time_created.DataPropertyName = "callout_time_created";
+            column_callout_time_created.HeaderText = "Час створення";
+            column_callout_time_created.Name = "column_callout_time_created";
+            column_callout_time_created.ReadOnly = true;
+            column_callout_time_created.Width = 137;
+            // 
+            // column_callout_address
+            // 
+            column_callout_address.DataPropertyName = "callout_address";
+            column_callout_address.HeaderText = "Адреса";
+            column_callout_address.Name = "column_callout_address";
+            column_callout_address.ReadOnly = true;
+            column_callout_address.Width = 84;
+            // 
+            // column_callout_reason
+            // 
+            column_callout_reason.DataPropertyName = "callout_reason";
+            column_callout_reason.HeaderText = "Привід";
+            column_callout_reason.Name = "column_callout_reason";
+            column_callout_reason.ReadOnly = true;
+            column_callout_reason.Width = 83;
+            // 
+            // column_callout_comment
+            // 
+            column_callout_comment.DataPropertyName = "callout_comment";
+            column_callout_comment.HeaderText = "Коментар";
+            column_callout_comment.Name = "column_callout_comment";
+            column_callout_comment.ReadOnly = true;
+            column_callout_comment.Width = 103;
+            // 
+            // column_callout_canceled
+            // 
+            column_callout_canceled.DataPropertyName = "callout_canceled";
+            column_callout_canceled.HeaderText = "Скасовано";
+            column_callout_canceled.Name = "column_callout_canceled";
+            column_callout_canceled.ReadOnly = true;
+            column_callout_canceled.Width = 90;
+            // 
             // DispatcherMainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
@@ -782,12 +782,6 @@
         private DataGridViewTextBoxColumn column_call_address;
         private DataGridViewTextBoxColumn column_call_reason;
         private DataGridViewTextBoxColumn column_call_channel;
-        private DataGridViewTextBoxColumn column_callout_id;
-        private DataGridViewTextBoxColumn column_callout_time;
-        private DataGridViewTextBoxColumn column_callout_address;
-        private DataGridViewTextBoxColumn column_callout_reason;
-        private DataGridViewTextBoxColumn column_callout_comment;
-        private DataGridViewCheckBoxColumn column_callout_canceled;
         private Label label3;
         private Label label_authorized_as;
         private Panel panel_refresh;
@@ -801,5 +795,11 @@
         private CheckBox checkbox_call_resize_columns;
         private CheckBox checkbox_callout_resize_columns;
         private Button button_view_substations;
+        private DataGridViewTextBoxColumn column_callout_id;
+        private DataGridViewTextBoxColumn column_callout_time_created;
+        private DataGridViewTextBoxColumn column_callout_address;
+        private DataGridViewTextBoxColumn column_callout_reason;
+        private DataGridViewTextBoxColumn column_callout_comment;
+        private DataGridViewCheckBoxColumn column_callout_canceled;
     }
 }

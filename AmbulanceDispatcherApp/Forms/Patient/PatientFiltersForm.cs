@@ -22,7 +22,7 @@ namespace AmbulanceDispatcherApp.Forms.Patient
         public string? PatientName;
         public string? PatientPatriarchic;
         public string? PatientTel;
-        public char? PatientSex;
+        public string? PatientSex;
         public (DateTime? Min, DateTime? Max) PatientDOB;
 
         public PatientFilters Filters
@@ -31,13 +31,12 @@ namespace AmbulanceDispatcherApp.Forms.Patient
             {
                 return new PatientFilters()
                 {
-                    PatientID = PatientID,
-                    PatientSurname = PatientSurname,
-                    PatientName = PatientName,
-                    PatientPatriarchic = PatientPatriarchic,
-                    PatientTel = PatientTel,
-                    PatientSex = PatientSex,
-                    PatientDOB = PatientDOB
+                    PatientSurname = this.PatientSurname,
+                    PatientName = this.PatientName,
+                    PatientPatriarchic = this.PatientPatriarchic,
+                    PatientTel = this.PatientTel,
+                    PatientSex = this.PatientSex,
+                    PatientDOB = this.PatientDOB
                 };
             }
         }
@@ -47,6 +46,11 @@ namespace AmbulanceDispatcherApp.Forms.Patient
             InitializeComponent();
 
             radio_sex_unknown.Checked = true;
+
+            foreach (var dt in Controls.OfType<DateTimePicker>())
+                dt.MaxDate = DateTime.Now;
+
+            datetime_dob_to.Value = datetime_dob_to.MaxDate;
         }
 
         public PatientFiltersForm(PatientFilters existingFilters)
@@ -59,9 +63,9 @@ namespace AmbulanceDispatcherApp.Forms.Patient
             textbox_tel.Text = existingFilters.PatientTel ?? "";
 
             radio_sex_unknown.Checked = true;
-            if (existingFilters.PatientSex.HasValue)
+            if (existingFilters.PatientSex != null)
             {
-                switch (existingFilters.PatientSex.Value.ToString())
+                switch (existingFilters.PatientSex.ToString())
                 {
                     case "Ч":
                         radio_sex_male.Checked = true;
@@ -116,7 +120,7 @@ namespace AmbulanceDispatcherApp.Forms.Patient
             if (textbox_tel.Text.Trim() != "")
                 PatientTel = textbox_tel.Text;
 
-            PatientSex = radio_sex_unknown.Checked ? null : (radio_sex_male.Checked ? 'Ч' : 'Ж');
+            PatientSex = radio_sex_unknown.Checked ? null : (radio_sex_male.Checked ? "Ч" : "Ж");
 
             PatientDOB.Min = datetime_dob_from.Value;
             PatientDOB.Max = datetime_dob_to.Value;

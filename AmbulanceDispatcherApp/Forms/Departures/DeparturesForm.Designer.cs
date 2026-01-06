@@ -31,12 +31,6 @@
             button_refresh = new Button();
             checkbox_auto_resize_columns = new CheckBox();
             datagridview_main = new DataGridView();
-            column_callout_id = new DataGridViewTextBoxColumn();
-            column_departure_time_departed = new DataGridViewTextBoxColumn();
-            column_departure_time_arrived = new DataGridViewTextBoxColumn();
-            column_departure_mileage_km = new DataGridViewTextBoxColumn();
-            column_departure_from_address = new DataGridViewTextBoxColumn();
-            column_departure_to_address = new DataGridViewTextBoxColumn();
             button_filters_reset = new Button();
             button_crud_create = new Button();
             button_crud_delete = new Button();
@@ -46,6 +40,12 @@
             textbox_search = new TextBox();
             panel_filters = new Panel();
             label_search = new Label();
+            column_callout_id = new DataGridViewTextBoxColumn();
+            column_departure_time_departed = new DataGridViewTextBoxColumn();
+            column_departure_time_arrived = new DataGridViewTextBoxColumn();
+            column_departure_mileage_km = new DataGridViewTextBoxColumn();
+            column_departure_from_address = new DataGridViewTextBoxColumn();
+            column_departure_to_address = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)datagridview_main).BeginInit();
             panel_crud.SuspendLayout();
             panel_filters.SuspendLayout();
@@ -94,54 +94,6 @@
             datagridview_main.Size = new Size(564, 367);
             datagridview_main.TabIndex = 39;
             datagridview_main.SelectionChanged += datagridview_main_SelectionChanged;
-            // 
-            // column_callout_id
-            // 
-            column_callout_id.DataPropertyName = "callout_id";
-            column_callout_id.HeaderText = "Номер виклику";
-            column_callout_id.Name = "column_callout_id";
-            column_callout_id.ReadOnly = true;
-            column_callout_id.Width = 131;
-            // 
-            // column_departure_time_departed
-            // 
-            column_departure_time_departed.DataPropertyName = "departure_time_departed";
-            column_departure_time_departed.HeaderText = "Час виїзду";
-            column_departure_time_departed.Name = "column_departure_time_departed";
-            column_departure_time_departed.ReadOnly = true;
-            column_departure_time_departed.Width = 99;
-            // 
-            // column_departure_time_arrived
-            // 
-            column_departure_time_arrived.DataPropertyName = "departure_time_arrived";
-            column_departure_time_arrived.HeaderText = "Час приїзду";
-            column_departure_time_arrived.Name = "column_departure_time_arrived";
-            column_departure_time_arrived.ReadOnly = true;
-            column_departure_time_arrived.Width = 108;
-            // 
-            // column_departure_mileage_km
-            // 
-            column_departure_mileage_km.DataPropertyName = "departure_mileage_km";
-            column_departure_mileage_km.HeaderText = "Кілометраж";
-            column_departure_mileage_km.Name = "column_departure_mileage_km";
-            column_departure_mileage_km.ReadOnly = true;
-            column_departure_mileage_km.Width = 118;
-            // 
-            // column_departure_from_address
-            // 
-            column_departure_from_address.DataPropertyName = "departure_from_address";
-            column_departure_from_address.HeaderText = "Початкова адреса";
-            column_departure_from_address.Name = "column_departure_from_address";
-            column_departure_from_address.ReadOnly = true;
-            column_departure_from_address.Width = 149;
-            // 
-            // column_departure_to_address
-            // 
-            column_departure_to_address.DataPropertyName = "departure_to_address";
-            column_departure_to_address.HeaderText = "Кінцева адреса";
-            column_departure_to_address.Name = "column_departure_to_address";
-            column_departure_to_address.ReadOnly = true;
-            column_departure_to_address.Width = 130;
             // 
             // button_filters_reset
             // 
@@ -238,6 +190,54 @@
             label_search.Size = new Size(59, 21);
             label_search.TabIndex = 41;
             label_search.Text = "Пошук";
+            // 
+            // column_callout_id
+            // 
+            column_callout_id.DataPropertyName = "callout_id";
+            column_callout_id.HeaderText = "№ виклику";
+            column_callout_id.Name = "column_callout_id";
+            column_callout_id.ReadOnly = true;
+            column_callout_id.Width = 113;
+            // 
+            // column_departure_time_departed
+            // 
+            column_departure_time_departed.DataPropertyName = "departure_time_departed";
+            column_departure_time_departed.HeaderText = "Час виїзду";
+            column_departure_time_departed.Name = "column_departure_time_departed";
+            column_departure_time_departed.ReadOnly = true;
+            column_departure_time_departed.Width = 108;
+            // 
+            // column_departure_time_arrived
+            // 
+            column_departure_time_arrived.DataPropertyName = "departure_time_arrived";
+            column_departure_time_arrived.HeaderText = "Час приїзду";
+            column_departure_time_arrived.Name = "column_departure_time_arrived";
+            column_departure_time_arrived.ReadOnly = true;
+            column_departure_time_arrived.Width = 118;
+            // 
+            // column_departure_mileage_km
+            // 
+            column_departure_mileage_km.DataPropertyName = "departure_mileage_km";
+            column_departure_mileage_km.HeaderText = "Кілометраж";
+            column_departure_mileage_km.Name = "column_departure_mileage_km";
+            column_departure_mileage_km.ReadOnly = true;
+            column_departure_mileage_km.Width = 118;
+            // 
+            // column_departure_from_address
+            // 
+            column_departure_from_address.DataPropertyName = "departure_from_address";
+            column_departure_from_address.HeaderText = "Початкова адреса";
+            column_departure_from_address.Name = "column_departure_from_address";
+            column_departure_from_address.ReadOnly = true;
+            column_departure_from_address.Width = 149;
+            // 
+            // column_departure_to_address
+            // 
+            column_departure_to_address.DataPropertyName = "departure_to_address";
+            column_departure_to_address.HeaderText = "Кінцева адреса";
+            column_departure_to_address.Name = "column_departure_to_address";
+            column_departure_to_address.ReadOnly = true;
+            column_departure_to_address.Width = 130;
             // 
             // DeparturesForm
             // 

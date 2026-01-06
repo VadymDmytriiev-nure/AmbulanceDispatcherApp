@@ -71,6 +71,12 @@ namespace AmbulanceDispatcherApp.Forms.Departures
                 if (existingFilters.DepartureTimeArrived.Max.HasValue)
                     datetime_arrived_max.Value = existingFilters.DepartureTimeArrived.Max.Value;
             }
+
+            foreach (var dt in Controls.OfType<DateTimePicker>())
+                dt.MaxDate = DateTime.Now;
+
+            datetime_departed_max.Value = datetime_departed_max.MaxDate;
+            datetime_arrived_max.Value = datetime_arrived_max.MaxDate;
         }
 
         private void button_save_Click(object sender, EventArgs e)

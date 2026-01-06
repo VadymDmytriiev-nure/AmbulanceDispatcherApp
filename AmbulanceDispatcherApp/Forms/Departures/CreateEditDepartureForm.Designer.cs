@@ -55,7 +55,7 @@
             datetime_departed.CalendarTitleBackColor = Color.Black;
             datetime_departed.CalendarTitleForeColor = Color.Black;
             datetime_departed.CalendarTrailingForeColor = Color.Black;
-            datetime_departed.CustomFormat = "yyyy-MM-dd";
+            datetime_departed.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             datetime_departed.Format = DateTimePickerFormat.Custom;
             datetime_departed.Location = new Point(143, 112);
             datetime_departed.Margin = new Padding(1, 2, 1, 2);
@@ -141,7 +141,7 @@
             datetime_arrived.CalendarTitleBackColor = Color.Black;
             datetime_arrived.CalendarTitleForeColor = Color.Black;
             datetime_arrived.CalendarTrailingForeColor = Color.Black;
-            datetime_arrived.CustomFormat = "yyyy-MM-dd";
+            datetime_arrived.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             datetime_arrived.Format = DateTimePickerFormat.Custom;
             datetime_arrived.Location = new Point(143, 145);
             datetime_arrived.Margin = new Padding(1, 2, 1, 2);

@@ -146,8 +146,8 @@ namespace AmbulanceDispatcherApp
             if (CalloutIDRange.Max.HasValue)
                 filters.Add("`callout_id` <= @id_max");
 
-            filters.Add("`call`.call_time_created >= @time_from");
-            filters.Add("`call`.call_time_created <= @time_to");
+            if (CalloutCanceled.HasValue)
+                filters.Add("`callout_canceled` = @cc");
 
             string filter = "WHERE " + String.Join(" AND ", filters);
             if (filters.Count == 0)
@@ -162,7 +162,7 @@ namespace AmbulanceDispatcherApp
             p.Add(new MySqlParameter("@tc_max", CalloutTimeCreated.Max));
             p.Add(new MySqlParameter("@id_min", CalloutIDRange.Min));
             p.Add(new MySqlParameter("@id_max", CalloutIDRange.Max));
-            p.Add(new MySqlParameter("@c", CalloutCanceled));
+            p.Add(new MySqlParameter("@cc", CalloutCanceled));
 
             return new Tuple<string, List<MySqlParameter>>(filter, p);
         }
@@ -170,7 +170,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT `call`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `call` INNER JOIN `dispatcher` ON `call`.dispatcher_id = `dispatcher`.dispatcher_id {filter.Item1}", conn);
+            var cmd = new MySqlCommand($"SELECT `callout`.* from `callout` {filter.Item1}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -262,12 +262,11 @@ namespace AmbulanceDispatcherApp
 
     public class PatientFilters : IFilters
     {
-        public int? PatientID;
         public string? PatientSurname;
         public string? PatientName;
         public string? PatientPatriarchic;
         public string? PatientTel;
-        public char? PatientSex;
+        public string? PatientSex;
         public (DateTime? Min, DateTime? Max) PatientDOB;
 
         public PatientFilters() { }
@@ -275,9 +274,6 @@ namespace AmbulanceDispatcherApp
         public Tuple<string, List<MySqlParameter>> GetSQLFilter()
         {
             List<string> filters = new List<string>();
-
-            if (PatientID != null)
-                filters.Add("`patient_id` = @id");
 
             if (PatientSurname != null)
                 filters.Add("lower(`patient_name`) LIKE lower(@name)");
@@ -289,10 +285,10 @@ namespace AmbulanceDispatcherApp
                 filters.Add("lower(`patient_patriarchic`) LIKE lower(@patriarchic)");
 
             if (PatientTel != null)
-                filters.Add("`tel` = @tel");
+                filters.Add("`patient_tel` = @tel");
 
             if (PatientSex != null)
-                filters.Add("lower(`patient_sex`) LIKE lower(@sex)");
+                filters.Add("lower(`patient_sex`) = lower(@sex)");
 
             if (PatientDOB.Min != null)
                 filters.Add("`patient_dob` >= @dob_min");
@@ -306,7 +302,6 @@ namespace AmbulanceDispatcherApp
 
             List<MySqlParameter> p = new List<MySqlParameter>();
 
-            p.Add(new MySqlParameter("@id", PatientID));
             p.Add(new MySqlParameter("@name", "%" + PatientName + "%"));
             p.Add(new MySqlParameter("@surname", "%" + PatientSurname + "%"));
             p.Add(new MySqlParameter("@patriarchic", "%" + PatientPatriarchic + "%"));
@@ -334,7 +329,7 @@ namespace AmbulanceDispatcherApp
         public string? WorkerName;
         public string? WorkerSurname;
         public string? WorkerPatriarchic;
-        public char? WorkerSex;
+        public string? WorkerSex;
         public string? WorkerTel;
         public string? WorkerRole;
         public string? WorkerKPP;

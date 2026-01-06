@@ -13,25 +13,25 @@ using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp.Forms
 {
-    public enum CreateEditViewCallFormMode
+    public enum CreateEditViewCalloutFormMode
     {
         View = 0,
         Create = 1,
         Edit = 2
     }
 
-    public partial class CreateEditViewCallForm : Form
+    public partial class CreateEditViewCalloutForm : Form
     {
-        CreateEditViewCallFormMode mode;
+        CreateEditViewCalloutFormMode mode;
         DataRowView? callout;
 
-        public CreateEditViewCallForm(CreateEditViewCallFormMode mode = CreateEditViewCallFormMode.View, DataRowView? callout = null)
+        public CreateEditViewCalloutForm(CreateEditViewCalloutFormMode mode = CreateEditViewCalloutFormMode.View, DataRowView? callout = null)
         {
             InitializeComponent();
 
             this.mode = mode;
 
-            if (mode == CreateEditViewCallFormMode.Edit)
+            if (mode == CreateEditViewCalloutFormMode.Edit)
             {
                 this.callout = callout;
                 Text = $"Редагування виклику №{callout!["callout_id"]}";
@@ -42,7 +42,7 @@ namespace AmbulanceDispatcherApp.Forms
                 datetime_time_created.Value = (DateTime)callout!["callout_time_created"];
                 checkbox_canceled.Checked = (bool?)callout!["callout_canceled"] ?? false;
             }
-            else if (mode == CreateEditViewCallFormMode.Create)
+            else if (mode == CreateEditViewCalloutFormMode.Create)
             {
                 Text = "Створення виклику";
                 datetime_time_created.Value = DateTime.Now;
@@ -66,7 +66,7 @@ namespace AmbulanceDispatcherApp.Forms
                 button_cancel.Visible = false;
                 button_save.Visible = false;
             }
-                
+
         }
 
         private void checkbox_canceled_CheckedChanged(object sender, EventArgs e) => checkbox_canceled.Text = checkbox_canceled.Checked ? "Так" : "Ні";
@@ -85,7 +85,7 @@ namespace AmbulanceDispatcherApp.Forms
                 return;
             }
 
-            if (mode == CreateEditViewCallFormMode.Edit)
+            if (mode == CreateEditViewCalloutFormMode.Edit)
             {
                 var command = new MySqlCommand(
                     "UPDATE `callout` SET " +
@@ -106,7 +106,7 @@ namespace AmbulanceDispatcherApp.Forms
 
                 command.ExecuteNonQuery();
             }
-            else if (mode == CreateEditViewCallFormMode.Create)
+            else if (mode == CreateEditViewCalloutFormMode.Create)
             {
                 var command = new MySqlCommand(
                     "INSERT INTO `callout` " +
@@ -126,5 +126,7 @@ namespace AmbulanceDispatcherApp.Forms
             Program.SyncTableCallout();
             Close();
         }
+
+        private void button_cancel_Click(object sender, EventArgs e) => Close();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AmbulanceDispatcherApp.Forms
 {
-    partial class CreateEditViewCallForm
+    partial class CreateEditViewCalloutForm
     {
         /// <summary>
         /// Required designer variable.
@@ -116,20 +116,21 @@
             button_cancel.DialogResult = DialogResult.Cancel;
             button_cancel.Image = Properties.Resources._212384_16x16;
             button_cancel.ImageAlign = ContentAlignment.MiddleLeft;
-            button_cancel.Location = new Point(84, 239);
+            button_cancel.Location = new Point(84, 223);
             button_cancel.Margin = new Padding(1, 2, 1, 2);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(124, 28);
             button_cancel.TabIndex = 75;
             button_cancel.Text = "Скасувати";
             button_cancel.UseVisualStyleBackColor = true;
+            button_cancel.Click += button_cancel_Click;
             // 
             // button_save
             // 
             button_save.Anchor = AnchorStyles.Bottom;
             button_save.Image = Properties.Resources._212394_16x16;
             button_save.ImageAlign = ContentAlignment.MiddleLeft;
-            button_save.Location = new Point(210, 239);
+            button_save.Location = new Point(210, 223);
             button_save.Margin = new Padding(1, 2, 1, 2);
             button_save.Name = "button_save";
             button_save.Size = new Size(124, 28);
@@ -184,7 +185,7 @@
             button_ok.Anchor = AnchorStyles.Bottom;
             button_ok.Image = Properties.Resources._212394_16x16;
             button_ok.ImageAlign = ContentAlignment.MiddleLeft;
-            button_ok.Location = new Point(145, 239);
+            button_ok.Location = new Point(145, 223);
             button_ok.Margin = new Padding(1, 2, 1, 2);
             button_ok.Name = "button_ok";
             button_ok.Size = new Size(124, 28);
@@ -193,11 +194,11 @@
             button_ok.UseVisualStyleBackColor = true;
             button_ok.Visible = false;
             // 
-            // CreateEditViewCallForm
+            // CreateEditViewCalloutForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(411, 278);
+            ClientSize = new Size(411, 262);
             Controls.Add(button_ok);
             Controls.Add(label3);
             Controls.Add(checkbox_canceled);
@@ -213,7 +214,7 @@
             Controls.Add(label4);
             Font = new Font("Segoe UI", 12F);
             Margin = new Padding(4);
-            Name = "CreateEditViewCallForm";
+            Name = "CreateEditViewCalloutForm";
             Text = "CreateEditCallForm";
             ResumeLayout(false);
             PerformLayout();

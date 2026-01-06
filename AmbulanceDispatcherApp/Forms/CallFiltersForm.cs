@@ -18,6 +18,7 @@ namespace AmbulanceDispatcherApp
         DataTable dispatchers = new DataTable();
 
         public (DateTime? Min, DateTime? Max) TimeRange;
+        public (int? Min, int? Max) CallIDRange;
         public (int? Min, int? Max) CalloutIDRange;
         public int? DispatcherID;
         public string? CallerSurname;
@@ -32,16 +33,17 @@ namespace AmbulanceDispatcherApp
             get {
                 return new CallFilters()
                 {
-                    TimeRange = TimeRange,
-                    CalloutIDRange = CalloutIDRange,
-                    DispatcherID = DispatcherID,
-                    CallerSurname = CallerSurname,
-                    CallerName = CallerName,
-                    CallerPatriarchic = CallerPatriarchic,
-                    CallerTel = CallerTel,
-                    Channel = Channel,
-                    Address = Address,
-                    Reason = Reason
+                    TimeRange = this.TimeRange,
+                    CallIDRange = this.CallIDRange,
+                    CalloutIDRange = this.CalloutIDRange,
+                    DispatcherID = this.DispatcherID,
+                    CallerSurname = this.CallerSurname,
+                    CallerName = this.CallerName,
+                    CallerPatriarchic = this.CallerPatriarchic,
+                    CallerTel = this.CallerTel,
+                    Channel = this.Channel,
+                    Address = this.Address,
+                    Reason = this.Reason
                 };
             }
         }
@@ -58,6 +60,8 @@ namespace AmbulanceDispatcherApp
             combo_dispatcher.ValueMember = "dispatcher_id";
             combo_dispatcher.DisplayMember = "dispatcher_fullname";
 
+            spin_call_min.Text = "";
+            spin_call_max.Text = "";
             spin_callout_from.Text = "";
             spin_callout_to.Text = "";
             combo_dispatcher.Text = "";
@@ -76,10 +80,15 @@ namespace AmbulanceDispatcherApp
             combo_dispatcher.ValueMember = "dispatcher_id";
             combo_dispatcher.DisplayMember = "dispatcher_fullname";
 
+            spin_call_min.Text = "";
+            spin_call_max.Text = "";
             spin_callout_from.Text = "";
             spin_callout_to.Text = "";
             combo_dispatcher.Text = "";
             combo_dispatcher.SelectedValue = "-1";
+
+            spin_call_min.Text = existingFilters.CallIDRange.Min?.ToString() ?? "";
+            spin_call_max.Text = existingFilters.CallIDRange.Max?.ToString() ?? "";
 
             if (existingFilters.TimeRange.Min.HasValue)
                 datetime_time_created_from.Value = existingFilters.TimeRange.Min.Value;
@@ -103,7 +112,6 @@ namespace AmbulanceDispatcherApp
             textbox_channel.Text = existingFilters.Channel ?? "";
             textbox_reason.Text = existingFilters.Reason ?? "";
             textbox_address.Text = existingFilters.Address ?? "";
-
         }
 
         private void button_save_Click(object sender, EventArgs e)
@@ -117,6 +125,12 @@ namespace AmbulanceDispatcherApp
             if (combo_dispatcher.Text.Trim() != "" && combo_dispatcher.SelectedValue == null)
             {
                 MessageBox.Show("Обраного диспетчеру не існує", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if ((spin_call_min.Text.Trim() != "" && spin_call_max.Text.Trim() != "") && spin_call_min.Value > spin_call_max.Value)
+            {
+                MessageBox.Show("Номер дзвінку \"від\" не може перевищувати номер \"до\"", "Помилка форматування", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -138,6 +152,11 @@ namespace AmbulanceDispatcherApp
                 CalloutIDRange.Min = (int)spin_callout_from.Value;
             if (spin_callout_to.Text.Trim() != "")
                 CalloutIDRange.Max = (int)spin_callout_to.Value;
+
+            if (spin_call_min.Text.Trim() != "")
+                CallIDRange.Min = (int)spin_call_min.Value;
+            if (spin_call_max.Text.Trim() != "")
+                CallIDRange.Max = (int)spin_call_max.Value;
 
             if (combo_dispatcher.SelectedValue != null)
                 DispatcherID = (int)combo_dispatcher.SelectedValue;

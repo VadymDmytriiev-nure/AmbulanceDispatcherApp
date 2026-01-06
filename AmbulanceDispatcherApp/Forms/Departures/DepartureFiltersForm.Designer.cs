@@ -92,7 +92,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(334, 180);
+            label5.Location = new Point(334, 182);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(29, 21);
@@ -102,7 +102,7 @@
             // spin_mileage_min
             // 
             spin_mileage_min.DecimalPlaces = 3;
-            spin_mileage_min.Location = new Point(185, 178);
+            spin_mileage_min.Location = new Point(185, 180);
             spin_mileage_min.Name = "spin_mileage_min";
             spin_mileage_min.Size = new Size(145, 29);
             spin_mileage_min.TabIndex = 107;
@@ -138,11 +138,11 @@
             datetime_arrived_min.Format = DateTimePickerFormat.Custom;
             datetime_arrived_min.Location = new Point(185, 144);
             datetime_arrived_min.Margin = new Padding(1, 2, 1, 2);
-            datetime_arrived_min.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
+            datetime_arrived_min.MinDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             datetime_arrived_min.Name = "datetime_arrived_min";
             datetime_arrived_min.Size = new Size(178, 29);
             datetime_arrived_min.TabIndex = 104;
-            datetime_arrived_min.Value = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+            datetime_arrived_min.Value = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             // 
             // datetime_departed_min
             // 
@@ -155,11 +155,11 @@
             datetime_departed_min.Format = DateTimePickerFormat.Custom;
             datetime_departed_min.Location = new Point(185, 111);
             datetime_departed_min.Margin = new Padding(1, 2, 1, 2);
-            datetime_departed_min.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
+            datetime_departed_min.MinDate = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             datetime_departed_min.Name = "datetime_departed_min";
             datetime_departed_min.Size = new Size(178, 29);
             datetime_departed_min.TabIndex = 103;
-            datetime_departed_min.Value = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+            datetime_departed_min.Value = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             // 
             // textbox_to_address
             // 
