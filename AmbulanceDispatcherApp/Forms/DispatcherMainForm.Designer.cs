@@ -66,6 +66,12 @@
             label2 = new Label();
             textbox_callout_search = new TextBox();
             datagridview_callout = new DataGridView();
+            column_callout_id = new DataGridViewTextBoxColumn();
+            column_callout_time_created = new DataGridViewTextBoxColumn();
+            column_callout_address = new DataGridViewTextBoxColumn();
+            column_callout_reason = new DataGridViewTextBoxColumn();
+            column_callout_comment = new DataGridViewTextBoxColumn();
+            column_callout_canceled = new DataGridViewCheckBoxColumn();
             button_refresh = new Button();
             button_logout = new Button();
             label3 = new Label();
@@ -78,12 +84,6 @@
             button_view_hospitals = new Button();
             button_view_workers = new Button();
             button_view_patients = new Button();
-            column_callout_id = new DataGridViewTextBoxColumn();
-            column_callout_time_created = new DataGridViewTextBoxColumn();
-            column_callout_address = new DataGridViewTextBoxColumn();
-            column_callout_reason = new DataGridViewTextBoxColumn();
-            column_callout_comment = new DataGridViewTextBoxColumn();
-            column_callout_canceled = new DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)splitbox).BeginInit();
             splitbox.Panel1.SuspendLayout();
             splitbox.Panel2.SuspendLayout();
@@ -522,6 +522,54 @@
             datagridview_callout.TabIndex = 16;
             datagridview_callout.SelectionChanged += datagridview_callout_SelectionChanged;
             // 
+            // column_callout_id
+            // 
+            column_callout_id.DataPropertyName = "callout_id";
+            column_callout_id.HeaderText = "№";
+            column_callout_id.Name = "column_callout_id";
+            column_callout_id.ReadOnly = true;
+            column_callout_id.Width = 51;
+            // 
+            // column_callout_time_created
+            // 
+            column_callout_time_created.DataPropertyName = "callout_time_created";
+            column_callout_time_created.HeaderText = "Час створення";
+            column_callout_time_created.Name = "column_callout_time_created";
+            column_callout_time_created.ReadOnly = true;
+            column_callout_time_created.Width = 137;
+            // 
+            // column_callout_address
+            // 
+            column_callout_address.DataPropertyName = "callout_address";
+            column_callout_address.HeaderText = "Адреса";
+            column_callout_address.Name = "column_callout_address";
+            column_callout_address.ReadOnly = true;
+            column_callout_address.Width = 84;
+            // 
+            // column_callout_reason
+            // 
+            column_callout_reason.DataPropertyName = "callout_reason";
+            column_callout_reason.HeaderText = "Привід";
+            column_callout_reason.Name = "column_callout_reason";
+            column_callout_reason.ReadOnly = true;
+            column_callout_reason.Width = 83;
+            // 
+            // column_callout_comment
+            // 
+            column_callout_comment.DataPropertyName = "callout_comment";
+            column_callout_comment.HeaderText = "Коментар";
+            column_callout_comment.Name = "column_callout_comment";
+            column_callout_comment.ReadOnly = true;
+            column_callout_comment.Width = 103;
+            // 
+            // column_callout_canceled
+            // 
+            column_callout_canceled.DataPropertyName = "callout_canceled";
+            column_callout_canceled.HeaderText = "Скасовано";
+            column_callout_canceled.Name = "column_callout_canceled";
+            column_callout_canceled.ReadOnly = true;
+            column_callout_canceled.Width = 90;
+            // 
             // button_refresh
             // 
             button_refresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -552,7 +600,7 @@
             label3.Name = "label3";
             label3.Size = new Size(207, 21);
             label3.TabIndex = 24;
-            label3.Text = "Макс. кількість рядків - 200";
+            label3.Text = "Макс. кількість рядків - 500";
             // 
             // label_authorized_as
             // 
@@ -656,54 +704,6 @@
             button_view_patients.Text = "Пацієнти";
             button_view_patients.UseVisualStyleBackColor = true;
             button_view_patients.Click += button_view_patients_Click;
-            // 
-            // column_callout_id
-            // 
-            column_callout_id.DataPropertyName = "callout_id";
-            column_callout_id.HeaderText = "№";
-            column_callout_id.Name = "column_callout_id";
-            column_callout_id.ReadOnly = true;
-            column_callout_id.Width = 51;
-            // 
-            // column_callout_time_created
-            // 
-            column_callout_time_created.DataPropertyName = "callout_time_created";
-            column_callout_time_created.HeaderText = "Час створення";
-            column_callout_time_created.Name = "column_callout_time_created";
-            column_callout_time_created.ReadOnly = true;
-            column_callout_time_created.Width = 137;
-            // 
-            // column_callout_address
-            // 
-            column_callout_address.DataPropertyName = "callout_address";
-            column_callout_address.HeaderText = "Адреса";
-            column_callout_address.Name = "column_callout_address";
-            column_callout_address.ReadOnly = true;
-            column_callout_address.Width = 84;
-            // 
-            // column_callout_reason
-            // 
-            column_callout_reason.DataPropertyName = "callout_reason";
-            column_callout_reason.HeaderText = "Привід";
-            column_callout_reason.Name = "column_callout_reason";
-            column_callout_reason.ReadOnly = true;
-            column_callout_reason.Width = 83;
-            // 
-            // column_callout_comment
-            // 
-            column_callout_comment.DataPropertyName = "callout_comment";
-            column_callout_comment.HeaderText = "Коментар";
-            column_callout_comment.Name = "column_callout_comment";
-            column_callout_comment.ReadOnly = true;
-            column_callout_comment.Width = 103;
-            // 
-            // column_callout_canceled
-            // 
-            column_callout_canceled.DataPropertyName = "callout_canceled";
-            column_callout_canceled.HeaderText = "Скасовано";
-            column_callout_canceled.Name = "column_callout_canceled";
-            column_callout_canceled.ReadOnly = true;
-            column_callout_canceled.Width = 90;
             // 
             // DispatcherMainForm
             // 

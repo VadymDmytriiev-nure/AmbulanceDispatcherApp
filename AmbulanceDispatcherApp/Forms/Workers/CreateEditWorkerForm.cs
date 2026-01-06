@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp.Forms.Workers
@@ -51,6 +52,8 @@ namespace AmbulanceDispatcherApp.Forms.Workers
                 combo_brigade.SelectedValue = worker["brigade_id"];
             }
             else Text = "Створення працівника";
+
+            datetime_dob.MaxDate = DateTime.Now - TimeSpan.FromDays(365 * 14);
         }
 
         private void button_save_Click(object sender, EventArgs e)

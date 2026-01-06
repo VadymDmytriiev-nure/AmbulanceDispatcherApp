@@ -51,14 +51,14 @@
             datetime_time_created.CalendarTitleBackColor = Color.Black;
             datetime_time_created.CalendarTitleForeColor = Color.Black;
             datetime_time_created.CalendarTrailingForeColor = Color.Black;
-            datetime_time_created.CustomFormat = "yyyy-MM-dd hh:mm:ss";
+            datetime_time_created.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             datetime_time_created.Format = DateTimePickerFormat.Custom;
             datetime_time_created.Location = new Point(149, 110);
             datetime_time_created.Margin = new Padding(1, 2, 1, 2);
             datetime_time_created.MinDate = new DateTime(1900, 1, 1, 0, 0, 0, 0);
             datetime_time_created.Name = "datetime_time_created";
             datetime_time_created.Size = new Size(256, 29);
-            datetime_time_created.TabIndex = 88;
+            datetime_time_created.TabIndex = 4;
             datetime_time_created.Value = new DateTime(2000, 1, 1, 0, 0, 0, 0);
             // 
             // label5
@@ -78,7 +78,7 @@
             textbox_comment.Margin = new Padding(1, 2, 1, 2);
             textbox_comment.Name = "textbox_comment";
             textbox_comment.Size = new Size(256, 29);
-            textbox_comment.TabIndex = 80;
+            textbox_comment.TabIndex = 3;
             // 
             // label2
             // 
@@ -97,7 +97,7 @@
             textbox_reason.Margin = new Padding(1, 2, 1, 2);
             textbox_reason.Name = "textbox_reason";
             textbox_reason.Size = new Size(256, 29);
-            textbox_reason.TabIndex = 78;
+            textbox_reason.TabIndex = 2;
             // 
             // label1
             // 
@@ -120,7 +120,7 @@
             button_cancel.Margin = new Padding(1, 2, 1, 2);
             button_cancel.Name = "button_cancel";
             button_cancel.Size = new Size(124, 28);
-            button_cancel.TabIndex = 75;
+            button_cancel.TabIndex = 7;
             button_cancel.Text = "Скасувати";
             button_cancel.UseVisualStyleBackColor = true;
             button_cancel.Click += button_cancel_Click;
@@ -134,7 +134,7 @@
             button_save.Margin = new Padding(1, 2, 1, 2);
             button_save.Name = "button_save";
             button_save.Size = new Size(124, 28);
-            button_save.TabIndex = 76;
+            button_save.TabIndex = 6;
             button_save.Text = "    Зберегти";
             button_save.UseVisualStyleBackColor = true;
             button_save.Click += button_save_Click;
@@ -146,7 +146,7 @@
             textbox_address.Margin = new Padding(1, 2, 1, 2);
             textbox_address.Name = "textbox_address";
             textbox_address.Size = new Size(256, 29);
-            textbox_address.TabIndex = 74;
+            textbox_address.TabIndex = 1;
             // 
             // label4
             // 
@@ -164,7 +164,7 @@
             checkbox_canceled.Location = new Point(148, 149);
             checkbox_canceled.Name = "checkbox_canceled";
             checkbox_canceled.Size = new Size(44, 25);
-            checkbox_canceled.TabIndex = 89;
+            checkbox_canceled.TabIndex = 5;
             checkbox_canceled.Text = "Ні";
             checkbox_canceled.TextAlign = ContentAlignment.MiddleCenter;
             checkbox_canceled.UseVisualStyleBackColor = true;
@@ -189,7 +189,7 @@
             button_ok.Margin = new Padding(1, 2, 1, 2);
             button_ok.Name = "button_ok";
             button_ok.Size = new Size(124, 28);
-            button_ok.TabIndex = 91;
+            button_ok.TabIndex = 8;
             button_ok.Text = "    OK";
             button_ok.UseVisualStyleBackColor = true;
             button_ok.Visible = false;

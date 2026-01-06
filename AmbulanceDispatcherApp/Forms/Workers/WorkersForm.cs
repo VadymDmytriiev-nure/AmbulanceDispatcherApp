@@ -21,7 +21,7 @@ namespace AmbulanceDispatcherApp.Forms.Workers
 
             datagridview_main.AutoGenerateColumns = false;
             datagridview_main.DataSource = Program.SqlWorkerTable;
-            datagridview_main.Sort(column_worker_surname, ListSortDirection.Ascending);
+            datagridview_main.Sort(column_worker_brigade, ListSortDirection.Ascending);
 
             if (readOnly)
             {

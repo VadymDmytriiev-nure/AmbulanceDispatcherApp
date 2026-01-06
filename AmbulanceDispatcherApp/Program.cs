@@ -11,13 +11,16 @@ namespace AmbulanceDispatcherApp
     internal static class Program
     {
         public static bool DEBUG_MODE = true;
-        public static string DEBUG_USER = "ivanenko";
-        public static string DEBUG_PASSWORD = "ivanenko_password";
+        public static string DEBUG_USER = "admin";
+        public static string DEBUG_PASSWORD = "admin_password";
         public static string DEBUG_DATABASE = "emergencyhealthcare";
 
         public static string SQL_HOST = "localhost";
         public static string SQL_DATABASE = "emergencyhealthcare";
         public static ushort SQL_PORT = 3306;
+
+        public static uint SQL_MAX_ROWS = 500;
+        public static uint SQL_MAX_ROWS_FILTERED = 100;
 
         private static bool ApplicationAlreadyRunning = false;
         [AllowNull]
@@ -263,7 +266,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveCalls()
         {
-            MySqlCommand command = new MySqlCommand("SELECT `call`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `call` INNER JOIN `dispatcher` ON `call`.dispatcher_id = `dispatcher`.dispatcher_id", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT `call`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `call` LEFT JOIN `dispatcher` ON `call`.dispatcher_id = `dispatcher`.dispatcher_id LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlCallAdapter = new MySqlDataAdapter(command);
             SqlCallTable = new DataTable();
             SqlCallAdapter.Fill(SqlCallTable);
@@ -280,7 +283,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveCallouts()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `callout`", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT * FROM `callout` ORDER BY `callout_time_created` LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlCalloutAdapter = new MySqlDataAdapter(command);
             SqlCalloutTable = new DataTable();
             SqlCalloutAdapter.Fill(SqlCalloutTable);
@@ -297,7 +300,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveDispatchers()
         {
-            MySqlCommand command = new MySqlCommand("SELECT *, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `dispatcher`", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT *, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `dispatcher` LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlDispatcherAdapter = new MySqlDataAdapter(command);
             SqlDispatcherTable = new DataTable();
             SqlDispatcherAdapter.Fill(SqlDispatcherTable);
@@ -314,7 +317,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveSubstations()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `substation` ORDER BY `substation`.`substation_code` ASC", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT * FROM `substation` ORDER BY `substation`.`substation_code` ASC LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlSubstationAdapter = new MySqlDataAdapter(command);
             SqlSubstationTable = new DataTable();
             SqlSubstationAdapter.Fill(SqlSubstationTable);
@@ -331,7 +334,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveBrigades()
         {
-            MySqlCommand command = new MySqlCommand("SELECT b.*, s.`substation_address`, s.`substation_code`, COUNT(worker_id) as brigade_worker_count FROM `brigade` b LEFT JOIN `worker` w ON w.`brigade_id` = b.`brigade_id` inner join `substation` s on s.`substation_id` = b.`substation_id` GROUP BY b.`brigade_id`", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT b.*, s.`substation_address`, s.`substation_code`, COUNT(worker_id) as brigade_worker_count FROM `brigade` b LEFT JOIN `worker` w ON w.`brigade_id` = b.`brigade_id` LEFT join `substation` s on s.`substation_id` = b.`substation_id` GROUP BY b.`brigade_id` LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlBrigadeAdapter = new MySqlDataAdapter(command);
             SqlBrigadeTable = new DataTable();
             SqlBrigadeAdapter.Fill(SqlBrigadeTable);
@@ -348,7 +351,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveHospitals()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `hospital` LIMIT 200", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT * FROM `hospital` LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlHospitalAdapter = new MySqlDataAdapter(command);
             SqlHospitalTable = new DataTable();
             SqlHospitalAdapter.Fill(SqlHospitalTable);
@@ -365,7 +368,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveWorkers()
         {
-            MySqlCommand command = new MySqlCommand("SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker INNER JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker LEFT JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlWorkerAdapter = new MySqlDataAdapter(command);
             SqlWorkerTable = new DataTable();
             SqlWorkerAdapter.Fill(SqlWorkerTable);
@@ -382,7 +385,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrieveDepartures()
         {
-            MySqlCommand command = new MySqlCommand("SELECT * FROM `departure` LIMIT 200", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT * FROM `departure` ORDER BY `departure_time_departed` DESC LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlDepartureAdapter = new MySqlDataAdapter(command);
             SqlDepartureTable = new DataTable();
             SqlDepartureAdapter.Fill(SqlDepartureTable);
@@ -399,7 +402,7 @@ namespace AmbulanceDispatcherApp
 
         private static void RetrievePatients()
         {
-            MySqlCommand command = new MySqlCommand("SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname FROM `patient` LIMIT 200", SqlConnection);
+            MySqlCommand command = new MySqlCommand($"SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname FROM `patient` LIMIT {SQL_MAX_ROWS}", SqlConnection);
             SqlPatientAdapter = new MySqlDataAdapter(command);
             SqlPatientTable = new DataTable();
             SqlPatientAdapter.Fill(SqlPatientTable);

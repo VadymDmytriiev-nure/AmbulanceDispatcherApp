@@ -70,7 +70,7 @@ namespace AmbulanceDispatcherApp
                 return;
             }
 
-            var command = new MySqlCommand("INSERT INTO `Call` (" +
+            var command = new MySqlCommand("INSERT INTO `call` (" +
                                                                 "`call_address`," +
                                                                 "`call_time_created`," +
                                                                 "`call_reason`," +
@@ -78,8 +78,8 @@ namespace AmbulanceDispatcherApp
                                                                 "`call_caller_name`," +
                                                                 "`call_caller_surname`," +
                                                                 "`call_caller_patriarchic`," +
-                                                                "`call_caller_tel`" +
-                                                                "`callout_id`" +
+                                                                "`call_caller_tel`," +
+                                                                "`callout_id`," +
                                                                 "`dispatcher_id`)" +
                                                                 "VALUES (" +
                                                                        "@call_address, " +

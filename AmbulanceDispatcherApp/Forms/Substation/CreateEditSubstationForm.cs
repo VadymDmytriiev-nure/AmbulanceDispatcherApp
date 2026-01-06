@@ -65,7 +65,7 @@ namespace AmbulanceDispatcherApp.Forms.Substation
                 command.Parameters.AddWithValue("@code", textbox_code.Text.Trim());
                 command.Parameters.AddWithValue("@id", (substation!["substation_id"] as int?)!);
 
-                command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
             else
             {
@@ -77,7 +77,7 @@ namespace AmbulanceDispatcherApp.Forms.Substation
                 command.Parameters.AddWithValue("@address", textbox_address.Text.Trim());
                 command.Parameters.AddWithValue("@code", textbox_code.Text.Trim());
 
-                command.ExecuteNonQueryAsync();
+                command.ExecuteNonQuery();
             }
 
             Program.SyncTableSubstation();

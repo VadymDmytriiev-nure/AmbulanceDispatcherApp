@@ -49,7 +49,13 @@ namespace AmbulanceDispatcherApp
             combo_dispatcher.DataSource = dispatchers;
             combo_dispatcher.ValueMember = "dispatcher_id";
             combo_dispatcher.DisplayMember = "dispatcher_fullname";
-            combo_dispatcher.SelectedValue = (call["dispatcher_id"] as int?)!;
+            if(call["dispatcher_id"] != DBNull.Value)
+                combo_dispatcher.SelectedValue = (call["dispatcher_id"] as int?)!;
+            else
+            {
+                combo_dispatcher.SelectedIndex = -1;
+                combo_dispatcher.Text = "";
+            }
         }
 
         private void button_cancel_Click(object sender, EventArgs e)
