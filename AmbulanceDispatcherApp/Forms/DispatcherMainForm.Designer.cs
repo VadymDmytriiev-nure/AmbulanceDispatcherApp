@@ -86,6 +86,7 @@
             button_view_hospitals = new Button();
             button_view_workers = new Button();
             button_view_patients = new Button();
+            button_generate_report = new Button();
             ((System.ComponentModel.ISupportInitialize)splitbox).BeginInit();
             splitbox.Panel1.SuspendLayout();
             splitbox.Panel2.SuspendLayout();
@@ -323,6 +324,7 @@
             textbox_call_search.Name = "textbox_call_search";
             textbox_call_search.Size = new Size(419, 29);
             textbox_call_search.TabIndex = 7;
+            textbox_call_search.TextChanged += textbox_call_search_TextChanged;
             // 
             // panel_call_filters
             // 
@@ -516,6 +518,7 @@
             textbox_callout_search.Name = "textbox_callout_search";
             textbox_callout_search.Size = new Size(419, 29);
             textbox_callout_search.TabIndex = 17;
+            textbox_callout_search.TextChanged += textbox_callout_search_TextChanged;
             // 
             // datagridview_callout
             // 
@@ -733,11 +736,23 @@
             button_view_patients.UseVisualStyleBackColor = true;
             button_view_patients.Click += button_view_patients_Click;
             // 
+            // button_generate_report
+            // 
+            button_generate_report.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_generate_report.Location = new Point(971, 567);
+            button_generate_report.Name = "button_generate_report";
+            button_generate_report.Size = new Size(190, 46);
+            button_generate_report.TabIndex = 14;
+            button_generate_report.Text = "Згенерувати звіт";
+            button_generate_report.UseVisualStyleBackColor = true;
+            button_generate_report.Click += button_generate_report_Click;
+            // 
             // DispatcherMainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 754);
+            Controls.Add(button_generate_report);
             Controls.Add(panel_otherdata);
             Controls.Add(panel_refresh);
             Controls.Add(label_authorized_as);
@@ -831,5 +846,6 @@
         private DataGridViewCheckBoxColumn column_callout_canceled;
         private Button button_callout_from_call;
         public Button button_view_dispatchers;
+        public Button button_generate_report;
     }
 }

@@ -375,5 +375,55 @@ namespace AmbulanceDispatcherApp
             else
                 dispatchersForm.Focus();
         }
+
+        private void button_generate_report_Click(object sender, EventArgs e)
+        {
+            (new CreateReportForm()).ShowDialog();
+        }
+
+        private void textbox_call_search_TextChanged(object sender, EventArgs e)
+        {
+            if (textbox_call_search.Text.Trim().Length > 0)
+            {
+                foreach (DataGridViewRow row in datagridview_call.Rows)
+                {
+                    var row_data = row.DataBoundItem as DataRowView;
+                    bool b1= (row_data!["call_caller_name"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
+                    bool b2= (row_data!["call_caller_surname"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
+                    bool b3 = (row_data!["call_caller_patriarchic"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
+                    bool isGreen = b1 || b2 || b3;
+
+                    row.DefaultCellStyle.BackColor = isGreen ? Color.DarkGreen : Color.DarkRed;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in datagridview_call.Rows)
+                {
+                    row.DefaultCellStyle.BackColor = Control.DefaultBackColor;
+                }
+            }
+        }
+
+        private void textbox_callout_search_TextChanged(object sender, EventArgs e)
+        {
+            if (textbox_call_search.Text.Trim().Length > 0)
+            {
+                foreach (DataGridViewRow row in datagridview_call.Rows)
+                {
+                    var row_data = row.DataBoundItem as DataRowView;
+                    bool isGreen = (row_data!["callout_address"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
+
+                    row.DefaultCellStyle.BackColor = isGreen ? Color.DarkGreen : Color.DarkRed;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in datagridview_call.Rows)
+                {
+                    row.DefaultCellStyle.BackColor = Control.DefaultBackColor;
+                }
+            }
+        }
     }
 }
