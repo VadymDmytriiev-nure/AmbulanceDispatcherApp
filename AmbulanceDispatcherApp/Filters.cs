@@ -103,7 +103,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT `call`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `call` INNER JOIN `dispatcher` ON `call`.dispatcher_id = `dispatcher`.dispatcher_id {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_CALLS} {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -170,7 +170,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT `callout`.* from `callout` {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_CALLOUTS_P1} {filter.Item1} {Queries.QUERY_RETRIEVE_CALLOUTS_P2} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -209,7 +209,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT * FROM `substation` {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_SUBSTATIONS} {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -253,7 +253,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT b.*, s.`substation_address`, s.`substation_code`, COUNT(worker_id) as brigade_worker_count FROM `brigade` b LEFT JOIN `worker` w ON w.`brigade_id` = b.`brigade_id` inner join `substation` s on s.`substation_id` = b.`substation_id` {filter.Item1} GROUP BY b.`brigade_id` LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_BRIGADES_P1} {filter.Item1} {Queries.QUERY_RETRIEVE_BRIGADES_P2} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -316,7 +316,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname FROM `patient` {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_PATIENTS} {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -376,7 +376,7 @@ namespace AmbulanceDispatcherApp
         {
             var f = GetSQLFilter();
             var cmd = new MySqlCommand(
-                $"SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker INNER JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id {f.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}",
+                $"{Queries.QUERY_RETRIEVE_WORKERS} {f.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}",
                 conn);
             cmd.Parameters.AddRange(f.Item2.ToArray());
             return cmd;
@@ -419,7 +419,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT `hospital`.* FROM `hospital` {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_HOSPITALS} {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -468,7 +468,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT `dispatcher`.*, CONCAT(`dispatcher`.dispatcher_surname, ' ', `dispatcher`.dispatcher_name, ' ', `dispatcher`.dispatcher_patriarchic) AS dispatcher_fullname FROM `dispatcher` {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_DISPATCHERS} {filter.Item1} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;
@@ -541,7 +541,7 @@ namespace AmbulanceDispatcherApp
         public MySqlCommand GetSQLCommand(MySqlConnection conn)
         {
             var filter = GetSQLFilter();
-            var cmd = new MySqlCommand($"SELECT `departure`.* FROM `departure` {filter.Item1} ORDER BY `departure_time_departed` DESC LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
+            var cmd = new MySqlCommand($"{Queries.QUERY_RETRIEVE_DEPARTURES_P1} {filter.Item1} {Queries.QUERY_RETRIEVE_DEPARTURES_P2} LIMIT {Program.SQL_MAX_ROWS_FILTERED}", conn);
             cmd.Parameters.AddRange(filter.Item2.ToArray());
 
             return cmd;

@@ -144,7 +144,7 @@ namespace AmbulanceDispatcherApp.Forms.Workers
             if (textbox_role.Text.Trim() != "")
                 WorkerRole = textbox_role.Text;
 
-            if ((int)combo_brigade.SelectedValue! > 0)
+            if (combo_brigade.SelectedValue != null && (int)combo_brigade.SelectedValue > 0)
                 BrigadeID = (int)combo_brigade.SelectedValue;
 
             WorkerSex = radio_sex_unknown.Checked ? null : (radio_sex_male.Checked ? "Ч" : "Ж");

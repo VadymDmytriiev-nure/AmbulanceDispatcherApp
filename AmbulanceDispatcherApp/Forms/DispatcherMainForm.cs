@@ -46,6 +46,8 @@ namespace AmbulanceDispatcherApp
 
             label_max_rows.Text = $"Макс. кількість рядків: {Program.SQL_MAX_ROWS}";
             button_view_dispatchers.Enabled = Program.SqlRole == "Адміністратор";
+            panel_callout_crud.Enabled = Program.SqlRole == "Адміністратор" || Program.SqlRole == "Диспетчер";
+            panel_call_crud.Enabled = Program.SqlRole == "Адміністратор" || Program.SqlRole == "Диспетчер";
         }
 
         private void DispatcherMainForm_Load(object sender, EventArgs e)

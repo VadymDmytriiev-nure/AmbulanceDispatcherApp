@@ -86,7 +86,7 @@ namespace AmbulanceDispatcherApp.Forms
 
             SelectedBrigadeID = row["brigade_id"] as int?;
             var cmd = new MySqlCommand(
-                $"SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker INNER JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id WHERE `worker`.`brigade_id` = {SelectedBrigadeID} LIMIT {Program.SQL_MAX_ROWS_FILTERED}",
+                $"{Queries.QUERY_RETRIEVE_WORKERS} WHERE `worker`.`brigade_id` = {SelectedBrigadeID} LIMIT {Program.SQL_MAX_ROWS_FILTERED}",
                 Program.SqlConnection);
             var adapter = new MySqlDataAdapter(cmd);
             var table = new DataTable();
