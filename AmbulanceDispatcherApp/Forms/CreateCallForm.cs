@@ -44,6 +44,8 @@ namespace AmbulanceDispatcherApp
             combo_dispatcher.DataSource = dispatchers;
             combo_dispatcher.ValueMember = "dispatcher_id";
             combo_dispatcher.DisplayMember = "dispatcher_fullname";
+            if(Program.SqlDispatcherId != -1)
+                combo_dispatcher.SelectedValue = Program.SqlDispatcherId;
 
             datagridview_patient.AutoGenerateColumns = false;
             patientsAdapter = new MySqlDataAdapter(new MySqlCommand($"SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname FROM `patient` WHERE `patient_id` IN ({String.Join(", ", patientsIDs.ToArray())}) LIMIT {Program.SQL_MAX_ROWS_FILTERED}", Program.SqlConnection));
