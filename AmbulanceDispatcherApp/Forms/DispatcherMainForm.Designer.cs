@@ -750,7 +750,7 @@
             // 
             // button_options
             // 
-            button_options.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_options.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_options.Image = Properties.Resources._211811_16x16;
             button_options.Location = new Point(971, 696);
             button_options.Name = "button_options";
