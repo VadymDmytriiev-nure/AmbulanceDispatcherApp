@@ -12,7 +12,11 @@ namespace AmbulanceDispatcherApp
 {
     internal static class Program
     {
+#if DEBUG
         public static bool DEBUG_MODE = true;
+#else
+        public static bool DEBUG_MODE = false;
+#endif
         public static string DEBUG_USER = "admin";
         public static string DEBUG_PASSWORD = "admin_password";
         public static string DEBUG_DATABASE = "emergencyhealthcare";
