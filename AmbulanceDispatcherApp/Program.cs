@@ -3,6 +3,8 @@ using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Media;
 using System.Windows.Forms;
+using IniParser;
+using iText.StyledXmlParser.Jsoup.Parser;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.X509;
 
@@ -18,8 +20,7 @@ namespace AmbulanceDispatcherApp
         public static string SQL_HOST = "localhost";
         public static string SQL_DATABASE = "emergencyhealthcare";
         public static ushort SQL_PORT = 3306;
-
-        public static uint SQL_MAX_ROWS = 500;
+        public static uint SQL_MAX_ROWS = 600;
         public static uint SQL_MAX_ROWS_FILTERED = 100;
 
         private static bool ApplicationAlreadyRunning = false;
@@ -590,11 +591,52 @@ namespace AmbulanceDispatcherApp
             SyncTableUsers();
         }
 
+        public static void LoadSettings()
+        {
+            var ini = new FileIniDataParser();
+            try
+            {
+                var dat = ini.ReadFile("settings.ini");
+                dat.TryGetKey("settings.SQL_HOST", out Program.SQL_HOST);
+                dat.TryGetKey("settings.SQL_DATABASE", out Program.SQL_DATABASE);
+                string get_port, get_max_rows, get_max_rows_filtered;
+                dat.TryGetKey("settings.SQL_PORT", out get_port);
+                dat.TryGetKey("settings.SQL_MAX_ROWS", out get_max_rows);
+                dat.TryGetKey("settings.SQL_MAX_ROWS_FILTERED", out get_max_rows_filtered);
+                SQL_PORT = Convert.ToUInt16(get_port);
+                SQL_MAX_ROWS = Convert.ToUInt32(get_max_rows);
+                SQL_MAX_ROWS_FILTERED = Convert.ToUInt32(get_max_rows_filtered);
+            } catch { }
+        }
+
+        public static bool SaveSettings()
+        {
+            var ini = new FileIniDataParser();
+            var dat = new IniParser.Model.IniData();
+            dat.Sections.AddSection("settings");
+            dat.Sections["settings"].AddKey("SQL_HOST", Program.SQL_HOST);
+            dat.Sections["settings"].AddKey("SQL_DATABASE", Program.SQL_DATABASE);
+            dat.Sections["settings"].AddKey("SQL_PORT", Program.SQL_PORT.ToString());
+            dat.Sections["settings"].AddKey("SQL_MAX_ROWS", Program.SQL_MAX_ROWS.ToString());
+            dat.Sections["settings"].AddKey("SQL_MAX_ROWS_FILTERED", Program.SQL_MAX_ROWS_FILTERED.ToString());
+            try
+            {
+                ini.WriteFile("settings.ini", dat);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
         [STAThread]
         static void Main()
         {
             ApplicationConfiguration.Initialize();
 
+            LoadSettings();
+            SaveSettings();
             AskLogin();
         }
     }

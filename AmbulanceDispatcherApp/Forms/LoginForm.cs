@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AmbulanceDispatcherApp.Forms;
 using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp
@@ -78,6 +79,12 @@ namespace AmbulanceDispatcherApp
             Program.SqlLogin = textbox_login.Text;
             Program.SqlConnection = sqlConnection;
             DialogResult = DialogResult.OK;
+        }
+
+        private void button_options_Click(object sender, EventArgs e)
+        {
+            new OptionsForm().ShowDialog();
+            DialogResult = DialogResult.None;
         }
     }
 }

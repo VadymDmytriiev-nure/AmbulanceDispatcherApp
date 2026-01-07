@@ -87,6 +87,7 @@
             button_view_workers = new Button();
             button_view_patients = new Button();
             button_generate_report = new Button();
+            button_options = new Button();
             ((System.ComponentModel.ISupportInitialize)splitbox).BeginInit();
             splitbox.Panel1.SuspendLayout();
             splitbox.Panel2.SuspendLayout();
@@ -602,9 +603,9 @@
             // 
             button_logout.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_logout.ImageAlign = ContentAlignment.MiddleLeft;
-            button_logout.Location = new Point(966, 696);
+            button_logout.Location = new Point(1023, 696);
             button_logout.Name = "button_logout";
-            button_logout.Size = new Size(201, 46);
+            button_logout.Size = new Size(144, 46);
             button_logout.TabIndex = 4;
             button_logout.Text = "Вийти";
             button_logout.UseVisualStyleBackColor = true;
@@ -747,11 +748,23 @@
             button_generate_report.UseVisualStyleBackColor = true;
             button_generate_report.Click += button_generate_report_Click;
             // 
+            // button_options
+            // 
+            button_options.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button_options.Image = Properties.Resources._211811_16x16;
+            button_options.Location = new Point(971, 696);
+            button_options.Name = "button_options";
+            button_options.Size = new Size(46, 46);
+            button_options.TabIndex = 27;
+            button_options.UseVisualStyleBackColor = true;
+            button_options.Click += button_options_Click;
+            // 
             // DispatcherMainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1178, 754);
+            Controls.Add(button_options);
             Controls.Add(button_generate_report);
             Controls.Add(panel_otherdata);
             Controls.Add(panel_refresh);
@@ -847,5 +860,6 @@
         private Button button_callout_from_call;
         public Button button_view_dispatchers;
         public Button button_generate_report;
+        private Button button_options;
     }
 }

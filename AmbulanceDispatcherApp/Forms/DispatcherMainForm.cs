@@ -388,8 +388,8 @@ namespace AmbulanceDispatcherApp
                 foreach (DataGridViewRow row in datagridview_call.Rows)
                 {
                     var row_data = row.DataBoundItem as DataRowView;
-                    bool b1= (row_data!["call_caller_name"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
-                    bool b2= (row_data!["call_caller_surname"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
+                    bool b1 = (row_data!["call_caller_name"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
+                    bool b2 = (row_data!["call_caller_surname"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
                     bool b3 = (row_data!["call_caller_patriarchic"] as string ?? "").ToLower().Contains(textbox_call_search.Text.ToLower());
                     bool isGreen = b1 || b2 || b3;
 
@@ -424,6 +424,12 @@ namespace AmbulanceDispatcherApp
                     row.DefaultCellStyle.BackColor = Control.DefaultBackColor;
                 }
             }
+        }
+
+        private void button_options_Click(object sender, EventArgs e)
+        {
+            new OptionsForm().ShowDialog();
+            label_max_rows.Text = $"Макс. кількість рядків: {Program.SQL_MAX_ROWS}";
         }
     }
 }

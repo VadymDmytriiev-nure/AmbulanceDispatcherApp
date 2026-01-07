@@ -107,7 +107,8 @@ namespace AmbulanceDispatcherApp.Forms.Hospital
                 foreach (DataGridViewRow row in datagridview_main.Rows)
                 {
                     var row_data = row.DataBoundItem as DataRowView;
-                    bool isGreen = (row_data!["hospital_name"] as string)!.ToLower().Contains(textbox_search.Text.ToLower()) || (row_data!["hospital_address"] as string)!.ToLower().Contains(textbox_search.Text.ToLower());
+                    bool isGreen = (row_data!["hospital_name"] as string ?? "").ToLower().Contains(textbox_search.Text.ToLower())
+                                || (row_data!["hospital_address"] as string ?? "").ToLower().Contains(textbox_search.Text.ToLower());
 
                     row.DefaultCellStyle.BackColor = isGreen ? Color.DarkGreen : Color.DarkRed;
                 }

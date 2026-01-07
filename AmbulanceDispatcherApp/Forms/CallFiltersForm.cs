@@ -112,6 +112,11 @@ namespace AmbulanceDispatcherApp
             textbox_channel.Text = existingFilters.Channel ?? "";
             textbox_reason.Text = existingFilters.Reason ?? "";
             textbox_address.Text = existingFilters.Address ?? "";
+
+            foreach (var dt in Controls.OfType<DateTimePicker>())
+                dt.MaxDate = DateTime.Now;
+
+            datetime_time_created_to.Value = datetime_time_created_to.MaxDate;
         }
 
         private void button_save_Click(object sender, EventArgs e)
