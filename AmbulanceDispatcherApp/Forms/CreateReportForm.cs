@@ -265,7 +265,7 @@ namespace AmbulanceDispatcherApp.Forms
 
                 document.Add(new Paragraph($"ПІБ: {firstRow["patient_surname"]} {firstRow["patient_name"]} {firstRow["patient_patriarchic"]}"));
                 document.Add(new Paragraph($"Телефон: {firstRow["patient_tel"]}"));
-                document.Add(new Paragraph($"Дата народження: {(firstRow["patient_dob"] as DateTime?)!.Value.ToString("yyyy:MM:dd")}"));
+                document.Add(new Paragraph($"Дата народження: {(firstRow["patient_dob"] as DateTime?)!.Value.ToString("dd/MM/yyyy")}"));
                 document.Add(new Paragraph($"Стать: {firstRow["patient_sex"]}"));
 
                 document.Add(new Paragraph("Пов'язані дзвінки")
