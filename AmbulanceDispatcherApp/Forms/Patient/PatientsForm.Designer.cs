@@ -30,12 +30,6 @@
         {
             checkbox_auto_resize_columns = new CheckBox();
             datagridview_main = new DataGridView();
-            column_patient_name = new DataGridViewTextBoxColumn();
-            column_patient_surname = new DataGridViewTextBoxColumn();
-            column_patient_patriarchic = new DataGridViewTextBoxColumn();
-            column_patient_tel = new DataGridViewTextBoxColumn();
-            column_patient_dob = new DataGridViewTextBoxColumn();
-            column_patient_sex = new DataGridViewTextBoxColumn();
             panel_crud = new Panel();
             button_crud_create = new Button();
             button_crud_delete = new Button();
@@ -49,6 +43,14 @@
             panel_dialog = new Panel();
             button2 = new Button();
             button1 = new Button();
+            column_patient_name = new DataGridViewTextBoxColumn();
+            column_patient_surname = new DataGridViewTextBoxColumn();
+            column_patient_patriarchic = new DataGridViewTextBoxColumn();
+            column_patient_tel = new DataGridViewTextBoxColumn();
+            column_patient_dob = new DataGridViewTextBoxColumn();
+            column_patient_sex = new DataGridViewTextBoxColumn();
+            column_patient_call_count = new DataGridViewTextBoxColumn();
+            column_patient_callout_count = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)datagridview_main).BeginInit();
             panel_crud.SuspendLayout();
             panel_filters.SuspendLayout();
@@ -77,7 +79,7 @@
             datagridview_main.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datagridview_main.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             datagridview_main.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            datagridview_main.Columns.AddRange(new DataGridViewColumn[] { column_patient_name, column_patient_surname, column_patient_patriarchic, column_patient_tel, column_patient_dob, column_patient_sex });
+            datagridview_main.Columns.AddRange(new DataGridViewColumn[] { column_patient_name, column_patient_surname, column_patient_patriarchic, column_patient_tel, column_patient_dob, column_patient_sex, column_patient_call_count, column_patient_callout_count });
             datagridview_main.Location = new Point(8, 58);
             datagridview_main.MultiSelect = false;
             datagridview_main.Name = "datagridview_main";
@@ -87,54 +89,6 @@
             datagridview_main.Size = new Size(584, 370);
             datagridview_main.TabIndex = 32;
             datagridview_main.SelectionChanged += datagridview_main_SelectionChanged;
-            // 
-            // column_patient_name
-            // 
-            column_patient_name.DataPropertyName = "patient_name";
-            column_patient_name.HeaderText = "Ім'я";
-            column_patient_name.Name = "column_patient_name";
-            column_patient_name.ReadOnly = true;
-            column_patient_name.Width = 60;
-            // 
-            // column_patient_surname
-            // 
-            column_patient_surname.DataPropertyName = "patient_surname";
-            column_patient_surname.HeaderText = "Прізвище";
-            column_patient_surname.Name = "column_patient_surname";
-            column_patient_surname.ReadOnly = true;
-            column_patient_surname.Width = 102;
-            // 
-            // column_patient_patriarchic
-            // 
-            column_patient_patriarchic.DataPropertyName = "patient_patriarchic";
-            column_patient_patriarchic.HeaderText = "По батькові";
-            column_patient_patriarchic.Name = "column_patient_patriarchic";
-            column_patient_patriarchic.ReadOnly = true;
-            column_patient_patriarchic.Width = 108;
-            // 
-            // column_patient_tel
-            // 
-            column_patient_tel.DataPropertyName = "patient_tel";
-            column_patient_tel.HeaderText = "Телефон";
-            column_patient_tel.Name = "column_patient_tel";
-            column_patient_tel.ReadOnly = true;
-            column_patient_tel.Width = 94;
-            // 
-            // column_patient_dob
-            // 
-            column_patient_dob.DataPropertyName = "patient_dob";
-            column_patient_dob.HeaderText = "Дата народження";
-            column_patient_dob.Name = "column_patient_dob";
-            column_patient_dob.ReadOnly = true;
-            column_patient_dob.Width = 147;
-            // 
-            // column_patient_sex
-            // 
-            column_patient_sex.DataPropertyName = "patient_sex";
-            column_patient_sex.HeaderText = "Стать";
-            column_patient_sex.Name = "column_patient_sex";
-            column_patient_sex.ReadOnly = true;
-            column_patient_sex.Width = 73;
             // 
             // panel_crud
             // 
@@ -279,6 +233,70 @@
             button1.Text = "Обрати";
             button1.UseVisualStyleBackColor = true;
             // 
+            // column_patient_name
+            // 
+            column_patient_name.DataPropertyName = "patient_name";
+            column_patient_name.HeaderText = "Ім'я";
+            column_patient_name.Name = "column_patient_name";
+            column_patient_name.ReadOnly = true;
+            column_patient_name.Width = 60;
+            // 
+            // column_patient_surname
+            // 
+            column_patient_surname.DataPropertyName = "patient_surname";
+            column_patient_surname.HeaderText = "Прізвище";
+            column_patient_surname.Name = "column_patient_surname";
+            column_patient_surname.ReadOnly = true;
+            column_patient_surname.Width = 102;
+            // 
+            // column_patient_patriarchic
+            // 
+            column_patient_patriarchic.DataPropertyName = "patient_patriarchic";
+            column_patient_patriarchic.HeaderText = "По батькові";
+            column_patient_patriarchic.Name = "column_patient_patriarchic";
+            column_patient_patriarchic.ReadOnly = true;
+            column_patient_patriarchic.Width = 118;
+            // 
+            // column_patient_tel
+            // 
+            column_patient_tel.DataPropertyName = "patient_tel";
+            column_patient_tel.HeaderText = "Телефон";
+            column_patient_tel.Name = "column_patient_tel";
+            column_patient_tel.ReadOnly = true;
+            column_patient_tel.Width = 94;
+            // 
+            // column_patient_dob
+            // 
+            column_patient_dob.DataPropertyName = "patient_dob";
+            column_patient_dob.HeaderText = "Дата народження";
+            column_patient_dob.Name = "column_patient_dob";
+            column_patient_dob.ReadOnly = true;
+            column_patient_dob.Width = 147;
+            // 
+            // column_patient_sex
+            // 
+            column_patient_sex.DataPropertyName = "patient_sex";
+            column_patient_sex.HeaderText = "Стать";
+            column_patient_sex.Name = "column_patient_sex";
+            column_patient_sex.ReadOnly = true;
+            column_patient_sex.Width = 73;
+            // 
+            // column_patient_call_count
+            // 
+            column_patient_call_count.DataPropertyName = "patient_call_count";
+            column_patient_call_count.HeaderText = "Кількість дзвінків";
+            column_patient_call_count.Name = "column_patient_call_count";
+            column_patient_call_count.ReadOnly = true;
+            column_patient_call_count.Width = 143;
+            // 
+            // column_patient_callout_count
+            // 
+            column_patient_callout_count.DataPropertyName = "patient_callout_count";
+            column_patient_callout_count.HeaderText = "Кількість викликів";
+            column_patient_callout_count.Name = "column_patient_callout_count";
+            column_patient_callout_count.ReadOnly = true;
+            column_patient_callout_count.Width = 148;
+            // 
             // PatientsForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
@@ -318,14 +336,16 @@
         private Button button_filters;
         private Button button_refresh;
         private Label label_search;
+        private Panel panel_dialog;
+        private Button button2;
+        private Button button1;
         private DataGridViewTextBoxColumn column_patient_name;
         private DataGridViewTextBoxColumn column_patient_surname;
         private DataGridViewTextBoxColumn column_patient_patriarchic;
         private DataGridViewTextBoxColumn column_patient_tel;
         private DataGridViewTextBoxColumn column_patient_dob;
         private DataGridViewTextBoxColumn column_patient_sex;
-        private Panel panel_dialog;
-        private Button button2;
-        private Button button1;
+        private DataGridViewTextBoxColumn column_patient_call_count;
+        private DataGridViewTextBoxColumn column_patient_callout_count;
     }
 }

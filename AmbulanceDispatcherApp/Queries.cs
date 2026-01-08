@@ -16,11 +16,22 @@ namespace AmbulanceDispatcherApp
         public static string QUERY_RETRIEVE_SUBSTATIONS = "SELECT * FROM `substation` ORDER BY `substation`.`substation_code` ASC";
         public static string QUERY_RETRIEVE_BRIGADES_P1 = "SELECT b.*, s.`substation_address`, s.`substation_code`, COUNT(worker_id) as brigade_worker_count FROM `brigade` b LEFT JOIN `worker` w ON w.`brigade_id` = b.`brigade_id` LEFT join `substation` s on s.`substation_id` = b.`substation_id`";
         public static string QUERY_RETRIEVE_BRIGADES_P2 = "GROUP BY b.`brigade_id`";
-        public static string QUERY_RETRIEVE_HOSPITALS = "SELECT * FROM `hospital`";
+        public static string QUERY_RETRIEVE_HOSPITALS = "SELECT h.*, (select count(pd.patient_id) from `patientdeparture` pd where h.hospital_id = pd.hospital_id) as hospital_accepted_patients_count FROM `hospital` h";
         public static string QUERY_RETRIEVE_WORKERS = "SELECT worker.*, CONCAT(worker_surname,' ',worker_name,' ',worker_patriarchic) AS worker_fullname, brigade_code FROM worker LEFT JOIN `brigade` ON `brigade`.brigade_id = `worker`.brigade_id";
         public static string QUERY_RETRIEVE_DEPARTURES_P1 = "SELECT * FROM `departure`";
         public static string QUERY_RETRIEVE_DEPARTURES_P2 = "ORDER BY `departure_time_departed` DESC";
-        public static string QUERY_RETRIEVE_PATIENTS = "SELECT `patient`.*, CONCAT(`patient`.patient_surname, ' ', `patient`.patient_name, ' ', `patient`.patient_patriarchic) AS patient_fullname FROM `patient`";
+        public static string QUERY_RETRIEVE_PATIENTS = @"SELECT p.*, CONCAT(p.patient_surname, ' ', p.patient_name, ' ', p.patient_patriarchic) AS patient_fullname,
+    (
+    select count(pc.call_id)
+        from patientcall pc
+        where pc.patient_id = p.patient_id
+    ) as `patient_call_count`,
+
+    (
+    select count(pco.callout_id)
+        from patientcallout pco
+        where pco.patient_id = p.patient_id
+    ) as `patient_callout_count` FROM `patient` p";
         public static string QUERY_RETRIEVE_USERS = "SELECT * FROM `users`";
     }
 }

@@ -1,24 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 using AmbulanceDispatcherApp.Forms.Patient;
-using iText.Kernel.Pdf;
-using iText.Layout.Element;
-using MySql.Data.MySqlClient;
+using iText.IO.Font;
+using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
-using iText.Kernel.Font;
-using iText.IO.Font;
-using iText.IO.Font.Constants;
-using MySqlX.XDevAPI.Relational;
 using iText.Layout.Properties;
+using MySql.Data.MySqlClient;
 
 namespace AmbulanceDispatcherApp.Forms
 {
@@ -277,7 +265,7 @@ namespace AmbulanceDispatcherApp.Forms
 
                 document.Add(new Paragraph($"ПІБ: {firstRow["patient_surname"]} {firstRow["patient_name"]} {firstRow["patient_patriarchic"]}"));
                 document.Add(new Paragraph($"Телефон: {firstRow["patient_tel"]}"));
-                document.Add(new Paragraph($"Дата народження: {firstRow["patient_dob"]}"));
+                document.Add(new Paragraph($"Дата народження: {(firstRow["patient_dob"] as DateTime?)!.Value.ToString("yyyy:MM:dd")}"));
                 document.Add(new Paragraph($"Стать: {firstRow["patient_sex"]}"));
 
                 document.Add(new Paragraph("Пов'язані дзвінки")

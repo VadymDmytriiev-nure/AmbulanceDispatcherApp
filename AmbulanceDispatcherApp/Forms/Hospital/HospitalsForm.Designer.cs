@@ -43,6 +43,7 @@
             column_hospital_name = new DataGridViewTextBoxColumn();
             column_hospital_address = new DataGridViewTextBoxColumn();
             column_hospital_specialization = new DataGridViewTextBoxColumn();
+            column_hospital_accepted_patients_count = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)datagridview_main).BeginInit();
             panel_crud.SuspendLayout();
             panel_filters.SuspendLayout();
@@ -81,7 +82,7 @@
             datagridview_main.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             datagridview_main.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             datagridview_main.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            datagridview_main.Columns.AddRange(new DataGridViewColumn[] { column_hospital_name, column_hospital_address, column_hospital_specialization });
+            datagridview_main.Columns.AddRange(new DataGridViewColumn[] { column_hospital_name, column_hospital_address, column_hospital_specialization, column_hospital_accepted_patients_count });
             datagridview_main.Location = new Point(8, 58);
             datagridview_main.MultiSelect = false;
             datagridview_main.Name = "datagridview_main";
@@ -212,6 +213,14 @@
             column_hospital_specialization.ReadOnly = true;
             column_hospital_specialization.Width = 131;
             // 
+            // column_hospital_accepted_patients_count
+            // 
+            column_hospital_accepted_patients_count.DataPropertyName = "hospital_accepted_patients_count";
+            column_hospital_accepted_patients_count.HeaderText = "К-ть госпіталізацій";
+            column_hospital_accepted_patients_count.Name = "column_hospital_accepted_patients_count";
+            column_hospital_accepted_patients_count.ReadOnly = true;
+            column_hospital_accepted_patients_count.Width = 152;
+            // 
             // HospitalsForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
@@ -225,7 +234,7 @@
             Controls.Add(panel_filters);
             Controls.Add(label_search);
             Font = new Font("Segoe UI", 12F);
-            Margin = new Padding(4, 4, 4, 4);
+            Margin = new Padding(4);
             Name = "HospitalsForm";
             Text = "Лікарні";
             ((System.ComponentModel.ISupportInitialize)datagridview_main).EndInit();
@@ -252,5 +261,6 @@
         private DataGridViewTextBoxColumn column_hospital_name;
         private DataGridViewTextBoxColumn column_hospital_address;
         private DataGridViewTextBoxColumn column_hospital_specialization;
+        private DataGridViewTextBoxColumn column_hospital_accepted_patients_count;
     }
 }
