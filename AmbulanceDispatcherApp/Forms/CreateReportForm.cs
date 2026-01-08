@@ -102,7 +102,7 @@ namespace AmbulanceDispatcherApp.Forms
                         );
                         document.SetFont(font);
                         document.SetFontSize(14);
-                        document.Add(new iText.Layout.Element.Paragraph("Виписка по диспетчерах").SimulateBold().SetTextAlignment(TextAlignment.CENTER));
+                        document.Add(new iText.Layout.Element.Paragraph("Звіт про статистику диспетчерів").SimulateBold().SetTextAlignment(TextAlignment.CENTER));
                         document.Add(new iText.Layout.Element.Paragraph("Нижче наведено таблицю з диспетчерами та їх відповідними дзвінками"));
                         document.Add(new iText.Layout.Element.Paragraph("Обраний часовий період:"));
                         document.Add(new iText.Layout.Element.Paragraph($"з {datetime_dispatcher_stats_from.Value.ToString()}"));
@@ -181,7 +181,7 @@ namespace AmbulanceDispatcherApp.Forms
 
                 var firstRow = calloutInfo.Rows[0];
 
-                document.Add(new Paragraph("Інформація про виклик")
+                document.Add(new Paragraph("Звіт про виклик")
                     .SimulateBold()
                     .SetTextAlignment(TextAlignment.CENTER));
 
@@ -261,7 +261,7 @@ namespace AmbulanceDispatcherApp.Forms
 
                 document.SetFont(font);
 
-                document.Add(new Paragraph("Звіт по пацієнту").SimulateBold().SetTextAlignment(TextAlignment.CENTER));
+                document.Add(new Paragraph("Звіт про пацієнта").SimulateBold().SetTextAlignment(TextAlignment.CENTER));
 
                 document.Add(new Paragraph($"ПІБ: {firstRow["patient_surname"]} {firstRow["patient_name"]} {firstRow["patient_patriarchic"]}"));
                 document.Add(new Paragraph($"Телефон: {firstRow["patient_tel"]}"));
@@ -291,7 +291,7 @@ namespace AmbulanceDispatcherApp.Forms
                         document.Add(new Paragraph($"№{c.ID}: {c.Time}, Канал: {c.Channel}, Причина: {c.Reason}"));
                 }
 
-                document.Add(new Paragraph("Пов'язані виклики (callouts)")
+                document.Add(new Paragraph("Пов'язані виклики")
                     .SimulateBold());
 
                 var callouts = patientInfo.AsEnumerable()
